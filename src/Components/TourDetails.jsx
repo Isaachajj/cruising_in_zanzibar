@@ -1,10 +1,12 @@
 // src/pages/TourDetails.jsx
-import React, { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import BookingReceipt from './BookingReceipt';
+import { createBookingReference, formatBookingReceiptMessage } from './bookingReceiptUtils';
 import { 
   MapPin, Clock, Star, Users, Calendar, 
   CheckCircle2, ChevronLeft, ChevronRight, 
-  MessageCircle, Mail, Heart, ArrowRight,
+  Mail, Heart, ArrowRight,
   ShieldCheck, Headset, Gem, TreePalm, Handshake, Hotel,
   User, Phone
 } from 'lucide-react';
@@ -16,7 +18,7 @@ const toursData = {
   '1': {
     id: '1',
     title: 'Mnemba Island Dolphin & Snorkeling',
-    location: 'Mnemba Atoll, Zanzibar', rating: 4.9, reviews: 684,
+    location: 'Mnemba Atoll, Zanzibar', rating: 5.0, reviews: 684,
     price: 45, duration: '5 Hours', group: 'Private & Group', age: 'All Ages',
     description: 'Swim with wild dolphins and explore vibrant coral reefs in the crystal-clear waters around Mnemba Atoll.',
     features: ['Dolphin encounter', 'Snorkeling equipment', 'Fresh fruits & drinks', 'Boat transfers included'],
@@ -24,38 +26,38 @@ const toursData = {
   },
   '2': {
     id: '2',
-    title: 'Stone Town Heritage Tour',
-    location: 'Stone Town, Zanzibar', rating: 4.8, reviews: 512,
-    price: 35, duration: '3 Hours', group: 'Private & Group', age: 'All Ages',
-    description: 'Discover Zanzibar history through narrow alleys, historic landmarks, lively markets and authentic cultural stories.',
-    features: ['Historic sites', 'Professional local guide', 'Walking tour', 'Photo stops'],
+    title: 'Stone Town Historical Tour',
+    location: 'Stone Town, Zanzibar', rating: 4.9, reviews: 512,
+    price: 65, duration: '4 Hours', group: 'Private & Group', age: 'All Ages',
+    description: 'UNESCO World Heritage walking tour through historic Stone Town alleys, markets and landmarks.',
+    features: ['UNESCO World Heritage site', 'House of Wonders', 'Freddie Mercury birthplace', 'Darajani Market'],
     images: ['/Trip/stonetown.jpeg','/Trip/forodhani.jpeg','/Trip/prisonIland.jpg']
   },
   '3': {
     id: '3',
     title: 'Safari Blue Adventure',
     location: 'Menai Bay, Zanzibar', rating: 4.9, reviews: 723,
-    price: 85, duration: 'Full Day', group: 'Private & Group', age: 'All Ages',
-    description: 'Set sail on a traditional dhow for snorkeling, swimming, island relaxation and a fresh seafood lunch.',
-    features: ['Traditional dhow sailing', 'Snorkeling', 'Seafood lunch', 'Sandbank relaxation'],
+    price: 85, duration: '8 Hours', group: 'Private & Group', age: 'All Ages',
+    description: 'Full-day ocean adventure with snorkeling, dolphins, seafood BBQ, and dhow sailing in Menai Bay.',
+    features: ['Dolphin watching', 'Snorkeling at coral reefs', 'Seafood BBQ on sandbank', 'Dhow sailing'],
     images: ['/Trip/safari blue.jpeg','/Trip/mnemba.jpeg','/Trip/paje.jpeg']
   },
   '4': {
     id: '4',
     title: 'Jozani Forest & Red Colobus',
     location: 'Jozani Forest, Zanzibar', rating: 4.7, reviews: 345,
-    price: 60, duration: '6 Hours', group: 'Private & Group', age: 'All Ages',
-    description: 'Walk through Zanzibar native forest and meet the rare red colobus monkeys in their natural habitat.',
-    features: ['Nature walk', 'Red colobus wildlife', 'Mangrove boardwalk', 'Professional guide'],
+    price: 65, duration: '4 Hours', group: 'Private & Group', age: 'All Ages',
+    description: 'Encounter rare Red Colobus monkeys and explore mystical mangrove boardwalks in Zanzibar’s only national park.',
+    features: ['Red Colobus monkeys', 'Mangrove boardwalk', 'Tropical forest walk', 'Bird watching'],
     images: ['/Trip/jozani.jpg','/Trip/kizimkazi.jpg','/Trip/prisonIland.jpg']
   },
   '5': {
     id: '5',
     title: 'Sunset Dhow Cruise',
-    location: 'Nungwi & Kendwa, Zanzibar', rating: 5.0, reviews: 210,
-    price: 120, duration: '4 Hours', group: 'Private & Group', age: 'All Ages',
-    description: 'Cruise across the Indian Ocean at sunset aboard a traditional dhow, with drinks and a romantic atmosphere.',
-    features: ['Sunset dhow cruise', 'Drinks included', 'Ocean photography', 'Traditional sailing'],
+    location: 'Nungwi & Kendwa, Zanzibar', rating: 4.9, reviews: 210,
+    price: 20, duration: '3 Hours', group: 'Private & Group', age: 'All Ages',
+    description: 'Sail on a traditional dhow at sunset with sparkling wine, snacks, and breathtaking ocean views.',
+    features: ['Traditional dhow sailing', 'Stunning sunset views', 'Sparkling wine', 'Light snacks'],
     images: ['/Trip/kendwa.jpeg','/Trip/paje.jpeg','/Trip/safari blue.jpeg']
   },
   '6': {
@@ -66,6 +68,69 @@ const toursData = {
     description: 'Enjoy Nungwi white sandy beaches and choose between an exciting kitesurfing lesson or a relaxing beach day.',
     features: ['Kitesurfing lesson', 'Beach relaxation', 'Water sports', 'Professional instructor'],
     images: ['/Trip/kendwa.jpeg','/Trip/paje.jpeg','/Trip/kizimkazi.jpg']
+  },
+  '7': {
+    id: '7', title: 'Prison Island Tour', location: 'Prison Island, Zanzibar', rating: 4.7, reviews: 286,
+    price: 50, duration: '4 Hours', group: 'Private & Group', age: 'All Ages',
+    description: 'Visit historic Prison Island, meet giant 100-year-old tortoises, and snorkel in crystal-clear waters.',
+    features: ['Giant Aldabra tortoises', 'Historic prison ruins', 'Snorkeling', 'Boat ride'],
+    images: ['/Trip/prisonIland.jpg','/Trip/mnemba.jpeg','/Trip/stonetown.jpeg']
+  },
+  '8': {
+    id: '8', title: 'Spice Farm Tour & Swahili Cooking Class', location: 'Zanzibar Spice Farms', rating: 4.9, reviews: 241,
+    price: 55, duration: '6 Hours', group: 'Private & Group', age: 'All Ages',
+    description: 'Discover aromatic spice farms and learn to cook authentic Swahili dishes in a hands-on class.',
+    features: ['Spice farm walk', 'Taste fresh spices', 'Hands-on cooking class', 'Traditional Swahili lunch'],
+    images: ['/Trip/stonetown.jpeg','/Trip/forodhani.jpeg','/Trip/kizimkazi.jpg']
+  },
+  '9': {
+    id: '9', title: 'The Rock Restaurant Experience', location: 'Michamvi, Zanzibar', rating: 4.8, reviews: 319,
+    price: 75, duration: '3 Hours', group: 'Private & Group', age: 'All Ages',
+    description: 'Dine at the iconic Rock Restaurant perched in the Indian Ocean with fresh seafood and stunning views.',
+    features: ['Iconic ocean restaurant', '3-course seafood meal', 'Stunning ocean views', 'Round-trip transfers'],
+    images: ['/Trip/paje.jpeg','/Trip/kendwa.jpeg','/Trip/forodhani.jpeg']
+  },
+  '10': {
+    id: '10', title: 'Nakupenda Sandbank Paradise', location: 'Nakupenda, Zanzibar', rating: 4.8, reviews: 294,
+    price: 85, duration: '5 Hours', group: 'Private & Group', age: 'All Ages',
+    description: 'Relax on the stunning Nakupenda Sandbank with white sand, turquoise waters, and fresh seafood BBQ.',
+    features: ['Pristine sandbank', 'Seafood BBQ lunch', 'Swimming in crystal waters', 'Sunbathing'],
+    images: ['/Trip/paje.jpeg','/Trip/mnemba.jpeg','/Trip/safari blue.jpeg']
+  },
+  '11': {
+    id: '11', title: 'Starfish Watching Adventure', location: 'Zanzibar Sandbank', rating: 4.7, reviews: 176,
+    price: 30, duration: '3 Hours', group: 'Private & Group', age: 'All Ages',
+    description: 'Discover beautiful starfish in shallow crystal waters at a secluded sandbank—perfect for families.',
+    features: ['Starfish viewing', 'Shallow water walking', 'Marine conservation talk', 'Swimming'],
+    images: ['/Trip/kizimkazi.jpg','/Trip/paje.jpeg','/Trip/mnemba.jpeg']
+  },
+  '12': {
+    id: '12', title: 'Salaam Cave Swimming Adventure', location: 'Zanzibar', rating: 4.6, reviews: 112,
+    price: 65, duration: '3 Hours', group: 'Private & Group', age: 'All Ages',
+    description: 'Swim in a hidden natural freshwater cave surrounded by tropical vegetation—a peaceful paradise.',
+    features: ['Natural freshwater cave', 'Mineral water swimming', 'Cave exploration', 'Tropical surroundings'],
+    images: ['/Trip/jozani.jpg','/Trip/kizimkazi.jpg','/Trip/paje.jpeg']
+  },
+  '13': {
+    id: '13', title: 'Kuza Cave Cultural Experience', location: 'Jambiani, Zanzibar', rating: 4.7, reviews: 148,
+    price: 65, duration: '3 Hours', group: 'Private & Group', age: 'All Ages',
+    description: 'Explore a sacred cave with natural swimming pool, traditional drumming, and rich cultural history.',
+    features: ['Sacred cave exploration', 'Natural swimming pool', 'Live drumming performance', 'Traditional healing stories'],
+    images: ['/Trip/kizimkazi.jpg','/Trip/stonetown.jpeg','/Trip/jozani.jpg']
+  },
+  '14': {
+    id: '14', title: 'Traditional Local Fishing Experience', location: 'Zanzibar Fishing Village', rating: 4.6, reviews: 87,
+    price: 170, duration: '5 Hours', group: 'Private & Group', age: 'All Ages',
+    description: 'Fish like a local using traditional techniques, visit fishing villages, and cook your catch for lunch.',
+    features: ['Traditional fishing methods', 'Local fishing village visit', 'Cook your catch', 'Cultural immersion'],
+    images: ['/Trip/forodhani.jpeg','/Trip/kendwa.jpeg','/Trip/safari blue.jpeg']
+  },
+  '15': {
+    id: '15', title: 'Deep Sea Game Fishing - Half Day', location: 'Indian Ocean, Zanzibar', rating: 4.8, reviews: 96,
+    price: 550, duration: '6 Hours', group: 'Private & Group', age: 'All Ages',
+    description: 'World-class deep sea fishing for marlin, sailfish, tuna, and more with professional crew and equipment.',
+    features: ['Deep sea fishing', 'Professional equipment', 'Target marlin & sailfish', 'Experienced crew'],
+    images: ['/Trip/kendwa.jpeg','/Trip/mnemba.jpeg','/Trip/safari blue.jpeg']
   }
 };
 
@@ -75,6 +140,22 @@ const toursData = {
 const TourDetails = () => {
   const { id } = useParams();
   const tour = toursData[id];
+  const [currentImage, setCurrentImage] = useState(0);
+  
+  const [formData, setFormData] = useState({
+    date: '',
+    guests: '1 Person',
+    fullName: '',
+    email: '',
+    phone: '',
+    pickup: '',
+    specialRequests: ''
+  });
+
+  const whatsappNumber = '255653924851';
+  const [bookingReference] = useState(() => createBookingReference());
+  const [receiptOpen, setReceiptOpen] = useState(false);
+  const bookingFormRef = useRef(null);
 
   if (!tour) {
     return (
@@ -85,19 +166,6 @@ const TourDetails = () => {
     );
   }
 
-  const [currentImage, setCurrentImage] = useState(0);
-  
-  const [formData, setFormData] = useState({
-    date: '',
-    guests: '1 Person',
-    fullName: '',
-    email: '',
-    phone: '',
-    specialRequests: ''
-  });
-
-  const whatsappNumber = '255789922539';
-
   const nextImage = () => setCurrentImage((prev) => (prev + 1) % tour.images.length);
   const prevImage = () => setCurrentImage((prev) => (prev - 1 + tour.images.length) % tour.images.length);
 
@@ -105,19 +173,43 @@ const TourDetails = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleBookWhatsApp = (e) => {
-    e.preventDefault();
-    const message = encodeURIComponent(
-      `Hello! I want to book the "${tour.title}".\n\n` +
-      `📅 Date: ${formData.date || 'Not set'}\n` +
-      `👥 Guests: ${formData.guests}\n` +
-      `👤 Full Name: ${formData.fullName || 'Not set'}\n` +
-      `📧 Email: ${formData.email || 'Not set'}\n` +
-      `📱 Phone/WhatsApp: ${formData.phone || 'Not set'}\n` +
-      `📝 Special Requests: ${formData.specialRequests || 'None'}\n\n` +
-      `Please confirm availability and price.`
-    );
-    window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
+  const guestCount = formData.guests === '5+ People' ? null : Number.parseInt(formData.guests, 10);
+  const receiptData = {
+    reference: bookingReference,
+    bookingDate: new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' }).format(new Date()),
+    category: 'Zanzibar Tour',
+    productName: tour.title,
+    duration: tour.duration,
+    destination: tour.location,
+    travelDate: formData.date || 'Flexible / To be confirmed',
+    travelers: formData.guests,
+    pricePerPerson: tour.price,
+    totalEstimated: guestCount ? tour.price * guestCount : null,
+    totalLabel: guestCount ? 'Estimated total' : 'Total for 5+ travelers',
+    customer: {
+      fullName: formData.fullName,
+      email: formData.email,
+      phone: formData.phone,
+      pickup: formData.pickup || 'Not provided',
+      requests: formData.specialRequests || 'None'
+    }
+  };
+
+  const handleReviewBooking = (event) => {
+    event?.preventDefault();
+    if (!bookingFormRef.current?.reportValidity()) return;
+    setReceiptOpen(true);
+  };
+
+  const handleBookWhatsApp = () => {
+    const message = encodeURIComponent(formatBookingReceiptMessage(receiptData));
+    window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank', 'noopener,noreferrer');
+  };
+
+  const handleEmailQuote = () => {
+    const subject = encodeURIComponent(`Booking Request ${bookingReference} – ${tour.title}`);
+    const body = encodeURIComponent(formatBookingReceiptMessage(receiptData));
+    window.location.href = `mailto:cruisinginzanzibar@gmail.com?subject=${subject}&body=${body}`;
   };
 
   return (
@@ -292,7 +384,7 @@ const TourDetails = () => {
               </div>
 
               {/* FOMU YA BOOKING */}
-              <form onSubmit={handleBookWhatsApp} className="space-y-3 mb-5">
+              <form ref={bookingFormRef} onSubmit={handleReviewBooking} className="space-y-3 mb-5">
                 
                 {/* Tarehe na Idadi ya Wageni */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -357,6 +449,11 @@ const TourDetails = () => {
                   <Phone size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
                 </div>
 
+                <div className="relative">
+                  <input type="text" name="pickup" value={formData.pickup} onChange={handleChange} placeholder="Hotel / Pickup Location (optional)" className="w-full rounded-xl border border-gray-200 bg-white py-3 pl-10 pr-4 text-sm focus:border-[#087443] focus:outline-none" />
+                  <MapPin size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
+                </div>
+
                 {/* Special Requests */}
                 <div className="relative">
                   <textarea 
@@ -370,7 +467,7 @@ const TourDetails = () => {
                   type="submit"
                   className="w-full flex items-center justify-center gap-2 bg-[#25D366] text-white font-bold py-3.5 rounded-full hover:bg-[#1eb954] transition shadow-lg"
                 >
-                  <MessageCircle size={20} /> Book via WhatsApp
+                  <CheckCircle2 size={20} /> Review Booking Receipt
                 </button>
               </form>
 
@@ -380,9 +477,9 @@ const TourDetails = () => {
                 <div className="flex-grow h-px bg-gray-200"></div>
               </div>
 
-              <Link to="/contact" className="w-full flex items-center justify-center gap-2 bg-white border-2 border-[#087443] text-[#087443] font-bold py-3.5 rounded-full hover:bg-[#087443] hover:text-white transition">
-                <Mail size={18} /> Request Quote
-              </Link>
+              <button type="button" onClick={handleReviewBooking} className="w-full flex items-center justify-center gap-2 bg-white border-2 border-[#087443] text-[#087443] font-bold py-3.5 rounded-full hover:bg-[#087443] hover:text-white transition">
+                <Mail size={18} /> Review Email Quote
+              </button>
             </div>
           </div>
         </div>
@@ -447,6 +544,7 @@ const TourDetails = () => {
         </div>
       </div>
 
+      <BookingReceipt open={receiptOpen} receipt={receiptData} onClose={() => setReceiptOpen(false)} onWhatsApp={handleBookWhatsApp} onEmail={handleEmailQuote} />
     </div>
   );
 };

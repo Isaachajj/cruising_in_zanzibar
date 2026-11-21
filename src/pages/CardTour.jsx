@@ -6,115 +6,26 @@ import {
   Waves, Ship, MapPin, Camera, 
   Utensils, Users, TreePalm, Landmark, ChevronLeft, ChevronRight
 } from 'lucide-react';
-import WhyUs from './WhyUs';
 
-// Data ya Tours (Unaweza kuibadilisha au kuipata kutoka API baadaye)
+// Kadi sita za kwanza huonekana homepage; ukurasa wa tours huonyesha orodha yote.
 const tours = [
-  {
-    id: 1,
-    badge: 'BEST SELLER',
-    badgeColor: 'bg-green-600',
-    duration: '5 Hours',
-    image: '/Trip/mnemba.jpeg',
-    price: 45,
-    title: 'Mnemba Island Dolphin & Snorkeling',
-    description: 'Swim with wild dolphins and explore vibrant coral reefs.',
-    tags: [
-      { icon: <Waves size={14} />, text: 'Snorkeling' },
-      { icon: <Ship size={14} />, text: 'Dolphin Encounter' },
-      { icon: <Camera size={14} />, text: 'Coral Reef' }
-    ],
-    rating: 4.9,
-    reviews: 684
-  },
-  {
-    id: 2,
-    badge: 'CULTURAL PICK',
-    badgeColor: 'bg-yellow-500',
-    duration: '3 Hours',
-    image: '/Trip/stonetown.jpeg',
-    price: 35,
-    title: 'Stone Town Heritage Tour',
-    description: 'Explore the rich history and culture of Zanzibar\'s Stone Town.',
-    tags: [
-      { icon: <Landmark size={14} />, text: 'Historic Sites' },
-      { icon: <Users size={14} />, text: 'Walking Tour' },
-      { icon: <Camera size={14} />, text: 'Photo Stops' }
-    ],
-    rating: 4.8,
-    reviews: 512
-  },
-  {
-    id: 3,
-    badge: 'POPULAR',
-    badgeColor: 'bg-blue-600',
-    duration: 'Full Day',
-    image: '/Trip/safari blue.jpeg',
-    price: 85,
-    title: 'Safari Blue Adventure',
-    description: 'Sail, snorkel and relax on a full-day ocean adventure.',
-    tags: [
-      { icon: <Ship size={14} />, text: 'Dhow Sailing' },
-      { icon: <Waves size={14} />, text: 'Snorkeling' },
-      { icon: <Utensils size={14} />, text: 'Seafood Lunch' }
-    ],
-    rating: 4.9,
-    reviews: 723
-  },
-  {
-    id: 4,
-    badge: 'TOP RATED',
-    badgeColor: 'bg-purple-600',
-    duration: '6 Hours',
-    image: '/Trip/jozani.jpg',
-    price: 60,
-    title: 'Jozani Forest & Red Colobus',
-    description: 'Meet the rare red colobus monkeys in their natural habitat.',
-    tags: [
-      { icon: <TreePalm size={14} />, text: 'Nature Walk' },
-      { icon: <Camera size={14} />, text: 'Wildlife' },
-      { icon: <Users size={14} />, text: 'Guided Tour' }
-    ],
-    rating: 4.7,
-    reviews: 345
-  },
-  {
-    id: 5,
-    badge: 'LUXURY',
-    badgeColor: 'bg-rose-600',
-    duration: '4 Hours',
-    image: '/Trip/kendwa.jpeg',
-    price: 120,
-    title: 'Sunset Dhow Cruise',
-    description: 'Enjoy a romantic sunset with drinks and music on a traditional dhow.',
-    tags: [
-      { icon: <Ship size={14} />, text: 'Sunset Cruise' },
-      { icon: <Utensils size={14} />, text: 'Drinks Included' },
-      { icon: <Camera size={14} />, text: 'Photography' }
-    ],
-    rating: 5.0,
-    reviews: 210
-  },
-  {
-    id: 6,
-    badge: 'ADVENTURE',
-    badgeColor: 'bg-orange-500',
-    duration: '8 Hours',
-    image: '/Trip/paje.jpeg',
-    price: 95,
-    title: 'Nungwi Beach & Kitesurfing',
-    description: 'Experience the thrill of kitesurfing or relax on Nungwi\'s white sands.',
-    tags: [
-      { icon: <Waves size={14} />, text: 'Kitesurfing' },
-      { icon: <MapPin size={14} />, text: 'Beach Day' },
-      { icon: <Camera size={14} />, text: 'Water Sports' }
-    ],
-    rating: 4.8,
-    reviews: 456
-  }
+  { id: 5, badge: 'ROMANTIC', badgeColor: 'bg-rose-600', duration: '3 Hours', image: '/Trip/kendwa.jpeg', price: 20, title: 'Sunset Dhow Cruise', description: 'Sail on a traditional dhow at sunset with sparkling wine, snacks, and breathtaking ocean views.', tags: [{ icon: <Ship size={14} />, text: 'Traditional dhow sailing' }, { icon: <Camera size={14} />, text: 'Stunning sunset views' }, { icon: <Utensils size={14} />, text: 'Sparkling wine & light snacks' }], rating: 4.9, reviews: 210 },
+  { id: 1, badge: 'TOP RATED', badgeColor: 'bg-green-600', duration: '5 Hours', image: '/Trip/mnemba.jpeg', price: 45, title: 'Mnemba Island Dolphin & Snorkeling', description: 'Swim with wild dolphins and snorkel vibrant coral reefs at the famous Mnemba Atoll marine paradise.', tags: [{ icon: <Waves size={14} />, text: 'Wild dolphin encounter' }, { icon: <Ship size={14} />, text: 'Mnemba Atoll snorkeling' }, { icon: <Camera size={14} />, text: 'Coral reefs & tropical fish' }], rating: 5.0, reviews: 684 },
+  { id: 7, badge: 'POPULAR', badgeColor: 'bg-blue-600', duration: '4 Hours', image: '/Trip/prisonIland.jpg', price: 50, title: 'Prison Island Tour', description: 'Visit historic Prison Island, meet giant 100-year-old tortoises, and snorkel in crystal-clear waters.', tags: [{ icon: <TreePalm size={14} />, text: 'Giant Aldabra tortoises' }, { icon: <Landmark size={14} />, text: 'Historic prison ruins' }, { icon: <Waves size={14} />, text: 'Snorkeling & boat ride' }], rating: 4.7, reviews: 286 },
+  { id: 8, badge: 'TOP RATED', badgeColor: 'bg-purple-600', duration: '6 Hours', image: '/Trip/stonetown.jpeg', price: 55, title: 'Spice Farm Tour & Swahili Cooking Class', description: 'Discover aromatic spice farms and learn to cook authentic Swahili dishes in a hands-on class.', tags: [{ icon: <TreePalm size={14} />, text: 'Spice farm walk' }, { icon: <Camera size={14} />, text: 'Taste fresh spices' }, { icon: <Utensils size={14} />, text: 'Cooking class & lunch' }], rating: 4.9, reviews: 241 },
+  { id: 2, badge: 'BESTSELLER', badgeColor: 'bg-yellow-500', duration: '4 Hours', image: '/Trip/stonetown.jpeg', price: 65, title: 'Stone Town Historical Tour', description: 'UNESCO World Heritage walking tour through historic Stone Town’s alleys, markets, and landmarks.', tags: [{ icon: <Landmark size={14} />, text: 'UNESCO World Heritage site' }, { icon: <MapPin size={14} />, text: 'House of Wonders' }, { icon: <Users size={14} />, text: 'Darajani Market & local guide' }], rating: 4.9, reviews: 512 },
+  { id: 4, badge: 'NATURE', badgeColor: 'bg-emerald-700', duration: '4 Hours', image: '/Trip/jozani.jpg', price: 65, title: 'Jozani Forest Adventure', description: 'Encounter rare Red Colobus monkeys and explore mystical mangrove boardwalks in Zanzibar’s only national park.', tags: [{ icon: <TreePalm size={14} />, text: 'Red Colobus monkeys' }, { icon: <Waves size={14} />, text: 'Mangrove boardwalk' }, { icon: <Camera size={14} />, text: 'Forest walk & bird watching' }], rating: 4.8, reviews: 345 },
+  { id: 9, badge: 'ICONIC', badgeColor: 'bg-amber-600', duration: '3 Hours', image: '/Trip/paje.jpeg', price: 75, title: 'The Rock Restaurant Experience', description: 'Dine at the iconic Rock Restaurant perched in the Indian Ocean with fresh seafood and stunning views.', tags: [{ icon: <Utensils size={14} />, text: 'Iconic ocean restaurant' }, { icon: <Waves size={14} />, text: '3-course seafood meal' }, { icon: <MapPin size={14} />, text: 'Ocean views & transfers' }], rating: 4.8, reviews: 319 },
+  { id: 10, badge: 'PARADISE', badgeColor: 'bg-cyan-600', duration: '5 Hours', image: '/Trip/paje.jpeg', price: 85, title: 'Nakupenda Sandbank Paradise', description: 'Relax on the stunning Nakupenda Sandbank with white sand, turquoise waters, and fresh seafood BBQ.', tags: [{ icon: <Waves size={14} />, text: 'Pristine sandbank' }, { icon: <Utensils size={14} />, text: 'Seafood BBQ lunch' }, { icon: <Camera size={14} />, text: 'Swimming & sunbathing' }], rating: 4.8, reviews: 294 },
+  { id: 3, badge: 'FULL DAY', badgeColor: 'bg-blue-700', duration: '8 Hours', image: '/Trip/safari blue.jpeg', price: 85, title: 'Safari Blue Adventure', description: 'Full-day ocean adventure with snorkeling, dolphins, seafood BBQ, and dhow sailing in Menai Bay.', tags: [{ icon: <Waves size={14} />, text: 'Dolphin watching & snorkeling' }, { icon: <Utensils size={14} />, text: 'Seafood BBQ on sandbank' }, { icon: <Ship size={14} />, text: 'Traditional dhow sailing' }], rating: 4.9, reviews: 723 },
+  { id: 11, badge: 'FAMILY FUN', badgeColor: 'bg-orange-500', duration: '3 Hours', image: '/Trip/kizimkazi.jpg', price: 30, title: 'Starfish Watching Adventure', description: 'Discover beautiful starfish in shallow crystal waters at a secluded sandbank—perfect for families.', tags: [{ icon: <Waves size={14} />, text: 'Starfish viewing' }, { icon: <Users size={14} />, text: 'Shallow water walk' }, { icon: <TreePalm size={14} />, text: 'Marine conservation talk' }], rating: 4.7, reviews: 176 },
+  { id: 12, badge: 'HIDDEN GEM', badgeColor: 'bg-violet-700', duration: '3 Hours', image: '/Trip/jozani.jpg', price: 65, title: 'Salaam Cave Swimming Adventure', description: 'Swim in a hidden natural freshwater cave surrounded by tropical vegetation—a peaceful paradise.', tags: [{ icon: <Waves size={14} />, text: 'Natural freshwater cave' }, { icon: <MapPin size={14} />, text: 'Cave exploration' }, { icon: <TreePalm size={14} />, text: 'Tropical surroundings' }], rating: 4.6, reviews: 112 },
+  { id: 13, badge: 'CULTURAL', badgeColor: 'bg-amber-800', duration: '3 Hours', image: '/Trip/kizimkazi.jpg', price: 65, title: 'Kuza Cave Cultural Experience', description: 'Explore a sacred cave with natural swimming pool, traditional drumming, and rich cultural history.', tags: [{ icon: <MapPin size={14} />, text: 'Sacred cave exploration' }, { icon: <Waves size={14} />, text: 'Natural swimming pool' }, { icon: <Users size={14} />, text: 'Live drumming & stories' }], rating: 4.7, reviews: 148 },
+  { id: 14, badge: 'AUTHENTIC', badgeColor: 'bg-teal-700', duration: '5 Hours', image: '/Trip/forodhani.jpeg', price: 170, title: 'Traditional Local Fishing Experience', description: 'Fish like a local using traditional techniques, visit fishing villages, and cook your catch for lunch.', tags: [{ icon: <Ship size={14} />, text: 'Traditional fishing methods' }, { icon: <MapPin size={14} />, text: 'Fishing village visit' }, { icon: <Utensils size={14} />, text: 'Cook your catch' }], rating: 4.6, reviews: 87 },
+  { id: 15, badge: 'PREMIUM', badgeColor: 'bg-slate-800', duration: '6 Hours', image: '/Trip/kendwa.jpeg', price: 550, title: 'Deep Sea Game Fishing - Half Day', description: 'World-class deep sea fishing for marlin, sailfish, tuna, and more with professional crew and equipment.', tags: [{ icon: <Waves size={14} />, text: 'Deep sea fishing' }, { icon: <Ship size={14} />, text: 'Professional equipment' }, { icon: <Users size={14} />, text: 'Experienced crew' }], rating: 4.8, reviews: 96 }
 ];
 
-const CardTour = ({ showHero = true }) => {
+const CardTour = ({ showHero = true, showAll = true }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const heroSlides = [
@@ -217,7 +128,7 @@ const CardTour = ({ showHero = true }) => {
           
           {/* Grid ya Kadi (Cards) - 6 kwa jumla */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {tours.map((tour, index) => (
+            {tours.slice(0, showAll ? tours.length : 6).map((tour, index) => (
               <div data-tour-reveal data-delay={(index % 3) + 1} 
                 key={tour.id} 
                 className="group/card bg-white rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.15)] transition-all duration-300 border border-gray-100 flex flex-col hover:-translate-y-2"
@@ -283,7 +194,7 @@ const CardTour = ({ showHero = true }) => {
                       to={`/tour/${tour.id}`} 
                       className="flex items-center gap-1 bg-[#1b5e36] text-white text-sm font-semibold px-4 py-2 rounded-full hover:bg-green-800 transition-colors group/btn"
                     >
-                      View Details
+                      View Tour
                       <ArrowRight size={16} className="transform group-hover/btn:translate-x-1 transition-transform" />
                     </Link>
                   </div>
@@ -293,56 +204,65 @@ const CardTour = ({ showHero = true }) => {
             ))}
           </div>
 
-          {/* ================= KITUFE CHA "VIEW ALL" (Kinaonekana kwenye Hover) ================= */}
-          <div className="flex justify-center mt-12 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out">
+          {!showAll && <div className="flex justify-center mt-12">
             <Link 
-              to="/zanzibar-tours" 
+              to="/card-tour"
               className="inline-flex items-center gap-2 bg-transparent border-2 border-[#1b5e36] text-[#1b5e36] font-bold px-8 py-3 rounded-full hover:bg-[#1b5e36] hover:text-white transition-all duration-300"
             >
               View All Zanzibar Tours
               <ArrowRight size={18} />
             </Link>
-          </div>
+          </div>}
           
         </div>
 
-        {/* ================= WHERE WE TAKE YOU ================= */}
-        <div className="w-full bg-[#f5f8f4] py-20 mt-20 border-y border-[#087443]/10">
-          <div className="max-w-[1440px] mx-auto px-6 md:px-12">
-            <div className="text-center mb-12" data-tour-reveal>
-              <span className="inline-flex items-center gap-2 rounded-full bg-[#087443]/10 px-4 py-2 text-xs font-bold tracking-[3px] text-[#087443]"><MapPin size={15} /> ZANZIBAR DESTINATIONS</span>
-              <h2 className="mt-5 text-3xl md:text-5xl font-bold text-[#10243A]" style={{ fontFamily: "'Playfair Display', serif" }}>Where We Take You in Zanzibar</h2>
-              <p className="mt-4 text-gray-600 md:text-lg">Explore the island&apos;s most beautiful and iconic locations</p>
-            </div>
+      </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {[
-                { name: 'Nungwi Beach', desc: 'Pristine white sand & crystal waters', image: '/Trip/kendwa.jpeg', icon: '🏖️' },
-                { name: 'Stone Town', desc: 'UNESCO World Heritage Site', image: '/Trip/stonetown.jpeg', icon: '🏛️' },
-                { name: 'Mnemba Island', desc: 'Dolphin watching & snorkeling', image: '/Trip/mnemba.jpeg', icon: '🐬' },
-                { name: 'Jozani Forest', desc: 'Home to red colobus monkeys', image: '/Trip/jozani.jpg', icon: '🐒' },
-                { name: 'Prison Island', desc: 'Giant tortoise sanctuary', image: '/Trip/prisonIland.jpg', icon: '🐢' },
-                { name: 'Kendwa Beach', desc: 'Famous full moon parties', image: '/Trip/kendwa.jpeg', icon: '🌅' },
-                { name: 'Spice Farms', desc: 'Aromatic spice tours', image: '/Trip/stonetown.jpeg', icon: '🌿' },
-                { name: 'Nakupenda', desc: 'Stunning sandbank paradise', image: '/Trip/paje.jpeg', icon: '🏝️' }
-              ].map((dest, index) => (
-                <Link key={dest.name} to="/destination" className="group relative h-[270px] overflow-hidden rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-2" data-tour-reveal data-delay={(index % 4) + 1}>
-                  <img src={dest.image} alt={dest.name} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#10243A]/95 via-[#10243A]/25 to-transparent" />
-                  <div className="absolute left-4 top-4 text-2xl drop-shadow-lg">{dest.icon}</div>
-                  <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
-                    <h3 className="text-xl font-bold" style={{ fontFamily: "'Playfair Display', serif" }}>{dest.name}</h3>
-                    <p className="text-sm text-white/80 mt-1">{dest.desc}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
+      {/* ================= ZANZIBAR DESTINATIONS ================= */}
+      {showAll && <section className="mt-20 w-full border-y border-[#087443]/10 bg-[#f5f8f4] py-20">
+        <div className="mx-auto max-w-[1440px] px-6 md:px-12">
+          <div className="mb-12 text-center" data-tour-reveal>
+            <span className="inline-flex items-center gap-2 rounded-full bg-[#087443]/10 px-4 py-2 text-xs font-bold tracking-[3px] text-[#087443]">
+              <MapPin size={15} /> DESTINATIONS
+            </span>
+            <h2 className="mt-5 text-3xl font-bold text-[#10243A] md:text-5xl" style={{ fontFamily: "'Playfair Display', serif" }}>
+              Where We Take You in Zanzibar
+            </h2>
+            <p className="mt-4 text-gray-600 md:text-lg">
+              Explore the island&apos;s most beautiful and iconic locations
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { name: 'Nungwi Beach', desc: 'Pristine white sand & crystal waters', image: '/Trip/kendwa.jpeg', icon: '🏖️' },
+              { name: 'Stone Town', desc: 'UNESCO World Heritage Site', image: '/Trip/stonetown.jpeg', icon: '🏛️' },
+              { name: 'Mnemba Island', desc: 'Dolphin watching & snorkeling', image: '/Trip/mnemba.jpeg', icon: '🐬' },
+              { name: 'Jozani Forest', desc: 'Home to red colobus monkeys', image: '/Trip/jozani.jpg', icon: '🐒' },
+              { name: 'Prison Island', desc: 'Giant tortoise sanctuary', image: '/Trip/prisonIland.jpg', icon: '🐢' },
+              { name: 'Kendwa Beach', desc: 'Famous full moon parties', image: '/Trip/kendwa.jpeg', icon: '🌅' },
+              { name: 'Spice Farms', desc: 'Aromatic spice tours', image: '/Trip/stonetown.jpeg', icon: '🌿' },
+              { name: 'Nakupenda', desc: 'Stunning sandbank paradise', image: '/Trip/paje.jpeg', icon: '🏝️' }
+            ].map((destination, index) => (
+              <Link
+                key={destination.name}
+                to="/destination"
+                className="group relative h-[270px] overflow-hidden rounded-2xl shadow-md transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl"
+                data-tour-reveal
+                data-delay={(index % 4) + 1}
+              >
+                <img src={destination.image} alt={destination.name} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#10243A]/95 via-[#10243A]/25 to-transparent" />
+                <div className="absolute left-4 top-4 text-2xl drop-shadow-lg" aria-hidden="true">{destination.icon}</div>
+                <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
+                  <h3 className="text-xl font-bold" style={{ fontFamily: "'Playfair Display', serif" }}>{destination.name}</h3>
+                  <p className="mt-1 text-sm text-white/80">{destination.desc}</p>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
-
-        <WhyUs />
-
-      </div>
+      </section>}
     </>
   );
 };

@@ -19,7 +19,7 @@ import {
 } from 'lucide-react';
 
 // Badilisha namba hii iwe WhatsApp ya biashara yako
-const WHATSAPP_NUMBER = '255XXXXXXXXX';
+const WHATSAPP_NUMBER = '255653924851';
 
 const AboutUs = () => {
   useEffect(() => {

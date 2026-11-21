@@ -1,11 +1,13 @@
 // src/pages/SafariPackages.jsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import BookingReceipt from './BookingReceipt';
+import { createBookingReference, formatBookingReceiptMessage } from './bookingReceiptUtils';
 import { 
-  Search, MapPin, Star, Clock, Users, CheckCircle2, 
-  PawPrint, ShieldCheck, Headset, Gem, TreePalm, 
-  MessageCircle, Mail, ArrowRight, CalendarDays, 
-  ChevronRight, Camera, X, Flame, UserCheck, Compass
+  Search, MapPin, Star, Users, CheckCircle2,
+  PawPrint, ShieldCheck, Headset, Gem,
+  Mail, ArrowRight, CalendarDays, Calendar, User, Phone, Hotel,
+  ChevronRight, Camera, UserCheck, Compass
 } from 'lucide-react';
 
 // ==========================================
@@ -86,7 +88,37 @@ const safariData = {
     highlights: ['Remote Serengeti areas', 'Walking safari', 'Bush camping', 'Wildlife photography'],
     images: ['https://images.unsplash.com/photo-1456926631375-92c8ce872def?q=80&w=1000&auto=format&fit=crop','https://images.unsplash.com/photo-1546182990-dffeafbe841d?q=80&w=1000&auto=format&fit=crop','https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1000&auto=format&fit=crop']
   },
+  '7': {
+    id: '7', title: 'Tarangire Elephants & Baobabs Safari', location: 'Tarangire, Tanzania', rating: 4.9, reviews: 143,
+    price: 890, duration: '3 Days / 2 Nights', group: '4x4 Safari Jeep', park: 'Tarangire National Park',
+    description: 'Explore Tarangire’s baobab-dotted savannah and follow its large elephant herds on guided game drives.',
+    highlights: ['Massive elephant herds', 'Ancient baobab trees', 'Tarangire River game drives', 'Professional local guide'],
+    images: ['https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1000&auto=format&fit=crop','https://images.unsplash.com/photo-1546182990-dffeafbe841d?q=80&w=1000&auto=format&fit=crop','https://images.unsplash.com/photo-1534567153574-2b12153a87f0?q=80&w=1000&auto=format&fit=crop']
+  },
+  '8': {
+    id: '8', title: 'Lake Manyara Wildlife Safari', location: 'Lake Manyara, Tanzania', rating: 4.8, reviews: 118,
+    price: 920, duration: '3 Days / 2 Nights', group: '4x4 Safari Jeep', park: 'Lake Manyara National Park',
+    description: 'Discover Lake Manyara’s forest and lakeshore, with chances to spot tree-climbing lions and flamingos.',
+    highlights: ['Tree-climbing lions', 'Flamingos and lake views', 'Rift Valley escarpment', 'Forest and savannah game drives'],
+    images: ['https://images.unsplash.com/photo-1534567153574-2b12153a87f0?q=80&w=1000&auto=format&fit=crop','https://images.unsplash.com/photo-1519066629447-267fffa62d4b?q=80&w=1000&auto=format&fit=crop','https://images.unsplash.com/photo-1546182990-dffeafbe841d?q=80&w=1000&auto=format&fit=crop']
+  },
+  '9': {
+    id: '9', title: 'Mikumi Short Safari from Zanzibar', location: 'Mikumi, Tanzania', rating: 4.9, reviews: 96,
+    price: 780, duration: '2 Days / 1 Night', group: 'Flight & 4x4 Safari Jeep', park: 'Mikumi National Park',
+    description: 'Take a quick flight from Zanzibar for game drives across Mikumi’s open plains and wildlife-rich waterholes.',
+    highlights: ['Return flights from Zanzibar', 'Mikumi game drives', 'Wildlife-rich Mkata Floodplain', 'Overnight safari lodge'],
+    images: ['https://images.unsplash.com/photo-1456926631375-92c8ce872def?q=80&w=1000&auto=format&fit=crop','https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1000&auto=format&fit=crop','https://images.unsplash.com/photo-1546182990-dffeafbe841d?q=80&w=1000&auto=format&fit=crop']
+  },
+  '10': {
+    id: '10', title: 'Udzungwa Waterfalls & Forest Trek', location: 'Udzungwa Mountains, Tanzania', rating: 4.8, reviews: 74,
+    price: 1050, duration: '3 Days / 2 Nights', group: 'Guided Hiking Tour', park: 'Udzungwa Mountains National Park',
+    description: 'Hike through lush mountain forest to scenic waterfalls and look for Udzungwa’s endemic primates.',
+    highlights: ['Guided forest hiking', 'San je Waterfall', 'Endemic primates', 'Mountain forest scenery'],
+    images: ['https://images.unsplash.com/photo-1521651201144-634f700b36ef?q=80&w=1000&auto=format&fit=crop','https://images.unsplash.com/photo-1534567153574-2b12153a87f0?q=80&w=1000&auto=format&fit=crop','https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1000&auto=format&fit=crop']
+  },
 };
+
+const SAFARI_BOOKING_WHATSAPP = '255653924851';
 
 // ==========================================
 // 2. COMPONENT KUU
@@ -97,6 +129,60 @@ const SafariPackages = () => {
   const tour = safariData[id || activeCategory] || safariData['1'];
 
   const [searchTerm, setSearchTerm] = useState('');
+  const [bookingReference] = useState(() => createBookingReference());
+  const [receiptOpen, setReceiptOpen] = useState(false);
+  const [bookingData, setBookingData] = useState({
+    date: '',
+    travelers: '1 Person',
+    fullName: '',
+    email: '',
+    phone: '',
+    pickup: '',
+    specialRequests: ''
+  });
+
+  const handleBookingChange = (event) => {
+    setBookingData((current) => ({ ...current, [event.target.name]: event.target.value }));
+  };
+
+  const travelerCount = bookingData.travelers === '5+ People' ? null : Number.parseInt(bookingData.travelers, 10);
+  const receiptData = {
+    reference: bookingReference,
+    bookingDate: new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' }).format(new Date()),
+    category: 'Tanzania Safari',
+    productName: tour.title,
+    duration: tour.duration,
+    destination: tour.park,
+    travelDate: bookingData.date || 'Flexible / To be confirmed',
+    travelers: bookingData.travelers,
+    pricePerPerson: tour.price,
+    pricePerPersonLabel: 'Starting price per person',
+    totalEstimated: travelerCount ? tour.price * travelerCount : null,
+    totalLabel: travelerCount ? 'Estimated starting total' : 'Total for 5+ travelers',
+    customer: {
+      fullName: bookingData.fullName,
+      email: bookingData.email,
+      phone: bookingData.phone,
+      pickup: bookingData.pickup || 'Not provided',
+      requests: bookingData.specialRequests || 'None'
+    }
+  };
+
+  const handleReviewBooking = (event) => {
+    event.preventDefault();
+    setReceiptOpen(true);
+  };
+
+  const handleWhatsAppBooking = () => {
+    const message = encodeURIComponent(formatBookingReceiptMessage(receiptData));
+    window.open(`https://wa.me/${SAFARI_BOOKING_WHATSAPP}?text=${message}`, '_blank', 'noopener,noreferrer');
+  };
+
+  const handleEmailQuote = () => {
+    const subject = encodeURIComponent(`Booking Request ${bookingReference} – ${tour.title}`);
+    const body = encodeURIComponent(formatBookingReceiptMessage(receiptData));
+    window.location.href = `mailto:cruisinginzanzibar@gmail.com?subject=${subject}&body=${body}`;
+  };
 
   // Pata related tours (zote isipokuwa hii ya sasa)
   const relatedTours = Object.values(safariData).filter(t => t.id !== (id || activeCategory)).slice(0, 3);
@@ -315,9 +401,10 @@ const SafariPackages = () => {
         <div className="lg:col-span-4 opacity-0 animate-slide-right" style={{ animationDelay: '600ms' }}>
           <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden sticky top-24">
             
-            {/* Popular Choice Badge */}
-            <div className="bg-[#087443] text-white text-center py-2 text-xs font-bold flex items-center justify-center gap-1">
-              <Flame size={14} className="text-[#F5B91B]" /> Popular Choice
+            {/* Booking Card Heading */}
+            <div className="bg-[#087443] px-5 py-4 text-center text-white">
+              <h3 className="text-lg font-bold">Book This Tour</h3>
+              <p className="mt-0.5 text-xs text-green-100">Secure your safari booking</p>
             </div>
 
             <div className="p-6">
@@ -331,53 +418,77 @@ const SafariPackages = () => {
               </div>
 
               {/* Meta Info */}
-              <div className="space-y-2 mb-6">
-                <div className="flex items-center justify-between bg-gray-50 p-3 rounded-xl border border-gray-100 text-sm">
-                  <span className="flex items-center gap-2 font-semibold text-gray-700"><CalendarDays size={16} className="text-[#087443]" /> Duration</span>
-                  <span className="text-gray-600">{tour.duration}</span>
+              <div className="mb-5 grid grid-cols-2 gap-2">
+                <div className="flex items-center gap-2 rounded-xl border border-gray-100 bg-gray-50 p-3">
+                  <CalendarDays size={17} className="shrink-0 text-[#087443]" />
+                  <div><p className="text-[10px] font-semibold uppercase tracking-wide text-gray-400">Duration</p><p className="text-xs font-bold text-gray-700">{tour.duration}</p></div>
                 </div>
-                <div className="flex items-center justify-between bg-gray-50 p-3 rounded-xl border border-gray-100 text-sm">
-                  <span className="flex items-center gap-2 font-semibold text-gray-700"><Users size={16} className="text-[#087443]" /> Group Size</span>
-                  <span className="text-gray-600">Min 2 People</span>
+                <div className="flex items-center gap-2 rounded-xl border border-gray-100 bg-gray-50 p-3">
+                  <Star size={17} className="shrink-0 text-[#F5B91B]" fill="currentColor" />
+                  <div><p className="text-[10px] font-semibold uppercase tracking-wide text-gray-400">Rating</p><p className="text-xs font-bold text-gray-700">{tour.rating}/5</p></div>
                 </div>
-                <div className="flex items-center justify-between bg-gray-50 p-3 rounded-xl border border-gray-100 text-sm">
-                  <span className="flex items-center gap-2 font-semibold text-gray-700"><ShieldCheck size={16} className="text-[#087443]" /> Cancellation</span>
-                  <span className="text-gray-600">Free Cancellation</span>
+                <div className="flex items-center gap-2 rounded-xl border border-gray-100 bg-gray-50 p-3">
+                  <Users size={17} className="shrink-0 text-[#087443]" />
+                  <div><p className="text-[10px] font-semibold uppercase tracking-wide text-gray-400">Travel style</p><p className="text-xs font-bold text-gray-700">Private / Group</p></div>
+                </div>
+                <div className="flex items-center gap-2 rounded-xl border border-gray-100 bg-gray-50 p-3">
+                  <Hotel size={17} className="shrink-0 text-[#087443]" />
+                  <div><p className="text-[10px] font-semibold uppercase tracking-wide text-gray-400">Accommodation</p><p className="text-xs font-bold text-gray-700">On request</p></div>
                 </div>
               </div>
 
-              {/* Action Buttons */}
-              <div className="space-y-3">
-                <button 
-                  onClick={() => {
-                    const message = encodeURIComponent(`Hello! I am interested in the "${tour.title}" package. Please provide more details.`);
-                    window.open(`https://wa.me/255789922539?text=${message}`, '_blank');
-                  }}
-                  className="w-full flex items-center justify-center gap-2 bg-[#25D366] text-white font-bold py-3.5 rounded-xl hover:bg-[#1eb954] transition shadow-lg"
-                >
-                  <MessageCircle size={20} /> Book via WhatsApp
+              {/* Booking Form */}
+              <form onSubmit={handleReviewBooking} className="space-y-3">
+                <div>
+                  <label htmlFor="safari-travelers" className="mb-1 ml-1 block text-xs font-bold text-[#10243A]">Travelers</label>
+                  <div className="relative">
+                    <select id="safari-travelers" name="travelers" value={bookingData.travelers} onChange={handleBookingChange} className="w-full appearance-none rounded-xl border border-gray-200 bg-white py-3 pl-10 pr-4 text-sm focus:border-[#087443] focus:outline-none focus:ring-4 focus:ring-green-100">
+                      <option>1 Person</option>
+                      <option>2 People</option>
+                      <option>3 People</option>
+                      <option>4 People</option>
+                      <option>5+ People</option>
+                    </select>
+                    <Users size={17} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
+                  </div>
+                </div>
+
+                <div className="relative">
+                  <input required autoComplete="name" type="text" name="fullName" value={bookingData.fullName} onChange={handleBookingChange} placeholder="Full Name *" className="w-full rounded-xl border border-gray-200 bg-white py-3 pl-10 pr-4 text-sm focus:border-[#087443] focus:outline-none focus:ring-4 focus:ring-green-100" />
+                  <User size={17} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
+                </div>
+                <div className="relative">
+                  <input required autoComplete="email" type="email" name="email" value={bookingData.email} onChange={handleBookingChange} placeholder="Email Address *" className="w-full rounded-xl border border-gray-200 bg-white py-3 pl-10 pr-4 text-sm focus:border-[#087443] focus:outline-none focus:ring-4 focus:ring-green-100" />
+                  <Mail size={17} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
+                </div>
+                <div className="relative">
+                  <input required autoComplete="tel" type="tel" name="phone" value={bookingData.phone} onChange={handleBookingChange} placeholder="Phone / WhatsApp *" className="w-full rounded-xl border border-gray-200 bg-white py-3 pl-10 pr-4 text-sm focus:border-[#087443] focus:outline-none focus:ring-4 focus:ring-green-100" />
+                  <Phone size={17} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
+                </div>
+                <div className="relative">
+                  <input type="text" name="pickup" value={bookingData.pickup} onChange={handleBookingChange} placeholder="Hotel / Pickup Location (optional)" className="w-full rounded-xl border border-gray-200 bg-white py-3 pl-10 pr-4 text-sm focus:border-[#087443] focus:outline-none focus:ring-4 focus:ring-green-100" />
+                  <MapPin size={17} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
+                </div>
+                <div className="relative">
+                  <input type="date" name="date" value={bookingData.date} onChange={handleBookingChange} aria-label="Preferred travel date" className="w-full rounded-xl border border-gray-200 bg-white py-3 pl-10 pr-4 text-sm text-gray-600 focus:border-[#087443] focus:outline-none focus:ring-4 focus:ring-green-100" />
+                  <Calendar size={17} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
+                </div>
+                <textarea name="specialRequests" value={bookingData.specialRequests} onChange={handleBookingChange} rows="2" placeholder="Special requests (optional)" className="w-full resize-none rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm focus:border-[#087443] focus:outline-none focus:ring-4 focus:ring-green-100" />
+
+                <button type="submit" className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#087443] py-3.5 font-bold text-white shadow-lg transition hover:bg-green-800">
+                  <CheckCircle2 size={20} /> Review Booking Receipt
                 </button>
-                
-                <div className="flex items-center gap-4 my-2">
-                  <div className="flex-grow h-px bg-gray-200"></div>
-                  <span className="text-xs text-gray-400 font-medium">— OR —</span>
-                  <div className="flex-grow h-px bg-gray-200"></div>
-                </div>
-
-                <Link to="/contact" className="w-full flex items-center justify-center gap-2 bg-[#10243A] text-white font-bold py-3.5 rounded-xl hover:bg-blue-900 transition">
-                  <Mail size={18} /> Request a Quote
-                </Link>
-              </div>
+              </form>
 
               {/* Bottom Help */}
               <div className="mt-6 bg-[#f0f7f3] p-3 rounded-xl border border-[#087443]/10 flex items-center gap-3">
                 <Headset size={24} className="text-[#087443] shrink-0" />
                 <div>
                   <h5 className="text-xs font-bold text-[#10243A]">Have Questions?</h5>
-                  <a href="https://wa.me/255789922539" className="text-[11px] text-[#087443] font-semibold flex items-center gap-1 hover:underline">
+                  <a href="https://wa.me/255653924851" className="text-[11px] text-[#087443] font-semibold flex items-center gap-1 hover:underline">
                     Chat with us on WhatsApp <ChevronRight size={12} />
                   </a>
-                </div>
+      </div>
               </div>
 
             </div>
@@ -468,6 +579,7 @@ const SafariPackages = () => {
         </div>
       </div>
 
+      <BookingReceipt open={receiptOpen} receipt={receiptData} onClose={() => setReceiptOpen(false)} onWhatsApp={handleWhatsAppBooking} onEmail={handleEmailQuote} />
     </div>
   );
 };

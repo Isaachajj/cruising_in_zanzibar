@@ -33,7 +33,7 @@ const Footer = () => {
             <Link to="/packages" className="flex items-center justify-center gap-2 bg-[#F5B91B] text-[#10243A] font-bold px-8 py-3 rounded-full hover:bg-yellow-500 transition-colors w-full sm:w-auto shadow-lg">
               Tanzania Safaris <ArrowRight size={18} />
             </Link>
-            <a href="https://wa.me/255789922539" target="_blank" rel="noreferrer" className="flex items-center justify-center gap-2 bg-[#25D366] text-white font-bold px-8 py-3 rounded-full hover:bg-green-600 transition-colors w-full sm:w-auto shadow-lg">
+            <a href="https://wa.me/255653924851" target="_blank" rel="noreferrer" className="flex items-center justify-center gap-2 bg-[#25D366] text-white font-bold px-8 py-3 rounded-full hover:bg-green-600 transition-colors w-full sm:w-auto shadow-lg">
               <MessageCircle size={18} /> WhatsApp Us
             </a>
           </div>
@@ -128,15 +128,15 @@ const Footer = () => {
                 </li>
                 <li className="flex items-center gap-3">
                   <Phone size={16} className="text-[#1b5e36] shrink-0" />
-                  <a href="tel:+255789922539" className="hover:text-white">+255 789 922 539</a>
+                  <a href="tel:+255653924851" className="hover:text-white">+255 653 924 851</a>
                 </li>
                 <li className="flex items-center gap-3">
                   <Mail size={16} className="text-[#1b5e36] shrink-0" />
-                  <a href="mailto:info@cruisinginzanzibar.co.tz" className="hover:text-white">info@cruisinginzanzibar.co.tz</a>
+                  <a href="mailto:cruisinginzanzibar@gmail.com" className="hover:text-white">cruisinginzanzibar@gmail.com</a>
                 </li>
                 <li className="flex items-center gap-3">
                   <MessageCircle size={16} className="text-[#25D366] shrink-0" />
-                  <a href="https://wa.me/255789922539" target="_blank" rel="noreferrer" className="hover:text-white">+255 789 922 539</a>
+                  <a href="https://wa.me/255653924851" target="_blank" rel="noreferrer" className="hover:text-white">+255 653 924 851</a>
                 </li>
                 <li className="flex items-center gap-3">
                   <Clock size={16} className="text-[#1b5e36] shrink-0" />

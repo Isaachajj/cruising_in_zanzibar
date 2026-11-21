@@ -25,10 +25,11 @@ import {
   Globe,
 } from 'lucide-react';
 
-const WHATSAPP_URL = 'https://wa.me/255789922539';
+const WHATSAPP_URL = 'https://wa.me/255653924851';
 
 const HomePage = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [language, setLanguage] = useState('English');
   const heroSlides = [
@@ -51,47 +52,64 @@ const HomePage = () => {
     return () => clearInterval(interval);
   }, [heroSlides.length]);
 
+  useEffect(() => {
+    let frameId = null;
+    const updateScrolledState = () => {
+      frameId = null;
+      setIsScrolled(window.scrollY > 12);
+    };
+    const handleScroll = () => {
+      if (frameId === null) frameId = window.requestAnimationFrame(updateScrolledState);
+    };
+
+    updateScrolledState();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (frameId !== null) window.cancelAnimationFrame(frameId);
+    };
+  }, []);
+
   return (
-    <div className="flex min-h-screen w-full flex-col overflow-x-hidden font-sans">
+    <div className="flex min-h-screen w-full flex-col overflow-x-clip font-sans">
 
       {/* ================= TOP CONTACT BAR ================= */}
       <div className="relative z-50 w-full bg-[#1b5e36] py-2.5 text-[12px] text-white md:text-[13px]">
-        {/* Kushoto kimeachwa; kulia kimeongezwa gap kubwa zaidi */}
-        <div className="mx-auto flex w-full max-w-[1440px] items-center justify-between gap-4 pl-12 pr-20 sm:pl-20 sm:pr-32 md:pl-32 md:pr-48 lg:pl-44 lg:pr-72 xl:pl-52 xl:pr-80">
+        <div className="mx-auto flex w-full max-w-[1440px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
           
           {/* Kushoto: Mawasiliano */}
-          <div className="flex min-w-0 items-center gap-4">
-            <a href="tel:+255789922539" className="flex shrink-0 items-center gap-2 whitespace-nowrap hover:text-green-200">
+          <div className="flex min-w-0 flex-1 items-center gap-4">
+            <a href="tel:+255653924851" className="flex shrink-0 items-center gap-2 whitespace-nowrap hover:text-green-200">
               <Phone size={14} />
-              <span>+255 789 922 539</span>
+              <span>+255 653 924 851</span>
             </a>
 
             <span className="hidden text-white/40 sm:inline">|</span>
 
-            <a href="mailto:info@cruisinginzanzibar.co.tz" className="hidden items-center gap-2 whitespace-nowrap hover:text-green-200 sm:flex">
+            <a href="mailto:cruisinginzanzibar@gmail.com" className="hidden items-center gap-2 whitespace-nowrap hover:text-green-200 sm:flex">
               <Mail size={14} />
-              <span>info@cruisinginzanzibar.co.tz</span>
+              <span>cruisinginzanzibar@gmail.com</span>
             </a>
 
             <span className="hidden text-white/40 lg:inline">|</span>
 
-            <span className="hidden items-center gap-2 whitespace-nowrap lg:flex">
+            <a href="https://maps.google.com/?q=Nungwi,Zanzibar,Tanzania" target="_blank" rel="noreferrer" className="hidden items-center gap-2 whitespace-nowrap transition-colors hover:text-green-200 lg:flex">
               <MapPin size={14} />
-              <span>Nungwi Beach, Zanzibar, Tanzania</span>
-            </span>
+              <span>Nungwi, Zanzibar, Tanzania</span>
+            </a>
           </div>
 
           {/* Kulia: Mitandao ya Kijamii na Support */}
           <div className="flex shrink-0 items-center gap-3 md:gap-4">
-            <div className="hidden h-4 items-center gap-3 leading-none sm:flex">
-              <a href="#" aria-label="Facebook" className="flex h-4 w-4 items-center justify-center transition-transform duration-200 hover:scale-105">
+            <div className="hidden h-4 items-center gap-3 leading-none xl:flex">
+              <a href="https://www.facebook.com/cruisinginzanzibartours" target="_blank" rel="noreferrer" aria-label="Facebook" className="flex h-4 w-4 items-center justify-center transition-transform duration-200 hover:scale-105">
                 <svg width="16" height="16" viewBox="0 0 24 24">
                   <circle cx="12" cy="12" r="12" fill="#1877F2" />
                   <path d="M16.7 12.7h-2.9v7h-3.2v-7H8.7v-3h1.9V7.9c0-2.3 1.1-3.7 4-3.7.7 0 1.7.1 2.1.2v2.8h-1.4c-1 0-1.5.5-1.5 1.5v1h2.9l-.5 3z" fill="#fff" />
                 </svg>
               </a>
 
-              <a href="#" aria-label="Instagram" className="flex h-4 w-4 items-center justify-center transition-transform duration-200 hover:scale-105">
+              <a href="https://www.instagram.com/cruising_in_zanzibar_tours_saf/" target="_blank" rel="noreferrer" aria-label="Instagram" className="flex h-4 w-4 items-center justify-center transition-transform duration-200 hover:scale-105">
                 <svg width="16" height="16" viewBox="0 0 24 24">
                   <rect x="2" y="2" width="20" height="20" rx="5.5" fill="#C13584" />
                   <circle cx="12" cy="12" r="4.2" fill="none" stroke="#fff" strokeWidth="2" />
@@ -99,14 +117,14 @@ const HomePage = () => {
                 </svg>
               </a>
 
-              <a href="#" aria-label="YouTube" className="flex h-4 w-4 items-center justify-center transition-transform duration-200 hover:scale-105">
+              <a href="https://www.youtube.com/@cruisinginzanzibar/shorts" target="_blank" rel="noreferrer" aria-label="YouTube" className="flex h-4 w-4 items-center justify-center transition-transform duration-200 hover:scale-105">
                 <svg width="17" height="17" viewBox="0 0 24 24">
                   <rect x="1.5" y="5" width="21" height="14" rx="4" fill="#FF0000" />
                   <path d="M10 9l5 3-5 3V9z" fill="#fff" />
                 </svg>
               </a>
 
-              <a href="#" aria-label="TikTok" className="flex h-4 w-4 items-center justify-center transition-transform duration-200 hover:scale-105">
+              <a href="https://www.tiktok.com/@cruisinginzanzibar" target="_blank" rel="noreferrer" aria-label="TikTok" className="flex h-4 w-4 items-center justify-center transition-transform duration-200 hover:scale-105">
                 <svg width="16" height="16" viewBox="0 0 24 24">
                   <path d="M14.2 3c.2 2.1 1.4 3.4 3.5 3.5v3.1c-1.2.1-2.3-.3-3.5-.8v6.1c0 6.2-6.8 8.1-9.5 3.6-1.7-2.8-.7-7.7 6-8v3.2c-.5.1-1.1.2-1.6.4-1.5.5-2.2 1.7-1.9 3.1.5 2.4 5.1 3.1 4.7-2V3h2.3z" fill="#fff" />
                 </svg>
@@ -141,7 +159,10 @@ const HomePage = () => {
       </div>
 
       {/* ================= MAIN NAVBAR ================= */}
-      <nav className="sticky top-0 z-40 h-[85px] w-full bg-white shadow-sm">
+      <nav
+        className={`sticky top-0 z-40 w-full border-b transition-[height,background-color,border-color,box-shadow,backdrop-filter] duration-300 ease-out ${isScrolled ? 'h-[74px] border-emerald-900/15 shadow-[0_8px_28px_rgba(12,74,48,0.10)]' : 'h-[85px] border-transparent bg-white shadow-sm'}`}
+        style={isScrolled ? { backgroundColor: 'rgba(255, 255, 255, 0.82)', backdropFilter: 'blur(18px)', WebkitBackdropFilter: 'blur(18px)' } : undefined}
+      >
         {/* Kulia kumeongezwa gap kubwa zaidi kuliko kushoto */}
         <div className="mx-auto flex h-full w-full max-w-[1440px] items-center justify-between gap-2 pl-12 pr-20 sm:pl-20 sm:pr-32 md:pl-32 md:pr-48 lg:pl-44 lg:pr-72 xl:pl-52 xl:pr-80">
 
@@ -150,7 +171,7 @@ const HomePage = () => {
             <img
               src={logoT}
               alt="Cruising in Zanzibar Logo"
-              className="h-[66px] w-[66px] rounded-full object-contain sm:h-[70px] sm:w-[70px]"
+              className={`w-[66px] rounded-full object-contain transition-[height] duration-300 sm:w-[70px] ${isScrolled ? 'h-[58px] sm:h-[60px]' : 'h-[66px] sm:h-[70px]'}`}
             />
 
             <div className="ml-3 hidden flex-col justify-center border-l-2 border-gray-200 pl-4 sm:flex">
@@ -165,30 +186,30 @@ const HomePage = () => {
 
           {/* NAVIGATION LINKS */}
           <div className="hidden items-center justify-center gap-2 whitespace-nowrap text-[13px] font-medium text-[#333] lg:flex xl:gap-3.5 xl:text-[14px]">
-            <Link to="/" className="rounded-md bg-[#1b5e36] px-3 py-1.5 text-white transition hover:bg-green-800">
+            <Link to="/" className="group relative rounded-md bg-[#1b5e36] px-3 py-1.5 text-white transition-colors duration-200 after:absolute after:bottom-0 after:left-3 after:h-[2px] after:w-[calc(100%-1.5rem)] after:origin-left after:scale-x-0 after:bg-[#d4af37] after:transition-transform after:duration-300 hover:bg-green-800 hover:after:scale-x-100">
               Home
             </Link>
 
-            <Link to="/about" className="transition hover:text-[#1b5e36]">
+            <Link to="/about" className="group relative transition-colors duration-200 after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-[#2e8b57] after:transition-transform after:duration-300 hover:text-[#1b5e36] hover:after:scale-x-100">
               About Us
             </Link>
 
-            <Link to="/card-tour" onClick={closeMobileMenu} className="flex cursor-pointer items-center gap-1 transition hover:text-[#1b5e36]">
+            <Link to="/card-tour" onClick={closeMobileMenu} className="group relative flex cursor-pointer items-center gap-1 transition-colors duration-200 after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-[#2e8b57] after:transition-transform after:duration-300 hover:text-[#1b5e36] hover:after:scale-x-100">
               Zanzibar Tours
               <ChevronRight size={14} className="rotate-90" />
             </Link>
 
-            <div className="flex cursor-pointer items-center gap-1 transition hover:text-[#1b5e36]">
+            <Link to="/packages" className="group relative flex items-center gap-1 transition-colors duration-200 after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-[#2e8b57] after:transition-transform after:duration-300 hover:text-[#1b5e36] hover:after:scale-x-100">
               Experience Safaris
               <ChevronRight size={14} className="rotate-90" />
-            </div>
+            </Link>
 
-            <div className="flex cursor-pointer items-center gap-1 transition hover:text-[#1b5e36]">
+            <div className="group relative flex cursor-pointer items-center gap-1 transition-colors duration-200 after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-[#2e8b57] after:transition-transform after:duration-300 hover:text-[#1b5e36] hover:after:scale-x-100">
               Destinations
               <ChevronRight size={14} className="rotate-90" />
             </div>
 
-            <Link to="/contact" className="transition hover:text-[#1b5e36]">
+            <Link to="/contact" className="group relative transition-colors duration-200 after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-[#2e8b57] after:transition-transform after:duration-300 hover:text-[#1b5e36] hover:after:scale-x-100">
               Contact
             </Link>
           </div>
@@ -205,13 +226,13 @@ const HomePage = () => {
               <span>WhatsApp</span>
             </a>
 
-            <Link
-              to="/contact"
+            <a
+              href="mailto:cruisinginzanzibar@gmail.com?subject=Tour%20or%20Safari%20Quote%20Request"
               className="flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full bg-[#1a365d] px-3 py-1.5 text-[12px] font-semibold text-white transition hover:bg-blue-900 xl:px-3.5 xl:text-[12.5px]"
             >
               <Mail size={14} />
               <span>Request Quote</span>
-            </Link>
+            </a>
           </div>
 
           {/* MOBILE MENU BUTTON */}
@@ -233,7 +254,7 @@ const HomePage = () => {
               <Link to="/" onClick={closeMobileMenu}>Home</Link>
               <Link to="/about" onClick={closeMobileMenu}>About Us</Link>
               <Link to="/card-tour" onClick={closeMobileMenu}>Zanzibar Tours</Link>
-              <span>Experience Safaris</span>
+              <Link to="/packages" onClick={closeMobileMenu}>Experience Safaris</Link>
               <span>Destinations</span>
               <Link to="/contact" onClick={closeMobileMenu}>Contact</Link>
 
@@ -247,14 +268,14 @@ const HomePage = () => {
                 WhatsApp
               </a>
 
-              <Link
-                to="/contact"
+              <a
+                href="mailto:cruisinginzanzibar@gmail.com?subject=Tour%20or%20Safari%20Quote%20Request"
                 onClick={closeMobileMenu}
                 className="flex items-center justify-center gap-2 rounded-full bg-[#1a365d] px-4 py-3 text-white"
               >
                 <Mail size={17} />
                 Request Quote
-              </Link>
+              </a>
             </div>
           </div>
         )}
@@ -381,7 +402,7 @@ const HomePage = () => {
       </section>
 
       {/* ================= TOUR CARDS SECTION ================= */}
-      <CardTour showHero={false} />
+      <CardTour showHero={false} showAll={false} />
 
       {/* ================= SAFARI PACKAGES SECTION ================= */}
       <Packages showHero={false} />
@@ -389,11 +410,11 @@ const HomePage = () => {
       {/* ================= FULL PACKAGE SECTION ================= */}
       <FullPackage />
 
-      {/* ================= WHY US SECTION ================= */}
-      <WhyUs />
-
       {/* ================= DESTINATION SECTION ================= */}
       <Destination showHero={false} />
+
+      {/* ================= WHY US SECTION ================= */}
+      <WhyUs />
 
       {/* ================= GUESTS SAY SECTION ================= */}
       <GuestsSay />

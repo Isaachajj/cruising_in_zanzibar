@@ -1,10 +1,12 @@
 // src/pages/FullPackageDetails.jsx
-import React, { useState, useEffect, useRef } from 'react';
+import { useCallback, useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import BookingReceipt from '../Components/BookingReceipt';
+import { createBookingReference, formatBookingReceiptMessage } from '../Components/bookingReceiptUtils';
 import { 
   ChevronLeft, ChevronRight, Play, Pause, MapPin, Clock, Star, 
-  ArrowLeft, CheckCircle2, XCircle, MessageCircle, CalendarDays, 
-  Users, Camera, Ship, Waves, Sun, Landmark, Utensils, Info, Store
+  ArrowLeft, CheckCircle2, XCircle, CalendarDays,
+  Users, Camera, Ship, Waves, Sun, Landmark, Utensils, Info, Store, User, Mail, Phone
 } from 'lucide-react';
 
 // ==========================================
@@ -168,20 +170,26 @@ const FullPackageDetails = () => {
     adults: 1,
     children: 0,
     pickup: '',
-    requests: ''
+    requests: '',
+    fullName: '',
+    email: '',
+    phone: ''
   });
+  const [bookingReference] = useState(() => createBookingReference());
+  const [receiptOpen, setReceiptOpen] = useState(false);
+  const bookingFormRef = useRef(null);
 
   const totalSlides = trip.destinations.length;
   const currentDestination = trip.destinations[currentIndex];
   const heroImages = trip.heroImages || [];
 
   // Slideshow logic
-  const nextSlide = () => setCurrentIndex((prev) => (prev + 1) % totalSlides);
-  const prevSlide = () => setCurrentIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
+  const nextSlide = useCallback(() => setCurrentIndex((prev) => (prev + 1) % totalSlides), [totalSlides]);
+  const prevSlide = useCallback(() => setCurrentIndex((prev) => (prev - 1 + totalSlides) % totalSlides), [totalSlides]);
 
   // Hero Slider logic
-  const nextHero = () => setHeroIndex((prev) => (prev + 1) % heroImages.length);
-  const prevHero = () => setHeroIndex((prev) => (prev - 1 + heroImages.length) % heroImages.length);
+  const nextHero = useCallback(() => setHeroIndex((prev) => (prev + 1) % heroImages.length), [heroImages.length]);
+  const prevHero = useCallback(() => setHeroIndex((prev) => (prev - 1 + heroImages.length) % heroImages.length), [heroImages.length]);
 
   useEffect(() => {
     if (isPlaying) {
@@ -190,29 +198,62 @@ const FullPackageDetails = () => {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [isPlaying, currentIndex]);
+  }, [isPlaying, nextSlide]);
 
   // Hero Slider Auto-play
   useEffect(() => {
     const heroTimer = setInterval(nextHero, 6000);
     return () => clearInterval(heroTimer);
-  }, [heroIndex]);
+  }, [nextHero]);
 
   const goToSlide = (index) => {
     setCurrentIndex(index);
     setIsPlaying(false);
   };
 
-  const whatsappNumber = '255789922539';
-  const message = encodeURIComponent(
-    `Hello! I want to book the "${trip.title}" Full-Day Trip.\n\n` +
-    `📅 Date: ${formData.date || 'Not set'}\n` +
-    `👨‍👩‍👧‍👦 Guests: ${formData.adults} Adult(s), ${formData.children} Child(ren)\n` +
-    `📍 Pickup: ${formData.pickup || 'Not set'}\n` +
-    `📝 Requests: ${formData.requests || 'None'}\n\n` +
-    `Please confirm availability and price.`
-  );
-  const waLink = `https://wa.me/${whatsappNumber}?text=${message}`;
+  const whatsappNumber = '255653924851';
+  const adultCount = Number(formData.adults) || 0;
+  const childCount = Number(formData.children) || 0;
+  const receiptData = {
+    reference: bookingReference,
+    bookingDate: new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' }).format(new Date()),
+    category: 'Full-Day Trip',
+    productName: trip.title,
+    duration: trip.duration,
+    destination: [...new Set(trip.destinations.map((destination) => destination.location))].join(' · '),
+    travelDate: formData.date || 'Flexible / To be confirmed',
+    travelers: `${adultCount} adult(s), ${childCount} child(ren)`,
+    adults: adultCount,
+    children: childCount,
+    pricePerPerson: trip.price,
+    pricePerPersonLabel: 'Starting price per person',
+    totalEstimated: childCount === 0 ? trip.price * adultCount : null,
+    totalLabel: childCount === 0 ? 'Estimated starting total' : 'Total with child pricing',
+    customer: {
+      fullName: formData.fullName,
+      email: formData.email,
+      phone: formData.phone,
+      pickup: formData.pickup || 'Not provided',
+      requests: formData.requests || 'None'
+    }
+  };
+
+  const handleReviewBooking = (event) => {
+    event.preventDefault();
+    if (!bookingFormRef.current?.reportValidity()) return;
+    setReceiptOpen(true);
+  };
+
+  const handleWhatsAppBooking = () => {
+    const message = encodeURIComponent(formatBookingReceiptMessage(receiptData));
+    window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank', 'noopener,noreferrer');
+  };
+
+  const handleEmailQuote = () => {
+    const subject = encodeURIComponent(`Booking Request ${bookingReference} – ${trip.title}`);
+    const body = encodeURIComponent(formatBookingReceiptMessage(receiptData));
+    window.location.href = `mailto:cruisinginzanzibar@gmail.com?subject=${subject}&body=${body}`;
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -306,7 +347,7 @@ const FullPackageDetails = () => {
               <h2 className="text-xl font-bold" style={{ fontFamily: "'Playfair Display', serif" }}>Book Your Adventure</h2>
             </div>
 
-            <div className="space-y-4">
+            <form ref={bookingFormRef} onSubmit={handleReviewBooking} className="space-y-4">
               <div>
                 <label className="block text-xs font-semibold mb-1 text-gray-300">Travel Date</label>
                 <input type="date" name="date" value={formData.date} onChange={handleInputChange} className="w-full bg-white/10 border border-white/20 rounded-lg p-2.5 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-[#F5B91B]" />
@@ -315,17 +356,30 @@ const FullPackageDetails = () => {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-semibold mb-1 text-gray-300">Adults</label>
-                  <input type="number" min="1" name="adults" value={formData.adults} onChange={handleInputChange} className="w-full bg-white/10 border border-white/20 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-[#F5B91B]" />
+                  <input required type="number" min="1" name="adults" value={formData.adults} onChange={handleInputChange} className="w-full bg-white/10 border border-white/20 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-[#F5B91B]" />
                 </div>
                 <div>
                   <label className="block text-xs font-semibold mb-1 text-gray-300">Children</label>
-                  <input type="number" min="0" name="children" value={formData.children} onChange={handleInputChange} className="w-full bg-white/10 border border-white/20 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-[#F5B91B]" />
+                  <input required type="number" min="0" name="children" value={formData.children} onChange={handleInputChange} className="w-full bg-white/10 border border-white/20 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-[#F5B91B]" />
                 </div>
               </div>
 
               <div>
                 <label className="block text-xs font-semibold mb-1 text-gray-300">Pickup Location</label>
                 <input type="text" name="pickup" placeholder="Your hotel name..." value={formData.pickup} onChange={handleInputChange} className="w-full bg-white/10 border border-white/20 rounded-lg p-2.5 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-[#F5B91B]" />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold mb-1 text-gray-300">Full Name *</label>
+                <div className="relative"><User size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/50" /><input required autoComplete="name" type="text" name="fullName" placeholder="Your full name" value={formData.fullName} onChange={handleInputChange} className="w-full rounded-lg border border-white/20 bg-white/10 p-2.5 pl-9 text-sm text-white placeholder-gray-400 focus:border-[#F5B91B] focus:outline-none" /></div>
+              </div>
+              <div>
+                <label className="block text-xs font-semibold mb-1 text-gray-300">Email Address *</label>
+                <div className="relative"><Mail size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/50" /><input required autoComplete="email" type="email" name="email" placeholder="you@example.com" value={formData.email} onChange={handleInputChange} className="w-full rounded-lg border border-white/20 bg-white/10 p-2.5 pl-9 text-sm text-white placeholder-gray-400 focus:border-[#F5B91B] focus:outline-none" /></div>
+              </div>
+              <div>
+                <label className="block text-xs font-semibold mb-1 text-gray-300">WhatsApp / Phone *</label>
+                <div className="relative"><Phone size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/50" /><input required autoComplete="tel" type="tel" name="phone" placeholder="+255..." value={formData.phone} onChange={handleInputChange} className="w-full rounded-lg border border-white/20 bg-white/10 p-2.5 pl-9 text-sm text-white placeholder-gray-400 focus:border-[#F5B91B] focus:outline-none" /></div>
               </div>
 
               <div>
@@ -339,15 +393,14 @@ const FullPackageDetails = () => {
                 <span className="text-xs text-gray-300"> per person</span>
               </div>
 
-              <a href={waLink} target="_blank" rel="noreferrer" className="w-full flex items-center justify-center gap-2 bg-[#25D366] text-white font-bold py-3 rounded-full hover:bg-[#1eb954] transition shadow-md">
-                <MessageCircle size={18} />
-                Book via WhatsApp
-              </a>
+              <button type="submit" className="w-full flex items-center justify-center gap-2 bg-[#087443] text-white font-bold py-3 rounded-full hover:bg-green-800 transition shadow-md">
+                <CheckCircle2 size={18} /> Review Booking Receipt
+              </button>
               
               <div className="text-center text-[10px] text-gray-400 mt-2 flex items-center justify-center gap-1">
                 <CheckCircle2 size={12} /> Secure & Easy Booking
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
@@ -487,6 +540,7 @@ const FullPackageDetails = () => {
           </div>
         </div>
       )}
+      <BookingReceipt open={receiptOpen} receipt={receiptData} onClose={() => setReceiptOpen(false)} onWhatsApp={handleWhatsAppBooking} onEmail={handleEmailQuote} />
     </div>
   );
 };

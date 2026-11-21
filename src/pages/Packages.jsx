@@ -16,7 +16,7 @@ const safariPackages = [
     badgeColor: 'bg-[#F5B91B]', // Golden Yellow
     badgeTextColor: 'text-gray-900',
     duration: '4 Days / 3 Nights',
-    image: '/Trip/jozani.jpg', // Lion
+    image: 'https://images.unsplash.com/photo-1546182990-dffeafbe841d?q=80&w=900&auto=format&fit=crop',
     price: '1,450',
     title: 'Serengeti Classic Migration Safari',
     description: 'Witness the Great Migration in Serengeti with millions of wildebeest, zebra and luxury tented camps.',
@@ -30,7 +30,7 @@ const safariPackages = [
     badgeColor: 'bg-green-600',
     badgeTextColor: 'text-white',
     duration: '9 Days / 8 Nights',
-    image: '/Trip/kizimkazi.jpg', // Zebras
+    image: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=900&auto=format&fit=crop',
     price: '3,850',
     title: 'Ultimate Tanzania Grand Safari',
     description: 'Explore Tarangire, Serengeti, Ngorongoro & Lake Natron on this ultimate 9-day adventure.',
@@ -44,7 +44,7 @@ const safariPackages = [
     badgeColor: 'bg-[#04A9E8]', // Ocean Blue
     badgeTextColor: 'text-white',
     duration: '4 Days / 3 Nights',
-    image: '/Trip/mnemba.jpeg', // Giraffe
+    image: 'https://images.unsplash.com/photo-1534567153574-2b12153a87f0?q=80&w=900&auto=format&fit=crop',
     price: '1,350',
     title: 'Serengeti & Ngorongoro Crater Safari',
     description: 'Two icons in one safari – Serengeti plains and Ngorongoro Crater with the Big Five.',
@@ -58,7 +58,7 @@ const safariPackages = [
     badgeColor: 'bg-[#F5B91B]',
     badgeTextColor: 'text-gray-900',
     duration: '6 Days / 5 Nights',
-    image: '/Trip/paje.jpeg', // Wildebeest
+    image: 'https://images.unsplash.com/photo-1521651201144-634f700b36ef?q=80&w=900&auto=format&fit=crop',
     price: '2,250',
     title: 'Classic Tanzania Northern Circuit Safari',
     description: 'Tarangire, Manyara, Serengeti, and Ngorongoro in one epic 6-day journey.',
@@ -72,7 +72,7 @@ const safariPackages = [
     badgeColor: 'bg-rose-500',
     badgeTextColor: 'text-white',
     duration: '3 Days / 2 Nights',
-    image: '/Trip/safari blue.jpeg', // Sunset Acacia
+    image: 'https://images.unsplash.com/photo-1519066629447-267fffa62d4b?q=80&w=900&auto=format&fit=crop',
     price: '980',
     title: 'Ngorongoro Highlands & Crater Safari',
     description: '3-day Ngorongoro adventure with crater game drive, rim walk, and authentic Maasai cultural experience.',
@@ -86,13 +86,69 @@ const safariPackages = [
     badgeColor: 'bg-teal-500',
     badgeTextColor: 'text-white',
     duration: '6 Days / 5 Nights',
-    image: '/Trip/kendwa.jpeg', // Leopard
+    image: 'https://images.unsplash.com/photo-1456926631375-92c8ce872def?q=80&w=900&auto=format&fit=crop',
     price: '2,650',
     title: 'Serengeti Deep Wilderness Safari',
     description: 'Deep Serengeti immersion – 6 days exploring remote areas, walking safaris, and authentic bush camping.',
     tags: ['Remote Serengeti areas', 'Walking safari'],
     rating: 5.0,
     reviews: 156
+  },
+  {
+    id: 7,
+    badge: 'ELEPHANT COUNTRY',
+    badgeColor: 'bg-amber-700',
+    badgeTextColor: 'text-white',
+    duration: '3 Days / 2 Nights',
+    image: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=900&auto=format&fit=crop',
+    price: '890',
+    title: 'Tarangire Elephants & Baobabs Safari',
+    description: 'Explore Tarangire’s baobab-dotted savannah and follow its large elephant herds on guided game drives.',
+    tags: ['Tarangire National Park', 'Elephants & baobabs'],
+    rating: 4.9,
+    reviews: 143
+  },
+  {
+    id: 8,
+    badge: 'SCENIC ESCAPE',
+    badgeColor: 'bg-sky-700',
+    badgeTextColor: 'text-white',
+    duration: '3 Days / 2 Nights',
+    image: 'https://images.unsplash.com/photo-1534567153574-2b12153a87f0?q=80&w=900&auto=format&fit=crop',
+    price: '920',
+    title: 'Lake Manyara Wildlife Safari',
+    description: 'Discover Lake Manyara’s forest and lakeshore, with chances to spot tree-climbing lions and flamingos.',
+    tags: ['Tree-climbing lions', 'Rift Valley scenery'],
+    rating: 4.8,
+    reviews: 118
+  },
+  {
+    id: 9,
+    badge: 'FROM ZANZIBAR',
+    badgeColor: 'bg-teal-700',
+    badgeTextColor: 'text-white',
+    duration: '2 Days / 1 Night',
+    image: 'https://images.unsplash.com/photo-1456926631375-92c8ce872def?q=80&w=900&auto=format&fit=crop',
+    price: '780',
+    title: 'Mikumi Short Safari from Zanzibar',
+    description: 'Take a quick flight from Zanzibar for game drives across Mikumi’s open plains and wildlife-rich waterholes.',
+    tags: ['Flight from Zanzibar', 'Mikumi game drives'],
+    rating: 4.9,
+    reviews: 96
+  },
+  {
+    id: 10,
+    badge: 'HIKING & NATURE',
+    badgeColor: 'bg-emerald-700',
+    badgeTextColor: 'text-white',
+    duration: '3 Days / 2 Nights',
+    image: 'https://images.unsplash.com/photo-1521651201144-634f700b36ef?q=80&w=900&auto=format&fit=crop',
+    price: '1,050',
+    title: 'Udzungwa Waterfalls & Forest Trek',
+    description: 'Hike through lush mountain forest to scenic waterfalls and look for Udzungwa’s endemic primates.',
+    tags: ['Waterfall hikes', 'Endemic primates'],
+    rating: 4.8,
+    reviews: 74
   }
 ];
 
@@ -236,7 +292,7 @@ const Packages = ({ showHero = true }) => {
         {/* ================= VIEW ALL BUTTON ================= */}
         <div className="text-center mt-16">
           <Link 
-            to="/safaris" 
+            to="/packages"
             className="inline-flex items-center gap-2 bg-[#087443] text-white font-bold px-8 py-4 rounded-full hover:bg-green-800 transition-all duration-300 shadow-lg shadow-green-900/20"
           >
             <Map size={18} />
@@ -246,6 +302,52 @@ const Packages = ({ showHero = true }) => {
         </div>
 
       </div>
+
+      {/* ================= SAFARI DESTINATIONS ================= */}
+      <section className="relative overflow-hidden bg-white py-16 md:py-20">
+        <div className="relative mx-auto max-w-[1440px] px-6 md:px-12">
+          <div className="mb-12 text-center" data-safari-reveal="up">
+            <span className="inline-flex items-center gap-2 rounded-full bg-[#087443]/10 px-4 py-2 text-xs font-bold tracking-[3px] text-[#087443]">
+              <Map size={15} /> SAFARI DESTINATIONS
+            </span>
+            <h2 className="mt-5 text-3xl font-bold text-[#10243A] md:text-5xl" style={{ fontFamily: "'Playfair Display', serif" }}>
+              Where We Take You
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-base text-gray-600 md:text-lg">
+              Explore Tanzania&apos;s most iconic national parks and reserves
+            </p>
+            <div className="mx-auto mt-6 h-1 w-20 rounded-full bg-[#087443]" />
+          </div>
+
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { name: 'Serengeti', description: 'Witness the Great Migration & Big Five', icon: '🦁', image: 'https://images.unsplash.com/photo-1546182990-dffeafbe841d?q=80&w=900&auto=format&fit=crop', packageId: 1 },
+              { name: 'Ngorongoro', description: 'World’s largest intact caldera', icon: '🌋', image: 'https://images.unsplash.com/photo-1519066629447-267fffa62d4b?q=80&w=900&auto=format&fit=crop', packageId: 5 },
+              { name: 'Tarangire', description: 'Massive elephant herds & baobabs', icon: '🐘', image: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=900&auto=format&fit=crop', packageId: 7 },
+              { name: 'Lake Manyara', description: 'Tree-climbing lions & flamingos', icon: '🦩', image: 'https://images.unsplash.com/photo-1534567153574-2b12153a87f0?q=80&w=900&auto=format&fit=crop', packageId: 8 },
+              { name: 'Mikumi', description: 'Perfect short safari from Zanzibar', icon: '🦒', image: 'https://images.unsplash.com/photo-1456926631375-92c8ce872def?q=80&w=900&auto=format&fit=crop', packageId: 9 },
+              { name: 'Udzungwa', description: 'Hiking, waterfalls & endemic primates', icon: '🌿', image: 'https://images.unsplash.com/photo-1521651201144-634f700b36ef?q=80&w=900&auto=format&fit=crop', packageId: 10 }
+            ].map((destination, index) => (
+              <Link
+                key={destination.name}
+                to={`/safari/${destination.packageId}`}
+                className="group relative h-[280px] overflow-hidden rounded-2xl border border-white/10 shadow-xl transition duration-500 hover:-translate-y-2 hover:shadow-2xl"
+                data-safari-reveal="up"
+                data-delay={(index % 6) + 1}
+              >
+                <img src={destination.image} alt={`${destination.name} safari`} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#081522]/95 via-[#081522]/35 to-transparent transition-colors group-hover:from-[#081522]/90" />
+                <span className="absolute left-5 top-5 flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-black/25 text-2xl backdrop-blur-sm" aria-hidden="true">{destination.icon}</span>
+                <div className="absolute inset-x-0 bottom-0 p-6 text-white">
+                  <h3 className="text-2xl font-bold" style={{ fontFamily: "'Playfair Display', serif" }}>{destination.name}</h3>
+                  <p className="mt-2 text-sm text-white/80">{destination.description}</p>
+                  <span className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#F5B91B]">Explore destination <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" /></span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
       </section>
     </>
   );

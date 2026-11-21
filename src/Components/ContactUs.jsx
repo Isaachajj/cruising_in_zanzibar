@@ -35,8 +35,8 @@ const ContactUs = () => {
     message: ''
   });
 
-  const WHATSAPP_NUMBER = '255789922539';
-  const BUSINESS_EMAIL = 'info@cruisinginzanzibar.co.tz';
+  const WHATSAPP_NUMBER = '255653924851';
+  const BUSINESS_EMAIL = 'cruisinginzanzibar@gmail.com';
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -252,8 +252,8 @@ ${formData.message}`;
               icon: <Phone size={26} />,
               title: 'Call Us',
               detail: 'Speak directly with our team',
-              value: '+255 789 922 539',
-              href: 'tel:+255789922539'
+              value: '+255 653 924 851',
+              href: 'tel:+255653924851'
             },
             {
               icon: <Mail size={26} />,
