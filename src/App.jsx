@@ -12,14 +12,16 @@ import ContactUs from './Components/ContactUs';
 import SiteLayout from './Components/SiteLayout';
 import TourDetails from './Components/TourDetails';
 import SafariPackages from './Components/SafariPackages';
+import { LanguageProvider } from './i18n/LanguageContext';
 // Baadae uta-import kurasa zingine hapa kama:
 // import ZanzibarTours from './pages/ZanzibarTours';
 
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-gray-50 font-sans">
-        <Routes>
+      <LanguageProvider>
+        <div className="min-h-screen bg-gray-50 font-sans">
+          <Routes>
           {/* Ukurasa wa mwanzo kabisa */}
           <Route path="/" element={<HomePage />} />
           <Route path="/card-tour" element={<SiteLayout><CardTour /></SiteLayout>} />
@@ -34,8 +36,9 @@ function App() {
           <Route path="/full-day-trip/:id" element={<SiteLayout><FullPackageDetails /></SiteLayout>} />
           {/* Hapa baadae tutaongeza kurasa zingine kulingana na picha ulizotuma */}
           {/* <Route path="/zanzibar-tours" element={<ZanzibarTours />} /> */}
-        </Routes>
-      </div>
+          </Routes>
+        </div>
+      </LanguageProvider>
     </Router>
   );
 }

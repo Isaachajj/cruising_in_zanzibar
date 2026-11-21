@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { ArrowLeft, CalendarDays, CheckCircle2, Clock3, Mail, MapPin, MessageCircle, ShieldCheck, UserRound, Users } from 'lucide-react';
 import logoT from '../assets/LogoT.jpeg';
 import { formatBookingCurrency } from './bookingReceiptUtils';
+import { useLanguage } from '../i18n/LanguageContext';
 
 const ReceiptRow = ({ icon: Icon, label, value }) => (
   <div className="flex items-start gap-3 border-b border-gray-100 py-3 last:border-0">
@@ -14,6 +15,7 @@ const ReceiptRow = ({ icon: Icon, label, value }) => (
 );
 
 const BookingReceipt = ({ open, receipt, onClose, onWhatsApp, onEmail }) => {
+  const { language } = useLanguage();
   useEffect(() => {
     if (!open) return undefined;
     const previousOverflow = document.body.style.overflow;
@@ -83,10 +85,10 @@ const BookingReceipt = ({ open, receipt, onClose, onWhatsApp, onEmail }) => {
 
           <section className="mt-4 rounded-2xl border border-emerald-100 bg-emerald-50/70 p-4 sm:p-5">
             <h3 className="text-xs font-extrabold uppercase tracking-[1.5px] text-[#087443]">Price summary</h3>
-            <div className="mt-3 flex items-center justify-between gap-4 text-sm text-gray-600"><span>{receipt.pricePerPersonLabel || 'Price per person'}</span><span className="font-semibold text-[#10243A]">{formatBookingCurrency(receipt.pricePerPerson)}</span></div>
+            <div className="mt-3 flex items-center justify-between gap-4 text-sm text-gray-600"><span>{receipt.pricePerPersonLabel || 'Price per person'}</span><span className="font-semibold text-[#10243A]">{formatBookingCurrency(receipt.pricePerPerson, language)}</span></div>
             <div className="mt-2 flex items-end justify-between gap-4 border-t border-emerald-100 pt-3">
               <div><p className="text-sm font-bold text-[#10243A]">{receipt.totalLabel || 'Estimated total'}</p><p className="mt-1 text-[10px] leading-4 text-gray-500">Final price and availability are confirmed by our team.</p></div>
-              <p className="text-2xl font-extrabold text-[#087443]">{formatBookingCurrency(receipt.totalEstimated)}</p>
+              <p className="text-2xl font-extrabold text-[#087443]">{formatBookingCurrency(receipt.totalEstimated, language)}</p>
             </div>
           </section>
 

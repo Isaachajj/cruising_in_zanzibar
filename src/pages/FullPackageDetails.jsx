@@ -3,6 +3,7 @@ import { useCallback, useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import BookingReceipt from '../Components/BookingReceipt';
 import { createBookingReference, formatBookingReceiptMessage } from '../Components/bookingReceiptUtils';
+import { useLanguage, translatePhrase } from '../i18n/LanguageContext';
 import { 
   ChevronLeft, ChevronRight, Play, Pause, MapPin, Clock, Star, 
   ArrowLeft, CheckCircle2, XCircle, CalendarDays,
@@ -153,6 +154,7 @@ const allTripsData = {
 // 2. COMPONENT KUU (FullPackageDetails)
 // ==========================================
 const FullPackageDetails = () => {
+  const { language } = useLanguage();
   const { id } = useParams();
   const trip = allTripsData[id] || allTripsData['mnemba-stone-town-forodhani'];
 
@@ -216,7 +218,7 @@ const FullPackageDetails = () => {
   const childCount = Number(formData.children) || 0;
   const receiptData = {
     reference: bookingReference,
-    bookingDate: new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' }).format(new Date()),
+    bookingDate: new Intl.DateTimeFormat(language === 'ru' ? 'ru-RU' : language === 'fr' ? 'fr-FR' : language === 'de' ? 'de-DE' : language === 'it' ? 'it-IT' : 'en-GB', { dateStyle: 'medium' }).format(new Date()),
     category: 'Full-Day Trip',
     productName: trip.title,
     duration: trip.duration,
@@ -245,13 +247,14 @@ const FullPackageDetails = () => {
   };
 
   const handleWhatsAppBooking = () => {
-    const message = encodeURIComponent(formatBookingReceiptMessage(receiptData));
+    const message = encodeURIComponent(formatBookingReceiptMessage(receiptData, language));
     window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank', 'noopener,noreferrer');
   };
 
   const handleEmailQuote = () => {
-    const subject = encodeURIComponent(`Booking Request ${bookingReference} – ${trip.title}`);
-    const body = encodeURIComponent(formatBookingReceiptMessage(receiptData));
+    const subjectLabel = language === 'ru' ? 'Запрос на бронирование' : language === 'fr' ? 'Demande de réservation' : language === 'de' ? 'Buchungsanfrage' : language === 'it' ? 'Richiesta di prenotazione' : 'Booking Request';
+    const subject = encodeURIComponent(`${subjectLabel} ${bookingReference} – ${language === 'en' ? trip.title : translatePhrase(trip.title, language)}`);
+    const body = encodeURIComponent(formatBookingReceiptMessage(receiptData, language));
     window.location.href = `mailto:cruisinginzanzibar@gmail.com?subject=${subject}&body=${body}`;
   };
 

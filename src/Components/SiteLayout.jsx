@@ -6,13 +6,14 @@ import {
 } from 'lucide-react';
 import logoT from '../assets/LogoT.jpeg';
 import Footer from '../pages/Footer';
+import { useLanguage } from '../i18n/LanguageContext';
 
 const WHATSAPP_URL = 'https://wa.me/255653924851';
 
 export const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [language, setLanguage] = useState('English');
+  const { language, setLanguage } = useLanguage();
   const location = useLocation();
   const isActive = (path) => location.pathname === path;
 
@@ -72,11 +73,11 @@ export const Navbar = () => {
                 aria-label="Choose language"
                 className="cursor-pointer border-0 bg-transparent py-1 text-[12px] font-medium text-white outline-none md:text-[13px] [&>option]:text-gray-900"
               >
-                <option>English</option>
-                <option>French</option>
-                <option>Italian</option>
-                <option>German</option>
-                <option>Russian</option>
+                <option value="en">🇬🇧 English</option>
+                <option value="ru">🇷🇺 Russian</option>
+                <option value="fr">🇫🇷 Français</option>
+                <option value="de">🇩🇪 Deutsch</option>
+                <option value="it">🇮🇹 Italiano</option>
               </select>
             </div>
             <span className="text-white/40">|</span>
@@ -88,7 +89,7 @@ export const Navbar = () => {
         className={`sticky top-0 z-40 w-full border-b transition-[height,background-color,border-color,box-shadow,backdrop-filter] duration-300 ease-out ${isScrolled ? 'h-[74px] border-emerald-900/15 shadow-[0_8px_28px_rgba(12,74,48,0.10)]' : 'h-[85px] border-transparent bg-white shadow-sm'}`}
         style={isScrolled ? { backgroundColor: 'rgba(255, 255, 255, 0.82)', backdropFilter: 'blur(18px)', WebkitBackdropFilter: 'blur(18px)' } : undefined}
       >
-        <div className="mx-auto flex h-full w-full max-w-[1440px] items-center justify-between gap-2 pl-12 pr-20 sm:pl-20 sm:pr-32 md:pl-32 md:pr-48 lg:pl-44 lg:pr-72 xl:pl-52 xl:pr-80">
+        <div className="mx-auto flex h-full w-full max-w-[1440px] items-center justify-between gap-2 pl-12 pr-20 sm:pl-20 sm:pr-32 md:pl-32 md:pr-48 lg:pl-44 lg:pr-72 xl:pl-52 xl:pr-80 max-[1600px]:!px-6">
           <Link to="/" onClick={closeMobileMenu} className="flex shrink-0 items-center">
             <img src={logoT} alt="Cruising in Zanzibar Logo" className={`w-[66px] rounded-full object-contain transition-[height] duration-300 sm:w-[70px] ${isScrolled ? 'h-[58px] sm:h-[60px]' : 'h-[66px] sm:h-[70px]'}`} />
             <div className="ml-3 hidden flex-col justify-center border-l-2 border-gray-200 pl-4 sm:flex">

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import BookingReceipt from './BookingReceipt';
 import { createBookingReference, formatBookingReceiptMessage } from './bookingReceiptUtils';
+import { useLanguage, translatePhrase } from '../i18n/LanguageContext';
 import { 
   Search, MapPin, Star, Users, CheckCircle2,
   PawPrint, ShieldCheck, Headset, Gem,
@@ -124,6 +125,7 @@ const SAFARI_BOOKING_WHATSAPP = '255653924851';
 // 2. COMPONENT KUU
 // ==========================================
 const SafariPackages = () => {
+  const { language } = useLanguage();
   const { id } = useParams();
   const [activeCategory, setActiveCategory] = useState(id || '1');
   const tour = safariData[id || activeCategory] || safariData['1'];
@@ -148,7 +150,7 @@ const SafariPackages = () => {
   const travelerCount = bookingData.travelers === '5+ People' ? null : Number.parseInt(bookingData.travelers, 10);
   const receiptData = {
     reference: bookingReference,
-    bookingDate: new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' }).format(new Date()),
+    bookingDate: new Intl.DateTimeFormat(language === 'ru' ? 'ru-RU' : language === 'fr' ? 'fr-FR' : language === 'de' ? 'de-DE' : language === 'it' ? 'it-IT' : 'en-GB', { dateStyle: 'medium' }).format(new Date()),
     category: 'Tanzania Safari',
     productName: tour.title,
     duration: tour.duration,
@@ -174,13 +176,14 @@ const SafariPackages = () => {
   };
 
   const handleWhatsAppBooking = () => {
-    const message = encodeURIComponent(formatBookingReceiptMessage(receiptData));
+    const message = encodeURIComponent(formatBookingReceiptMessage(receiptData, language));
     window.open(`https://wa.me/${SAFARI_BOOKING_WHATSAPP}?text=${message}`, '_blank', 'noopener,noreferrer');
   };
 
   const handleEmailQuote = () => {
-    const subject = encodeURIComponent(`Booking Request ${bookingReference} – ${tour.title}`);
-    const body = encodeURIComponent(formatBookingReceiptMessage(receiptData));
+    const subjectLabel = language === 'ru' ? 'Запрос на бронирование' : language === 'fr' ? 'Demande de réservation' : language === 'de' ? 'Buchungsanfrage' : language === 'it' ? 'Richiesta di prenotazione' : 'Booking Request';
+    const subject = encodeURIComponent(`${subjectLabel} ${bookingReference} – ${language === 'en' ? tour.title : translatePhrase(tour.title, language)}`);
+    const body = encodeURIComponent(formatBookingReceiptMessage(receiptData, language));
     window.location.href = `mailto:cruisinginzanzibar@gmail.com?subject=${subject}&body=${body}`;
   };
 
@@ -443,11 +446,11 @@ const SafariPackages = () => {
                   <label htmlFor="safari-travelers" className="mb-1 ml-1 block text-xs font-bold text-[#10243A]">Travelers</label>
                   <div className="relative">
                     <select id="safari-travelers" name="travelers" value={bookingData.travelers} onChange={handleBookingChange} className="w-full appearance-none rounded-xl border border-gray-200 bg-white py-3 pl-10 pr-4 text-sm focus:border-[#087443] focus:outline-none focus:ring-4 focus:ring-green-100">
-                      <option>1 Person</option>
-                      <option>2 People</option>
-                      <option>3 People</option>
-                      <option>4 People</option>
-                      <option>5+ People</option>
+                      <option value="1 Person">1 Person</option>
+                      <option value="2 People">2 People</option>
+                      <option value="3 People">3 People</option>
+                      <option value="4 People">4 People</option>
+                      <option value="5+ People">5+ People</option>
                     </select>
                     <Users size={17} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
                   </div>

@@ -8,6 +8,31 @@ import {
 } from 'lucide-react';
 import logoT from '../assets/LogoT.jpeg'; // Hakikisha path hii ni sahihi
 
+const socialLinks = [
+  { label: 'Facebook', shortLabel: 'f', href: 'https://www.facebook.com/cruisinginzanzibartours' },
+  { label: 'Instagram', shortLabel: 'ig', href: 'https://www.instagram.com/cruising_in_zanzibar_tours_saf/' },
+  { label: 'YouTube', shortLabel: '▶', href: 'https://www.youtube.com/@cruisinginzanzibar/shorts' },
+  { label: 'TikTok', shortLabel: '♪', href: 'https://www.tiktok.com/@cruisinginzanzibar' }
+];
+
+const quickLinks = [
+  { label: 'Home', to: '/' },
+  { label: 'About Us', to: '/about' },
+  { label: 'Zanzibar Tours', to: '/card-tour' },
+  { label: 'Tanzania Safaris', to: '/packages' },
+  { label: 'Destinations', to: '/destination' },
+  { label: 'Contact', to: '/contact' }
+];
+
+const tourLinks = [
+  { label: 'Stone Town Tour', to: '/tour/2' },
+  { label: 'Dolphin Snorkeling', to: '/tour/1' },
+  { label: 'Spice Farm Tour', to: '/tour/8' },
+  { label: 'Safari Blue', to: '/tour/3' },
+  { label: 'Sunset Dhow Cruise', to: '/tour/5' },
+  { label: 'Prison Island', to: '/tour/7' }
+];
+
 const Footer = () => {
   return (
     <footer className="w-full font-sans">
@@ -67,10 +92,11 @@ const Footer = () => {
               
               {/* Social Icons */}
               <div className="flex items-center gap-3 mb-6">
-                <a href="#" className="w-9 h-9 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-[#1b5e36] transition-colors font-bold text-sm" aria-label="Facebook">f</a>
-                <a href="#" className="w-9 h-9 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-[#1b5e36] transition-colors font-bold text-xs" aria-label="Instagram">ig</a>
-                <a href="#" className="w-9 h-9 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-[#1b5e36] transition-colors font-bold text-xs" aria-label="YouTube">▶</a>
-                <a href="#" className="w-9 h-9 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-[#1b5e36] transition-colors font-bold text-xs" aria-label="LinkedIn">in</a>
+                {socialLinks.map(({ label, shortLabel, href }) => (
+                  <a key={label} href={href} target="_blank" rel="noreferrer" className="w-9 h-9 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-[#1b5e36] transition-colors font-bold text-sm" aria-label={label}>
+                    {shortLabel}
+                  </a>
+                ))}
               </div>
 
               {/* Badges */}
@@ -90,10 +116,10 @@ const Footer = () => {
                 Quick Links
               </h4>
               <ul className="space-y-3 text-sm text-gray-400 mt-2">
-                {['Home', 'About Us', 'Zanzibar Tours', 'Tanzania Safaris', 'Destinations', 'Blog', 'Contact'].map((item, i) => (
-                  <li key={i}>
-                    <Link to="#" className="flex items-center gap-2 hover:text-white transition-colors group">
-                      <span className="text-[#1b5e36] font-bold group-hover:translate-x-1 transition-transform">»</span> {item}
+                {quickLinks.map(({ label, to }) => (
+                  <li key={label}>
+                    <Link to={to} className="flex items-center gap-2 hover:text-white transition-colors group">
+                      <span className="text-[#1b5e36] font-bold group-hover:translate-x-1 transition-transform">»</span> {label}
                     </Link>
                   </li>
                 ))}
@@ -106,10 +132,10 @@ const Footer = () => {
                 Zanzibar Tours
               </h4>
               <ul className="space-y-3 text-sm text-gray-400 mt-2">
-                {['Stone Town Tour', 'Dolphin Snorkeling', 'Spice Farm Tour', 'Safari Blue', 'Sunset Dhow Cruise', 'Prison Island'].map((item, i) => (
-                  <li key={i}>
-                    <Link to="#" className="flex items-center gap-2 hover:text-white transition-colors group">
-                      <span className="text-[#1b5e36] font-bold group-hover:translate-x-1 transition-transform">»</span> {item}
+                {tourLinks.map(({ label, to }) => (
+                  <li key={label}>
+                    <Link to={to} className="flex items-center gap-2 hover:text-white transition-colors group">
+                      <span className="text-[#1b5e36] font-bold group-hover:translate-x-1 transition-transform">»</span> {label}
                     </Link>
                   </li>
                 ))}
@@ -124,7 +150,7 @@ const Footer = () => {
               <ul className="space-y-4 text-sm text-gray-400 mb-6 mt-2">
                 <li className="flex items-start gap-3">
                   <MapPin size={16} className="text-[#1b5e36] shrink-0 mt-1" />
-                  <span>Nungwi Beach, Zanzibar, Tanzania</span>
+                  <a href="https://maps.google.com/?q=Nungwi,Zanzibar,Tanzania" target="_blank" rel="noreferrer" className="hover:text-white">Nungwi, Zanzibar, Tanzania</a>
                 </li>
                 <li className="flex items-center gap-3">
                   <Phone size={16} className="text-[#1b5e36] shrink-0" />
@@ -208,9 +234,9 @@ const Footer = () => {
           </div>
           
           <div className="flex flex-wrap justify-center gap-3 md:gap-5">
-            <Link to="#" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link to="#" className="hover:text-white transition-colors">Terms of Service</Link>
-            <Link to="#" className="hover:text-white transition-colors">Booking Terms</Link>
+            <a href="mailto:cruisinginzanzibar@gmail.com?subject=Privacy%20Policy%20Request" className="hover:text-white transition-colors">Privacy Policy</a>
+            <a href="mailto:cruisinginzanzibar@gmail.com?subject=Terms%20of%20Service%20Request" className="hover:text-white transition-colors">Terms of Service</a>
+            <a href="mailto:cruisinginzanzibar@gmail.com?subject=Booking%20Terms%20Request" className="hover:text-white transition-colors">Booking Terms</a>
           </div>
 
           <p className="text-center md:text-right flex items-center gap-1">

@@ -1,6 +1,7 @@
 // src/pages/ContactUs.jsx
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useLanguage, translatePhrase } from '../i18n/LanguageContext';
 import {
   MapPin,
   Phone,
@@ -26,6 +27,7 @@ const slides = [
 ];
 
 const ContactUs = () => {
+  const { language } = useLanguage();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [formData, setFormData] = useState({
     name: '',
@@ -64,15 +66,15 @@ const ContactUs = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const message = `Hello Cruising in Zanzibar Tours & Safaris!
-
-Name: ${formData.name}
-Email: ${formData.email}
-Phone: ${formData.phone}
-Subject: ${formData.subject}
-
-Message:
-${formData.message}`;
+    const message = language === 'ru'
+      ? `Здравствуйте, команда Cruising in Zanzibar Tours & Safaris!\n\nИмя: ${formData.name}\nЭлектронная почта: ${formData.email}\nТелефон: ${formData.phone}\nТема: ${translatePhrase(formData.subject, language)}\n\nСообщение:\n${formData.message}`
+      : language === 'fr'
+        ? `Bonjour à l’équipe de Cruising in Zanzibar Tours & Safaris !\n\nNom : ${formData.name}\nE-mail : ${formData.email}\nTéléphone : ${formData.phone}\nObjet : ${translatePhrase(formData.subject, language)}\n\nMessage :\n${formData.message}`
+        : language === 'de'
+          ? `Guten Tag, Team von Cruising in Zanzibar Tours & Safaris,\n\nName: ${formData.name}\nE-Mail: ${formData.email}\nTelefon: ${formData.phone}\nBetreff: ${translatePhrase(formData.subject, language)}\n\nNachricht:\n${formData.message}`
+          : language === 'it'
+            ? `Buongiorno, team di Cruising in Zanzibar Tours & Safaris,\n\nNome: ${formData.name}\nE-mail: ${formData.email}\nTelefono: ${formData.phone}\nOggetto: ${translatePhrase(formData.subject, language)}\n\nMessaggio:\n${formData.message}`
+          : `Hello Cruising in Zanzibar Tours & Safaris!\n\nName: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nSubject: ${formData.subject}\n\nMessage:\n${formData.message}`;
 
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
@@ -441,12 +443,12 @@ ${formData.message}`;
                   onChange={handleChange}
                   className="w-full px-4 py-3.5 rounded-xl border border-gray-200 bg-[#FCFBF8] outline-none focus:border-[#087443] transition-all"
                 >
-                  <option>General Inquiry</option>
-                  <option>Zanzibar Tours</option>
-                  <option>Island Excursions</option>
-                  <option>Tanzania Safari</option>
-                  <option>Airport Transfers</option>
-                  <option>Custom Tour Package</option>
+                  <option value="General Inquiry">General Inquiry</option>
+                  <option value="Zanzibar Tours">Zanzibar Tours</option>
+                  <option value="Island Excursions">Island Excursions</option>
+                  <option value="Tanzania Safari">Tanzania Safari</option>
+                  <option value="Airport Transfers">Airport Transfers</option>
+                  <option value="Custom Tour Package">Custom Tour Package</option>
                 </select>
               </div>
 

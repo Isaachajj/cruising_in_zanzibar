@@ -7,6 +7,7 @@ import FullPackage from './FullPackage';
 import WhyUs from './WhyUs';
 import GuestsSay from './GuestsSay';
 import Footer from './Footer';
+import { useLanguage } from '../i18n/LanguageContext';
 import Destination from './Destination';
 import {
   Phone,
@@ -31,7 +32,7 @@ const HomePage = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [language, setLanguage] = useState('English');
+  const { language, setLanguage } = useLanguage();
   const heroSlides = [
     '/slider/slider11.jpeg',
     '/slider/slider22.jpeg',
@@ -147,11 +148,11 @@ const HomePage = () => {
                 aria-label="Choose language"
                 className="cursor-pointer border-0 bg-transparent py-1 text-[12px] font-medium text-white outline-none md:text-[13px] [&>option]:text-gray-900"
               >
-                <option>English</option>
-                <option>French</option>
-                <option>Italian</option>
-                <option>German</option>
-                <option>Russian</option>
+                <option value="en">🇬🇧 English</option>
+                <option value="ru">🇷🇺 Russian</option>
+                <option value="fr">🇫🇷 Français</option>
+                <option value="de">🇩🇪 Deutsch</option>
+                <option value="it">🇮🇹 Italiano</option>
               </select>
             </div>
           </div>
@@ -164,7 +165,7 @@ const HomePage = () => {
         style={isScrolled ? { backgroundColor: 'rgba(255, 255, 255, 0.82)', backdropFilter: 'blur(18px)', WebkitBackdropFilter: 'blur(18px)' } : undefined}
       >
         {/* Kulia kumeongezwa gap kubwa zaidi kuliko kushoto */}
-        <div className="mx-auto flex h-full w-full max-w-[1440px] items-center justify-between gap-2 pl-12 pr-20 sm:pl-20 sm:pr-32 md:pl-32 md:pr-48 lg:pl-44 lg:pr-72 xl:pl-52 xl:pr-80">
+        <div className="mx-auto flex h-full w-full max-w-[1440px] items-center justify-between gap-2 pl-12 pr-20 sm:pl-20 sm:pr-32 md:pl-32 md:pr-48 lg:pl-44 lg:pr-72 xl:pl-52 xl:pr-80 max-[1600px]:!px-6">
 
           {/* LOGO & BRAND TEXT */}
           <Link to="/" onClick={closeMobileMenu} className="flex shrink-0 items-center">
