@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   Phone, Mail, MapPin, ShieldCheck, MessageCircle,
   ChevronRight, Menu, X, Globe,
 } from 'lucide-react';
-import logoT from '../assets/LogoT.jpeg';
+import logoT from '../assets/LogoT.webp';
 import Footer from '../pages/Footer';
 import { useLanguage } from '../i18n/LanguageContext';
 
@@ -17,7 +17,7 @@ export const Navbar = () => {
   const location = useLocation();
   const isActive = (path) => location.pathname === path;
 
-  React.useEffect(() => {
+  useEffect(() => {
     let frameId = null;
     const updateScrolledState = () => {
       frameId = null;
@@ -91,14 +91,14 @@ export const Navbar = () => {
       >
         <div className="mx-auto flex h-full w-full max-w-[1440px] items-center justify-between gap-2 pl-12 pr-20 sm:pl-20 sm:pr-32 md:pl-32 md:pr-48 lg:pl-44 lg:pr-72 xl:pl-52 xl:pr-80 max-[1600px]:!px-6">
           <Link to="/" onClick={closeMobileMenu} className="flex shrink-0 items-center">
-            <img src={logoT} alt="Cruising in Zanzibar Logo" className={`w-[66px] rounded-full object-contain transition-[height] duration-300 sm:w-[70px] ${isScrolled ? 'h-[58px] sm:h-[60px]' : 'h-[66px] sm:h-[70px]'}`} />
+            <img src={logoT} alt="Cruising in Zanzibar Logo" width="70" height="70" fetchPriority="high" className={`w-[66px] rounded-full object-contain transition-[height] duration-300 sm:w-[70px] ${isScrolled ? 'h-[58px] sm:h-[60px]' : 'h-[66px] sm:h-[70px]'}`} />
             <div className="ml-3 hidden flex-col justify-center border-l-2 border-gray-200 pl-4 sm:flex">
               <span className="whitespace-nowrap font-serif text-[18px] font-bold leading-tight text-[#1b5e36] md:text-[20px]">Cruising in Zanzibar</span>
               <span className="whitespace-nowrap font-serif text-[14px] font-semibold italic text-[#1d4ed8] md:text-[15px]">Tours &amp; Safaris</span>
             </div>
           </Link>
 
-          <div className="hidden items-center justify-center gap-2 whitespace-nowrap text-[13px] font-medium text-[#333] lg:flex xl:gap-3.5 xl:text-[14px]">
+          <div className="hidden items-center justify-center gap-2 whitespace-nowrap text-[13px] font-medium text-[#333] lg:flex xl:gap-2 xl:text-[14px]">
             <Link to="/" className={`group relative rounded-md px-3 py-1.5 transition-colors duration-200 after:absolute after:bottom-0 after:left-3 after:right-3 after:h-[2px] after:origin-left after:scale-x-0 after:bg-[#2e8b57] after:transition-transform after:duration-300 hover:after:scale-x-100 ${isActive('/') ? 'bg-[#1b5e36] text-white' : 'text-[#333] hover:text-[#1b5e36]'}`}>Home</Link>
             <Link to="/about" className={`group relative rounded-md px-3 py-1.5 transition-colors duration-200 after:absolute after:bottom-0 after:left-3 after:right-3 after:h-[2px] after:origin-left after:scale-x-0 after:bg-[#2e8b57] after:transition-transform after:duration-300 hover:after:scale-x-100 ${isActive('/about') ? 'bg-[#1b5e36] text-white' : 'hover:text-[#1b5e36]'}`}>About Us</Link>
             <Link to="/card-tour" className={`group relative flex cursor-pointer items-center gap-1 rounded-md px-3 py-1.5 transition-colors duration-200 after:absolute after:bottom-0 after:left-3 after:right-3 after:h-[2px] after:origin-left after:scale-x-0 after:bg-[#2e8b57] after:transition-transform after:duration-300 hover:after:scale-x-100 ${isActive('/card-tour') ? 'bg-[#1b5e36] text-white' : 'hover:text-[#1b5e36]'}`}>Zanzibar Tours <ChevronRight size={14} className="rotate-90" /></Link>
@@ -139,7 +139,7 @@ export const Navbar = () => {
 const SiteLayout = ({ children }) => {
   const location = useLocation();
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [location.pathname]);
 

@@ -1,5 +1,5 @@
 // src/pages/Destination.jsx
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   MapPin, ArrowRight, Search, Compass, TreePalm, Waves, Landmark,
@@ -15,7 +15,7 @@ const destinationsData = [
     name: 'Jozani Forest',
     subtitle: 'Home to red colobus monkeys',
     category: 'Nature',
-    image: '/Trip/jozani.jpg'
+    image: '/Trip/jozani.webp'
   },
   {
     id: 'kendwa',
@@ -29,7 +29,7 @@ const destinationsData = [
     name: 'Kizimkazi',
     subtitle: 'Dolphin watching destination',
     category: 'Beaches',
-    image: '/Trip/kizimkazi.jpg'
+    image: '/Trip/kizimkazi.webp'
   },
   {
     id: 'lake-manyara',
@@ -120,7 +120,7 @@ const Destination = ({ showHero = true }) => {
     { image: '/utalii4.jpeg', title: 'Explore Stone Town', subtitle: 'History, traditions and stories at every corner' },
     { image: '/slider/lider55.webp', title: 'Meet African Wildlife', subtitle: 'Safari adventures across Tanzania' },
     { image: '/Trip/safari blue.jpeg', title: 'Relax at Paradise Beaches', subtitle: 'Crystal water and peaceful island sunsets' },
-    { image: '/Trip/jozani.jpg', title: 'Experience Local Adventures', subtitle: 'Tours crafted by our local experts' }
+    { image: '/Trip/jozani.webp', title: 'Experience Local Adventures', subtitle: 'Tours crafted by our local experts' }
   ];
 
   // Filter logic
@@ -294,6 +294,8 @@ const Destination = ({ showHero = true }) => {
                 <img 
                   src={dest.image} 
                   alt={dest.name} 
+                  loading="lazy"
+                  decoding="async"
                   className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                 />
                 

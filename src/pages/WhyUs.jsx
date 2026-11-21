@@ -1,5 +1,4 @@
 // src/components/WhyUs.jsx
-import React from 'react';
 import { 
   Star, Diamond, ShieldCheck, Lock, 
   Headphones, Zap, TreePalm 
@@ -10,7 +9,7 @@ const features = [
     icon: <Star size={28} className="text-[#087443]" />,
     title: 'Local Expert Guides',
     description: 'Explore Zanzibar with experienced local guides.',
-    bgImage: '/Trip/jozani.jpg' // Badilisha na picha yako
+    bgImage: '/Trip/jozani.webp' // Badilisha na picha yako
   },
   {
     icon: <Diamond size={28} className="text-[#087443]" />,

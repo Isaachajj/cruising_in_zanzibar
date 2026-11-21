@@ -1,9 +1,9 @@
 // src/components/Packages.jsx
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Star, ArrowRight, Compass, ShieldCheck, 
-  Map, Sun, TreePine, PawPrint, ChevronLeft, ChevronRight
+  Map, PawPrint, ChevronLeft, ChevronRight
 } from 'lucide-react';
 
 // ==========================================
@@ -204,7 +204,7 @@ const Packages = ({ showHero = true, showDestinations = true }) => {
       {showHero && (
         <section className="relative h-[520px] md:h-[620px] w-full overflow-hidden bg-[#10243A]">
           {heroSlides.map((slide, index) => (
-            <img key={slide.image} src={slide.image} alt={slide.title} className={`absolute inset-0 h-full w-full object-cover transition-all duration-1000 ${currentSlide === index ? 'opacity-100 scale-100' : 'opacity-0 scale-105'}`} />
+            <img key={slide.image} src={slide.image} alt="" aria-hidden="true" className={`absolute inset-0 h-full w-full object-cover transition-all duration-1000 ${currentSlide === index ? 'opacity-100 scale-100' : 'opacity-0 scale-105'}`} />
           ))}
           <div className="absolute inset-0 bg-gradient-to-r from-[#10243A]/90 via-[#10243A]/45 to-transparent" />
           <div key={currentSlide} className="absolute inset-0 z-10 flex items-center px-6 md:px-12">
@@ -336,7 +336,7 @@ const Packages = ({ showHero = true, showDestinations = true }) => {
                 data-safari-reveal="up"
                 data-delay={(index % 6) + 1}
               >
-                <img src={destination.image} alt={`${destination.name} safari`} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <img src={destination.image} alt={`${destination.name} safari`} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#081522]/95 via-[#081522]/35 to-transparent transition-colors group-hover:from-[#081522]/90" />
                 <span className="absolute left-5 top-5 flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-black/25 text-2xl backdrop-blur-sm" aria-hidden="true">{destination.icon}</span>
                 <div className="absolute inset-x-0 bottom-0 p-6 text-white">
@@ -367,6 +367,8 @@ const SafariCard = ({ pkg }) => {
         <img 
           src={pkg.image} 
           alt={pkg.title} 
+          loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
         

@@ -1,5 +1,4 @@
 // src/components/FullDayTrips.jsx
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Star, ArrowRight, Clock, MapPin, 
@@ -121,6 +120,8 @@ const FullDayTrips = () => {
                 <img 
                   src={trip.image} 
                   alt={trip.title} 
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 
@@ -197,7 +198,7 @@ const FullDayTrips = () => {
         {/* ================= VIEW ALL BUTTON ================= */}
         <div className="text-center">
           <Link 
-            to="/full-day-trips" 
+            to="/full-package"
             className="inline-flex items-center gap-2 bg-[#087443] text-white font-bold px-8 py-4 rounded-full hover:bg-green-800 transition-all duration-300 shadow-lg shadow-green-900/20"
           >
             View All Full-Day Trips

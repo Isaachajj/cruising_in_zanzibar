@@ -1,5 +1,5 @@
 // src/components/GuestsSay.jsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { 
   Star, ChevronLeft, ChevronRight, MessageCircle, 
   Quote, ArrowRight 
@@ -163,6 +163,8 @@ const GuestsSay = () => {
                   <img 
                     src={review.avatar} 
                     alt={review.name} 
+                    loading="lazy"
+                    decoding="async"
                     className="w-10 h-10 rounded-full object-cover border-2 border-white shadow-sm"
                   />
                   <div>

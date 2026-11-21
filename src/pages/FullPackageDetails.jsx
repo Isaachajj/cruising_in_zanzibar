@@ -71,7 +71,7 @@ const allTripsData = {
     ],
     included: ['Boat trip to Mnemba Island', 'Snorkeling equipment', 'Seafood lunch', 'Professional guide', 'Hotel pickup & drop-off'],
     notIncluded: ['Personal expenses', 'Tips and gratuities', 'Travel insurance', 'Alcoholic drinks'],
-    gallery: ['/Trip/mnemba.jpeg','/Trip/stonetown.jpeg','/Trip/forodhani.jpeg','/Trip/kizimkazi.jpg','/Trip/paje.jpeg','/Trip/prisonIland.jpg']
+    gallery: ['/Trip/mnemba.jpeg','/Trip/stonetown.jpeg','/Trip/forodhani.jpeg','/Trip/kizimkazi.webp','/Trip/paje.jpeg','/Trip/prisonIland.jpg']
   },
   'safari-blue': {
     id: 'safari-blue',
@@ -146,7 +146,7 @@ const allTripsData = {
     ],
     included: ['Professional guide', 'Walking tour', 'Hotel pickup', 'Entrance assistance'],
     notIncluded: ['Personal expenses', 'Food and drinks', 'Tips'],
-    gallery: ['/Trip/stonetown.jpeg','/Trip/forodhani.jpeg','/Trip/prisonIland.jpg','/Trip/kizimkazi.jpg']
+    gallery: ['/Trip/stonetown.jpeg','/Trip/forodhani.jpeg','/Trip/prisonIland.jpg','/Trip/kizimkazi.webp']
   },
 };
 
@@ -274,7 +274,7 @@ const FullPackageDetails = () => {
             key={index}
             className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === heroIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
           >
-            <img src={img} alt={`Hero ${index}`} className="w-full h-full object-cover" />
+            <img src={img} alt={`${trip.title} photo ${index + 1}`} className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#10243A] via-[#10243A]/40 to-transparent"></div>
           </div>
         ))}
@@ -352,42 +352,42 @@ const FullPackageDetails = () => {
 
             <form ref={bookingFormRef} onSubmit={handleReviewBooking} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold mb-1 text-gray-300">Travel Date</label>
-                <input type="date" name="date" value={formData.date} onChange={handleInputChange} className="w-full bg-white/10 border border-white/20 rounded-lg p-2.5 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-[#F5B91B]" />
+                <label htmlFor="package-date" className="block text-xs font-semibold mb-1 text-gray-300">Travel Date</label>
+                <input id="package-date" type="date" name="date" value={formData.date} onChange={handleInputChange} className="w-full bg-white/10 border border-white/20 rounded-lg p-2.5 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-[#F5B91B]" />
               </div>
               
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold mb-1 text-gray-300">Adults</label>
-                  <input required type="number" min="1" name="adults" value={formData.adults} onChange={handleInputChange} className="w-full bg-white/10 border border-white/20 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-[#F5B91B]" />
+                  <label htmlFor="package-adults" className="block text-xs font-semibold mb-1 text-gray-300">Adults</label>
+                  <input id="package-adults" required type="number" min="1" name="adults" value={formData.adults} onChange={handleInputChange} className="w-full bg-white/10 border border-white/20 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-[#F5B91B]" />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold mb-1 text-gray-300">Children</label>
-                  <input required type="number" min="0" name="children" value={formData.children} onChange={handleInputChange} className="w-full bg-white/10 border border-white/20 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-[#F5B91B]" />
+                  <label htmlFor="package-children" className="block text-xs font-semibold mb-1 text-gray-300">Children</label>
+                  <input id="package-children" required type="number" min="0" name="children" value={formData.children} onChange={handleInputChange} className="w-full bg-white/10 border border-white/20 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-[#F5B91B]" />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold mb-1 text-gray-300">Pickup Location</label>
-                <input type="text" name="pickup" placeholder="Your hotel name..." value={formData.pickup} onChange={handleInputChange} className="w-full bg-white/10 border border-white/20 rounded-lg p-2.5 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-[#F5B91B]" />
+                <label htmlFor="package-pickup" className="block text-xs font-semibold mb-1 text-gray-300">Pickup Location</label>
+                <input id="package-pickup" type="text" name="pickup" placeholder="Your hotel name..." value={formData.pickup} onChange={handleInputChange} className="w-full bg-white/10 border border-white/20 rounded-lg p-2.5 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-[#F5B91B]" />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold mb-1 text-gray-300">Full Name *</label>
-                <div className="relative"><User size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/50" /><input required autoComplete="name" type="text" name="fullName" placeholder="Your full name" value={formData.fullName} onChange={handleInputChange} className="w-full rounded-lg border border-white/20 bg-white/10 p-2.5 pl-9 text-sm text-white placeholder-gray-400 focus:border-[#F5B91B] focus:outline-none" /></div>
+                <label htmlFor="package-name" className="block text-xs font-semibold mb-1 text-gray-300">Full Name *</label>
+                <div className="relative"><User size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/50" /><input id="package-name" required autoComplete="name" type="text" name="fullName" placeholder="Your full name" value={formData.fullName} onChange={handleInputChange} className="w-full rounded-lg border border-white/20 bg-white/10 p-2.5 pl-9 text-sm text-white placeholder-gray-400 focus:border-[#F5B91B] focus:outline-none" /></div>
               </div>
               <div>
-                <label className="block text-xs font-semibold mb-1 text-gray-300">Email Address *</label>
-                <div className="relative"><Mail size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/50" /><input required autoComplete="email" type="email" name="email" placeholder="you@example.com" value={formData.email} onChange={handleInputChange} className="w-full rounded-lg border border-white/20 bg-white/10 p-2.5 pl-9 text-sm text-white placeholder-gray-400 focus:border-[#F5B91B] focus:outline-none" /></div>
+                <label htmlFor="package-email" className="block text-xs font-semibold mb-1 text-gray-300">Email Address *</label>
+                <div className="relative"><Mail size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/50" /><input id="package-email" required autoComplete="email" type="email" name="email" placeholder="you@example.com" value={formData.email} onChange={handleInputChange} className="w-full rounded-lg border border-white/20 bg-white/10 p-2.5 pl-9 text-sm text-white placeholder-gray-400 focus:border-[#F5B91B] focus:outline-none" /></div>
               </div>
               <div>
-                <label className="block text-xs font-semibold mb-1 text-gray-300">WhatsApp / Phone *</label>
-                <div className="relative"><Phone size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/50" /><input required autoComplete="tel" type="tel" name="phone" placeholder="+255..." value={formData.phone} onChange={handleInputChange} className="w-full rounded-lg border border-white/20 bg-white/10 p-2.5 pl-9 text-sm text-white placeholder-gray-400 focus:border-[#F5B91B] focus:outline-none" /></div>
+                <label htmlFor="package-phone" className="block text-xs font-semibold mb-1 text-gray-300">WhatsApp / Phone *</label>
+                <div className="relative"><Phone size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/50" /><input id="package-phone" required autoComplete="tel" type="tel" name="phone" placeholder="+255..." value={formData.phone} onChange={handleInputChange} className="w-full rounded-lg border border-white/20 bg-white/10 p-2.5 pl-9 text-sm text-white placeholder-gray-400 focus:border-[#F5B91B] focus:outline-none" /></div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold mb-1 text-gray-300">Special Requests</label>
-                <textarea name="requests" placeholder="Any special requests..." value={formData.requests} onChange={handleInputChange} rows="2" className="w-full bg-white/10 border border-white/20 rounded-lg p-2.5 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-[#F5B91B]"></textarea>
+                <label htmlFor="package-requests" className="block text-xs font-semibold mb-1 text-gray-300">Special Requests</label>
+                <textarea id="package-requests" name="requests" placeholder="Any special requests..." value={formData.requests} onChange={handleInputChange} rows="2" className="w-full bg-white/10 border border-white/20 rounded-lg p-2.5 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-[#F5B91B]"></textarea>
               </div>
 
               <div className="bg-white/10 rounded-xl p-3 text-center border border-white/10">
@@ -424,7 +424,7 @@ const FullPackageDetails = () => {
                 key={dest.id} 
                 className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${index === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
               >
-                <img src={dest.image} alt={dest.name} className="w-full h-full object-cover" />
+                <img src={dest.image} alt={dest.name} loading="lazy" decoding="async" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               </div>
             ))}
@@ -537,6 +537,8 @@ const FullPackageDetails = () => {
                 key={index}
                 src={image}
                 alt={`${trip.title} gallery ${index + 1}`}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-48 md:h-64 rounded-xl object-cover"
               />
             ))}

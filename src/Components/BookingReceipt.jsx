@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { ArrowLeft, CalendarDays, CheckCircle2, Clock3, Mail, MapPin, MessageCircle, ShieldCheck, UserRound, Users } from 'lucide-react';
-import logoT from '../assets/LogoT.jpeg';
+import logoT from '../assets/LogoT.webp';
 import { formatBookingCurrency } from './bookingReceiptUtils';
 import { useLanguage } from '../i18n/LanguageContext';
 

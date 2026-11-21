@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
@@ -81,7 +81,7 @@ const AboutUs = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
 
             <Link
-              to="/tours"
+              to="/card-tour"
               className="group inline-flex items-center justify-center gap-3 bg-[#F5B91B] hover:bg-[#e7a900] text-[#10243A] font-bold px-9 py-4 rounded-full transition-all duration-300 hover:-translate-y-1 shadow-xl w-full sm:w-auto"
             >
               Explore Our Tours
@@ -190,7 +190,7 @@ const AboutUs = () => {
             </div>
 
             <Link
-              to="/tours"
+              to="/card-tour"
               className="inline-flex items-center gap-3 bg-[#087443] hover:bg-[#064f30] text-white font-bold px-8 py-4 rounded-full mt-9 transition-all duration-300 shadow-lg hover:-translate-y-1"
             >
               Discover Our Tours
@@ -445,7 +445,7 @@ const AboutUs = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
 
             <Link
-              to="/tours"
+              to="/card-tour"
               className="inline-flex items-center justify-center gap-3 bg-[#F5B91B] hover:bg-yellow-500 text-[#10243A] font-bold px-9 py-4 rounded-full transition-all duration-300 hover:-translate-y-1 shadow-xl w-full sm:w-auto"
             >
               Explore Our Tours

@@ -1,5 +1,5 @@
 // src/components/CardTour.jsx
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Clock, Star, ArrowRight, 
@@ -14,13 +14,13 @@ const tours = [
   { id: 7, badge: 'POPULAR', badgeColor: 'bg-blue-600', duration: '4 Hours', image: '/Trip/prisonIland.jpg', price: 50, title: 'Prison Island Tour', description: 'Visit historic Prison Island, meet giant 100-year-old tortoises, and snorkel in crystal-clear waters.', tags: [{ icon: <TreePalm size={14} />, text: 'Giant Aldabra tortoises' }, { icon: <Landmark size={14} />, text: 'Historic prison ruins' }, { icon: <Waves size={14} />, text: 'Snorkeling & boat ride' }], rating: 4.7, reviews: 286 },
   { id: 8, badge: 'TOP RATED', badgeColor: 'bg-purple-600', duration: '6 Hours', image: '/Trip/stonetown.jpeg', price: 55, title: 'Spice Farm Tour & Swahili Cooking Class', description: 'Discover aromatic spice farms and learn to cook authentic Swahili dishes in a hands-on class.', tags: [{ icon: <TreePalm size={14} />, text: 'Spice farm walk' }, { icon: <Camera size={14} />, text: 'Taste fresh spices' }, { icon: <Utensils size={14} />, text: 'Cooking class & lunch' }], rating: 4.9, reviews: 241 },
   { id: 2, badge: 'BESTSELLER', badgeColor: 'bg-yellow-500', duration: '4 Hours', image: '/Trip/stonetown.jpeg', price: 65, title: 'Stone Town Historical Tour', description: 'UNESCO World Heritage walking tour through historic Stone Town’s alleys, markets, and landmarks.', tags: [{ icon: <Landmark size={14} />, text: 'UNESCO World Heritage site' }, { icon: <MapPin size={14} />, text: 'House of Wonders' }, { icon: <Users size={14} />, text: 'Darajani Market & local guide' }], rating: 4.9, reviews: 512 },
-  { id: 4, badge: 'NATURE', badgeColor: 'bg-emerald-700', duration: '4 Hours', image: '/Trip/jozani.jpg', price: 65, title: 'Jozani Forest Adventure', description: 'Encounter rare Red Colobus monkeys and explore mystical mangrove boardwalks in Zanzibar’s only national park.', tags: [{ icon: <TreePalm size={14} />, text: 'Red Colobus monkeys' }, { icon: <Waves size={14} />, text: 'Mangrove boardwalk' }, { icon: <Camera size={14} />, text: 'Forest walk & bird watching' }], rating: 4.8, reviews: 345 },
+  { id: 4, badge: 'NATURE', badgeColor: 'bg-emerald-700', duration: '4 Hours', image: '/Trip/jozani.webp', price: 65, title: 'Jozani Forest Adventure', description: 'Encounter rare Red Colobus monkeys and explore mystical mangrove boardwalks in Zanzibar’s only national park.', tags: [{ icon: <TreePalm size={14} />, text: 'Red Colobus monkeys' }, { icon: <Waves size={14} />, text: 'Mangrove boardwalk' }, { icon: <Camera size={14} />, text: 'Forest walk & bird watching' }], rating: 4.8, reviews: 345 },
   { id: 9, badge: 'ICONIC', badgeColor: 'bg-amber-600', duration: '3 Hours', image: '/Trip/paje.jpeg', price: 75, title: 'The Rock Restaurant Experience', description: 'Dine at the iconic Rock Restaurant perched in the Indian Ocean with fresh seafood and stunning views.', tags: [{ icon: <Utensils size={14} />, text: 'Iconic ocean restaurant' }, { icon: <Waves size={14} />, text: '3-course seafood meal' }, { icon: <MapPin size={14} />, text: 'Ocean views & transfers' }], rating: 4.8, reviews: 319 },
   { id: 10, badge: 'PARADISE', badgeColor: 'bg-cyan-600', duration: '5 Hours', image: '/Trip/paje.jpeg', price: 85, title: 'Nakupenda Sandbank Paradise', description: 'Relax on the stunning Nakupenda Sandbank with white sand, turquoise waters, and fresh seafood BBQ.', tags: [{ icon: <Waves size={14} />, text: 'Pristine sandbank' }, { icon: <Utensils size={14} />, text: 'Seafood BBQ lunch' }, { icon: <Camera size={14} />, text: 'Swimming & sunbathing' }], rating: 4.8, reviews: 294 },
   { id: 3, badge: 'FULL DAY', badgeColor: 'bg-blue-700', duration: '8 Hours', image: '/Trip/safari blue.jpeg', price: 85, title: 'Safari Blue Adventure', description: 'Full-day ocean adventure with snorkeling, dolphins, seafood BBQ, and dhow sailing in Menai Bay.', tags: [{ icon: <Waves size={14} />, text: 'Dolphin watching & snorkeling' }, { icon: <Utensils size={14} />, text: 'Seafood BBQ on sandbank' }, { icon: <Ship size={14} />, text: 'Traditional dhow sailing' }], rating: 4.9, reviews: 723 },
-  { id: 11, badge: 'FAMILY FUN', badgeColor: 'bg-orange-500', duration: '3 Hours', image: '/Trip/kizimkazi.jpg', price: 30, title: 'Starfish Watching Adventure', description: 'Discover beautiful starfish in shallow crystal waters at a secluded sandbank—perfect for families.', tags: [{ icon: <Waves size={14} />, text: 'Starfish viewing' }, { icon: <Users size={14} />, text: 'Shallow water walk' }, { icon: <TreePalm size={14} />, text: 'Marine conservation talk' }], rating: 4.7, reviews: 176 },
-  { id: 12, badge: 'HIDDEN GEM', badgeColor: 'bg-violet-700', duration: '3 Hours', image: '/Trip/jozani.jpg', price: 65, title: 'Salaam Cave Swimming Adventure', description: 'Swim in a hidden natural freshwater cave surrounded by tropical vegetation—a peaceful paradise.', tags: [{ icon: <Waves size={14} />, text: 'Natural freshwater cave' }, { icon: <MapPin size={14} />, text: 'Cave exploration' }, { icon: <TreePalm size={14} />, text: 'Tropical surroundings' }], rating: 4.6, reviews: 112 },
-  { id: 13, badge: 'CULTURAL', badgeColor: 'bg-amber-800', duration: '3 Hours', image: '/Trip/kizimkazi.jpg', price: 65, title: 'Kuza Cave Cultural Experience', description: 'Explore a sacred cave with natural swimming pool, traditional drumming, and rich cultural history.', tags: [{ icon: <MapPin size={14} />, text: 'Sacred cave exploration' }, { icon: <Waves size={14} />, text: 'Natural swimming pool' }, { icon: <Users size={14} />, text: 'Live drumming & stories' }], rating: 4.7, reviews: 148 },
+  { id: 11, badge: 'FAMILY FUN', badgeColor: 'bg-orange-500', duration: '3 Hours', image: '/Trip/kizimkazi.webp', price: 30, title: 'Starfish Watching Adventure', description: 'Discover beautiful starfish in shallow crystal waters at a secluded sandbank—perfect for families.', tags: [{ icon: <Waves size={14} />, text: 'Starfish viewing' }, { icon: <Users size={14} />, text: 'Shallow water walk' }, { icon: <TreePalm size={14} />, text: 'Marine conservation talk' }], rating: 4.7, reviews: 176 },
+  { id: 12, badge: 'HIDDEN GEM', badgeColor: 'bg-violet-700', duration: '3 Hours', image: '/Trip/jozani.webp', price: 65, title: 'Salaam Cave Swimming Adventure', description: 'Swim in a hidden natural freshwater cave surrounded by tropical vegetation—a peaceful paradise.', tags: [{ icon: <Waves size={14} />, text: 'Natural freshwater cave' }, { icon: <MapPin size={14} />, text: 'Cave exploration' }, { icon: <TreePalm size={14} />, text: 'Tropical surroundings' }], rating: 4.6, reviews: 112 },
+  { id: 13, badge: 'CULTURAL', badgeColor: 'bg-amber-800', duration: '3 Hours', image: '/Trip/kizimkazi.webp', price: 65, title: 'Kuza Cave Cultural Experience', description: 'Explore a sacred cave with natural swimming pool, traditional drumming, and rich cultural history.', tags: [{ icon: <MapPin size={14} />, text: 'Sacred cave exploration' }, { icon: <Waves size={14} />, text: 'Natural swimming pool' }, { icon: <Users size={14} />, text: 'Live drumming & stories' }], rating: 4.7, reviews: 148 },
   { id: 14, badge: 'AUTHENTIC', badgeColor: 'bg-teal-700', duration: '5 Hours', image: '/Trip/forodhani.jpeg', price: 170, title: 'Traditional Local Fishing Experience', description: 'Fish like a local using traditional techniques, visit fishing villages, and cook your catch for lunch.', tags: [{ icon: <Ship size={14} />, text: 'Traditional fishing methods' }, { icon: <MapPin size={14} />, text: 'Fishing village visit' }, { icon: <Utensils size={14} />, text: 'Cook your catch' }], rating: 4.6, reviews: 87 },
   { id: 15, badge: 'PREMIUM', badgeColor: 'bg-slate-800', duration: '6 Hours', image: '/Trip/kendwa.jpeg', price: 550, title: 'Deep Sea Game Fishing - Half Day', description: 'World-class deep sea fishing for marlin, sailfish, tuna, and more with professional crew and equipment.', tags: [{ icon: <Waves size={14} />, text: 'Deep sea fishing' }, { icon: <Ship size={14} />, text: 'Professional equipment' }, { icon: <Users size={14} />, text: 'Experienced crew' }], rating: 4.8, reviews: 96 }
 ];
@@ -71,7 +71,7 @@ const CardTour = ({ showHero = true, showAll = true }) => {
       {showHero && (
         <section className="relative h-[520px] md:h-[620px] w-full overflow-hidden bg-[#10243A]">
           {heroSlides.map((slide, index) => (
-            <img key={slide.image} src={slide.image} alt={slide.title} className={`absolute inset-0 h-full w-full object-cover transition-all duration-1000 ${currentSlide === index ? 'opacity-100 scale-100' : 'opacity-0 scale-105'}`} />
+            <img key={slide.image} src={slide.image} alt="" aria-hidden="true" className={`absolute inset-0 h-full w-full object-cover transition-all duration-1000 ${currentSlide === index ? 'opacity-100 scale-100' : 'opacity-0 scale-105'}`} />
           ))}
           <div className="absolute inset-0 bg-gradient-to-r from-[#10243A]/85 via-[#10243A]/35 to-transparent" />
           <div key={currentSlide} className="tour-hero-text absolute inset-0 z-10 flex items-center px-6 md:px-12">
@@ -139,6 +139,8 @@ const CardTour = ({ showHero = true, showAll = true }) => {
                   <img 
                     src={tour.image} 
                     alt={tour.title} 
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-110"
                   />
                   
@@ -238,7 +240,7 @@ const CardTour = ({ showHero = true, showAll = true }) => {
               { name: 'Nungwi Beach', desc: 'Pristine white sand & crystal waters', image: '/Trip/kendwa.jpeg', icon: '🏖️' },
               { name: 'Stone Town', desc: 'UNESCO World Heritage Site', image: '/Trip/stonetown.jpeg', icon: '🏛️' },
               { name: 'Mnemba Island', desc: 'Dolphin watching & snorkeling', image: '/Trip/mnemba.jpeg', icon: '🐬' },
-              { name: 'Jozani Forest', desc: 'Home to red colobus monkeys', image: '/Trip/jozani.jpg', icon: '🐒' },
+              { name: 'Jozani Forest', desc: 'Home to red colobus monkeys', image: '/Trip/jozani.webp', icon: '🐒' },
               { name: 'Prison Island', desc: 'Giant tortoise sanctuary', image: '/Trip/prisonIland.jpg', icon: '🐢' },
               { name: 'Kendwa Beach', desc: 'Famous full moon parties', image: '/Trip/kendwa.jpeg', icon: '🌅' },
               { name: 'Spice Farms', desc: 'Aromatic spice tours', image: '/Trip/stonetown.jpeg', icon: '🌿' },
@@ -251,7 +253,7 @@ const CardTour = ({ showHero = true, showAll = true }) => {
                 data-tour-reveal
                 data-delay={(index % 4) + 1}
               >
-                <img src={destination.image} alt={destination.name} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <img src={destination.image} alt={destination.name} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#10243A]/95 via-[#10243A]/25 to-transparent" />
                 <div className="absolute left-4 top-4 text-2xl drop-shadow-lg" aria-hidden="true">{destination.icon}</div>
                 <div className="absolute bottom-0 left-0 right-0 p-5 text-white">

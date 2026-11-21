@@ -322,7 +322,7 @@ const SafariPackages = () => {
                       : 'hover:bg-gray-50 border border-transparent'
                   }`}
                 >
-                  <img src={cat.img} alt={cat.name} className="w-10 h-10 rounded-lg object-cover" />
+                  <img src={cat.img} alt={cat.name} loading="lazy" decoding="async" className="w-10 h-10 rounded-lg object-cover" />
                   <span className={`text-sm font-semibold ${activeCategory === cat.id ? 'text-[#087443]' : 'text-gray-700'}`}>
                     {cat.name}
                   </span>
@@ -334,7 +334,7 @@ const SafariPackages = () => {
 
           {/* CTA Card */}
           <div className="relative rounded-2xl overflow-hidden shadow-lg h-48 group cursor-pointer">
-            <img src="https://images.unsplash.com/photo-1519066629447-267fffa62d4b?q=80&w=600&auto=format&fit=crop" alt="Custom Safari" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+            <img src="https://images.unsplash.com/photo-1519066629447-267fffa62d4b?q=80&w=600&auto=format&fit=crop" alt="Custom Safari" loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
             <div className="absolute bottom-4 left-4 right-4 text-white">
               <h4 className="font-bold text-lg leading-tight mb-1" style={{ fontFamily: "'Playfair Display', serif" }}>Plan Your Dream Safari</h4>
@@ -388,7 +388,7 @@ const SafariPackages = () => {
             <div className="grid grid-cols-4 gap-2">
               {tour.images.map((img, idx) => (
                 <div key={idx} className={`relative rounded-lg overflow-hidden h-20 ${idx === 0 ? 'col-span-2 row-span-2 h-auto' : ''}`}>
-                  <img src={img} alt={`Gallery ${idx}`} className="w-full h-full object-cover hover:scale-110 transition-transform duration-500 cursor-pointer" />
+                  <img src={img} alt={`${tour.title} gallery photo ${idx + 1}`} loading="lazy" decoding="async" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500 cursor-pointer" />
                   {idx === 0 && (
                     <div className="absolute inset-0 bg-black/30 flex items-center justify-center hover:bg-black/50 transition-colors cursor-pointer">
                       <span className="text-white text-xs font-bold flex items-center gap-1"><Camera size={14} /> View Gallery</span>
@@ -457,26 +457,26 @@ const SafariPackages = () => {
                 </div>
 
                 <div className="relative">
-                  <input required autoComplete="name" type="text" name="fullName" value={bookingData.fullName} onChange={handleBookingChange} placeholder="Full Name *" className="w-full rounded-xl border border-gray-200 bg-white py-3 pl-10 pr-4 text-sm focus:border-[#087443] focus:outline-none focus:ring-4 focus:ring-green-100" />
+                  <input required autoComplete="name" type="text" name="fullName" value={bookingData.fullName} onChange={handleBookingChange} placeholder="Full Name *" aria-label="Full Name" className="w-full rounded-xl border border-gray-200 bg-white py-3 pl-10 pr-4 text-sm focus:border-[#087443] focus:outline-none focus:ring-4 focus:ring-green-100" />
                   <User size={17} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
                 </div>
                 <div className="relative">
-                  <input required autoComplete="email" type="email" name="email" value={bookingData.email} onChange={handleBookingChange} placeholder="Email Address *" className="w-full rounded-xl border border-gray-200 bg-white py-3 pl-10 pr-4 text-sm focus:border-[#087443] focus:outline-none focus:ring-4 focus:ring-green-100" />
+                  <input required autoComplete="email" type="email" name="email" value={bookingData.email} onChange={handleBookingChange} placeholder="Email Address *" aria-label="Email Address" className="w-full rounded-xl border border-gray-200 bg-white py-3 pl-10 pr-4 text-sm focus:border-[#087443] focus:outline-none focus:ring-4 focus:ring-green-100" />
                   <Mail size={17} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
                 </div>
                 <div className="relative">
-                  <input required autoComplete="tel" type="tel" name="phone" value={bookingData.phone} onChange={handleBookingChange} placeholder="Phone / WhatsApp *" className="w-full rounded-xl border border-gray-200 bg-white py-3 pl-10 pr-4 text-sm focus:border-[#087443] focus:outline-none focus:ring-4 focus:ring-green-100" />
+                  <input required autoComplete="tel" type="tel" name="phone" value={bookingData.phone} onChange={handleBookingChange} placeholder="Phone / WhatsApp *" aria-label="Phone / WhatsApp" className="w-full rounded-xl border border-gray-200 bg-white py-3 pl-10 pr-4 text-sm focus:border-[#087443] focus:outline-none focus:ring-4 focus:ring-green-100" />
                   <Phone size={17} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
                 </div>
                 <div className="relative">
-                  <input type="text" name="pickup" value={bookingData.pickup} onChange={handleBookingChange} placeholder="Hotel / Pickup Location (optional)" className="w-full rounded-xl border border-gray-200 bg-white py-3 pl-10 pr-4 text-sm focus:border-[#087443] focus:outline-none focus:ring-4 focus:ring-green-100" />
+                  <input type="text" name="pickup" value={bookingData.pickup} onChange={handleBookingChange} placeholder="Hotel / Pickup Location (optional)" aria-label="Hotel / Pickup Location (optional)" className="w-full rounded-xl border border-gray-200 bg-white py-3 pl-10 pr-4 text-sm focus:border-[#087443] focus:outline-none focus:ring-4 focus:ring-green-100" />
                   <MapPin size={17} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
                 </div>
                 <div className="relative">
                   <input type="date" name="date" value={bookingData.date} onChange={handleBookingChange} aria-label="Preferred travel date" className="w-full rounded-xl border border-gray-200 bg-white py-3 pl-10 pr-4 text-sm text-gray-600 focus:border-[#087443] focus:outline-none focus:ring-4 focus:ring-green-100" />
                   <Calendar size={17} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
                 </div>
-                <textarea name="specialRequests" value={bookingData.specialRequests} onChange={handleBookingChange} rows="2" placeholder="Special requests (optional)" className="w-full resize-none rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm focus:border-[#087443] focus:outline-none focus:ring-4 focus:ring-green-100" />
+                <textarea name="specialRequests" value={bookingData.specialRequests} onChange={handleBookingChange} rows="2" placeholder="Special requests (optional)" aria-label="Special requests (optional)" className="w-full resize-none rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm focus:border-[#087443] focus:outline-none focus:ring-4 focus:ring-green-100" />
 
                 <button type="submit" className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#087443] py-3.5 font-bold text-white shadow-lg transition hover:bg-green-800">
                   <CheckCircle2 size={20} /> Review Booking Receipt
@@ -532,7 +532,7 @@ const SafariPackages = () => {
               Related Safaris
             </h2>
           </div>
-          <Link to="/safari-packages" className="hidden md:flex items-center gap-2 text-sm font-bold text-[#087443] hover:text-[#F5B91B] transition-colors">
+          <Link to="/packages" className="hidden md:flex items-center gap-2 text-sm font-bold text-[#087443] hover:text-[#F5B91B] transition-colors">
             View All Packages <ArrowRight size={16} />
           </Link>
         </div>
@@ -541,12 +541,12 @@ const SafariPackages = () => {
           {relatedTours.map((item, idx) => (
             <Link 
               key={item.id} 
-              to={`/safari-packages/${item.id}`}
+              to={`/safari/${item.id}`}
               className={`group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 opacity-0 animate-slide-right`}
               style={{ animationDelay: `${idx * 200}ms` }}
             >
               <div className="relative h-48 overflow-hidden">
-                <img src={item.images[0]} alt={item.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                <img src={item.images[0]} alt={item.title} loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                 <div className="absolute top-4 left-4 bg-[#F5B91B] text-[#10243A] text-xs font-bold px-3 py-1 rounded-md">
                   {item.duration}
                 </div>
@@ -576,7 +576,7 @@ const SafariPackages = () => {
         
         {/* Mobile View All Button */}
         <div className="mt-8 text-center md:hidden">
-          <Link to="/safari-packages" className="inline-flex items-center gap-2 bg-[#087443] text-white font-bold px-8 py-3 rounded-full hover:bg-green-800 transition">
+          <Link to="/packages" className="inline-flex items-center gap-2 bg-[#087443] text-white font-bold px-8 py-3 rounded-full hover:bg-green-800 transition">
             View All Packages <ArrowRight size={18} />
           </Link>
         </div>

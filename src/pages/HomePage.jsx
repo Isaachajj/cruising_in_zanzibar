@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import logoT from '../assets/LogoT.jpeg';
+import logoT from '../assets/LogoT.webp';
 import CardTour from './CardTour';
 import Packages from './Packages';
 import FullPackage from './FullPackage';
@@ -172,6 +172,9 @@ const HomePage = () => {
             <img
               src={logoT}
               alt="Cruising in Zanzibar Logo"
+              width="70"
+              height="70"
+              fetchPriority="high"
               className={`w-[66px] rounded-full object-contain transition-[height] duration-300 sm:w-[70px] ${isScrolled ? 'h-[58px] sm:h-[60px]' : 'h-[66px] sm:h-[70px]'}`}
             />
 
@@ -205,10 +208,10 @@ const HomePage = () => {
               <ChevronRight size={14} className="rotate-90" />
             </Link>
 
-            <div className="group relative flex cursor-pointer items-center gap-1 transition-colors duration-200 after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-[#2e8b57] after:transition-transform after:duration-300 hover:text-[#1b5e36] hover:after:scale-x-100">
+            <Link to="/destination" className="group relative flex cursor-pointer items-center gap-1 transition-colors duration-200 after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-[#2e8b57] after:transition-transform after:duration-300 hover:text-[#1b5e36] hover:after:scale-x-100">
               Destinations
               <ChevronRight size={14} className="rotate-90" />
-            </div>
+            </Link>
 
             <Link to="/contact" className="group relative transition-colors duration-200 after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-[#2e8b57] after:transition-transform after:duration-300 hover:text-[#1b5e36] hover:after:scale-x-100">
               Contact
@@ -256,7 +259,7 @@ const HomePage = () => {
               <Link to="/about" onClick={closeMobileMenu}>About Us</Link>
               <Link to="/card-tour" onClick={closeMobileMenu}>Zanzibar Tours</Link>
               <Link to="/packages" onClick={closeMobileMenu}>Experience Safaris</Link>
-              <span>Destinations</span>
+              <Link to="/destination" onClick={closeMobileMenu}>Destinations</Link>
               <Link to="/contact" onClick={closeMobileMenu}>Contact</Link>
 
               <a
@@ -286,7 +289,7 @@ const HomePage = () => {
       <section className="relative h-[calc(100vh-121px)] min-h-[600px] w-full overflow-hidden bg-gray-900 md:h-[calc(100vh-121px)] md:min-h-[600px]">
         <img
           src={heroSlides[currentSlide]}
-          alt="Swim with Dolphins"
+          alt=""
           className="absolute inset-0 h-full w-full object-cover object-center"
         />
 
@@ -330,7 +333,7 @@ const HomePage = () => {
               </Link>
 
               <Link
-                to="/contact"
+                to="/packages"
                 className="flex items-center justify-center gap-2 rounded-full border-2 border-white bg-black/20 px-8 py-3 text-[16px] font-bold text-white backdrop-blur-sm transition hover:bg-white hover:text-gray-900"
               >
                 <MessageCircle size={18} />

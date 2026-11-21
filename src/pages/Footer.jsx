@@ -1,12 +1,11 @@
 // src/components/Footer.jsx
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Phone, Mail, MapPin, Clock,
   MessageCircle, Send, ArrowRight, 
   CheckCircle2, Award, TreePalm, Handshake, ShieldCheck
 } from 'lucide-react';
-import logoT from '../assets/LogoT.jpeg'; // Hakikisha path hii ni sahihi
+import logoT from '../assets/LogoT.webp'; // Hakikisha path hii ni sahihi
 
 const socialLinks = [
   { label: 'Facebook', shortLabel: 'f', href: 'https://www.facebook.com/cruisinginzanzibartours' },
@@ -76,7 +75,7 @@ const Footer = () => {
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-16 h-16 bg-white rounded-full p-1">
-                  <img src={logoT} alt="Cruising in Zanzibar Logo" className="w-full h-full object-contain rounded-full" />
+                  <img src={logoT} alt="Cruising in Zanzibar Logo" loading="lazy" decoding="async" className="w-full h-full object-contain rounded-full" />
                 </div>
                 <div>
                   <h3 className="text-xl font-bold leading-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
@@ -172,7 +171,7 @@ const Footer = () => {
 
               {/* Newsletter */}
               <form className="flex items-center bg-white/10 rounded-full overflow-hidden p-1 border border-white/10 focus-within:border-[#1b5e36] transition-colors">
-                <input type="email" placeholder="Your email for deals" className="w-full bg-transparent text-white text-sm px-4 py-2 focus:outline-none placeholder-gray-500" required />
+                <input type="email" aria-label="Email address for deals" placeholder="Your email for deals" className="w-full bg-transparent text-white text-sm px-4 py-2 focus:outline-none placeholder-gray-500" required />
                 <button type="submit" className="bg-[#1b5e36] text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors shrink-0">
                   <Send size={14} />
                 </button>

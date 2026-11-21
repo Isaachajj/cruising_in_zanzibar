@@ -1,26 +1,42 @@
-import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import englishTranslations from '../locales/en/translation.json';
-import russianTranslations from '../locales/ru/translation.json';
-import frenchTranslations from '../locales/fr/translation.json';
-import germanTranslations from '../locales/de/translation.json';
-import italianTranslations from '../locales/it/translation.json';
 
 const LANGUAGE_STORAGE_KEY = 'cruising-in-zanzibar-language';
 const LanguageContext = createContext(null);
 const knownTextSources = new WeakMap();
 const knownAttributeSources = new WeakMap();
-const translationsByLanguage = { ru: russianTranslations, fr: frenchTranslations, de: germanTranslations, it: italianTranslations };
-const localizedToEnglish = Object.fromEntries(
-  Object.values(translationsByLanguage).flatMap((translations) =>
-    Object.entries(translations).map(([english, localized]) => [localized, english])
-  )
-);
+const translationsByLanguage = {};
+const localizedToEnglish = {};
+const localeLoaders = {
+  ru: () => import('../locales/ru/translation.json'),
+  fr: () => import('../locales/fr/translation.json'),
+  de: () => import('../locales/de/translation.json'),
+  it: () => import('../locales/it/translation.json')
+};
+const localePromises = new Map();
+const ensureLanguageLoaded = (language) => {
+  if (language === 'en' || translationsByLanguage[language]) return Promise.resolve();
+  if (!localePromises.has(language)) {
+    localePromises.set(language, localeLoaders[language]().then(({ default: translations }) => {
+      translationsByLanguage[language] = translations;
+      Object.entries(translations).forEach(([english, localized]) => {
+        localizedToEnglish[localized] = english;
+      });
+    }).catch((error) => {
+      localePromises.delete(language);
+      throw error;
+    }));
+  }
+  return localePromises.get(language);
+};
 const phraseTranslations = Object.keys(englishTranslations)
   .filter((english) => english.length >= 4)
   .sort((left, right) => right.length - left.length);
 const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const phraseTranslationPattern = new RegExp(phraseTranslations.map(escapeRegExp).join('|'), 'g');
 
+// This module intentionally exports translation helpers alongside the provider.
+// eslint-disable-next-line react-refresh/only-export-components
 export const translatePhrase = (phrase, language = 'en') => {
   const translations = translationsByLanguage[language];
   if (!translations || !phrase) return phrase;
@@ -158,15 +174,42 @@ const readSavedLanguage = () => {
 
 export const LanguageProvider = ({ children }) => {
   const [language, setLanguageState] = useState(readSavedLanguage);
-  const setLanguage = useCallback((nextLanguage) => {
-    const next = ['ru', 'fr', 'de', 'it'].includes(nextLanguage) ? nextLanguage : 'en';
-    setLanguageState(next);
+  const [translationVersion, setTranslationVersion] = useState(0);
+  const languageRequest = useRef(0);
+  const saveLanguage = (next) => {
     try {
       window.localStorage.setItem(LANGUAGE_STORAGE_KEY, next);
     } catch {
       // The selected language still works for this visit if storage is unavailable.
     }
+  };
+  const setLanguage = useCallback(async (nextLanguage) => {
+    const request = ++languageRequest.current;
+    const next = ['ru', 'fr', 'de', 'it'].includes(nextLanguage) ? nextLanguage : 'en';
+    try {
+      await ensureLanguageLoaded(next);
+      if (request !== languageRequest.current) return;
+      setLanguageState(next);
+      saveLanguage(next);
+    } catch {
+      if (request !== languageRequest.current) return;
+      setLanguageState('en');
+      saveLanguage('en');
+    }
   }, []);
+
+  useEffect(() => {
+    let active = true;
+    ensureLanguageLoaded(language).then(() => {
+      if (active) setTranslationVersion((version) => version + 1);
+    }).catch(() => {
+      if (active) {
+        setLanguageState('en');
+        saveLanguage('en');
+      }
+    });
+    return () => { active = false; };
+  }, [language]);
 
   useEffect(() => {
     document.documentElement.lang = language;
@@ -195,12 +238,13 @@ export const LanguageProvider = ({ children }) => {
       attributeFilter: ['placeholder', 'aria-label', 'title', 'alt']
     });
     return () => observer.disconnect();
-  }, [language]);
+  }, [language, translationVersion]);
 
-  const contextValue = useMemo(() => ({ language, setLanguage }), [language, setLanguage]);
+  const contextValue = useMemo(() => ({ language, setLanguage, translationVersion }), [language, setLanguage, translationVersion]);
   return <LanguageContext.Provider value={contextValue}>{children}</LanguageContext.Provider>;
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useLanguage = () => {
   const context = useContext(LanguageContext);
   if (!context) throw new Error('useLanguage must be used within a LanguageProvider');

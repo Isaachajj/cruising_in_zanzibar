@@ -1,5 +1,5 @@
 // src/pages/ContactUs.jsx
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage, translatePhrase } from '../i18n/LanguageContext';
 import {
@@ -388,11 +388,12 @@ const ContactUs = () => {
             <form onSubmit={handleSubmit} className="space-y-5">
 
               <div>
-                <label className="block text-sm font-semibold text-[#10243A] mb-2">
+                <label htmlFor="contact-name" className="block text-sm font-semibold text-[#10243A] mb-2">
                   Your Full Name *
                 </label>
                 <input
                   required
+                  id="contact-name"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
@@ -404,11 +405,12 @@ const ContactUs = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
-                  <label className="block text-sm font-semibold text-[#10243A] mb-2">
+                  <label htmlFor="contact-email" className="block text-sm font-semibold text-[#10243A] mb-2">
                     Email Address *
                   </label>
                   <input
                     required
+                    id="contact-email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
@@ -419,11 +421,12 @@ const ContactUs = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-[#10243A] mb-2">
+                  <label htmlFor="contact-phone" className="block text-sm font-semibold text-[#10243A] mb-2">
                     Phone Number
                   </label>
                   <input
                     name="phone"
+                    id="contact-phone"
                     value={formData.phone}
                     onChange={handleChange}
                     type="tel"
@@ -434,10 +437,11 @@ const ContactUs = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-[#10243A] mb-2">
+                <label htmlFor="contact-subject" className="block text-sm font-semibold text-[#10243A] mb-2">
                   Subject
                 </label>
                 <select
+                  id="contact-subject"
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
@@ -453,11 +457,12 @@ const ContactUs = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-[#10243A] mb-2">
+                <label htmlFor="contact-message" className="block text-sm font-semibold text-[#10243A] mb-2">
                   Your Message *
                 </label>
                 <textarea
                   required
+                  id="contact-message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
@@ -536,7 +541,7 @@ const ContactUs = () => {
           </p>
 
           <Link
-            to="/tours"
+            to="/card-tour"
             className="inline-flex items-center gap-3 bg-[#F5B91B] text-[#10243A] px-9 py-4 rounded-full font-bold hover:bg-white transition-all shadow-lg"
           >
             Explore Our Tours
