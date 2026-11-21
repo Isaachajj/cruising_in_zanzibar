@@ -405,7 +405,7 @@ const HomePage = () => {
       <CardTour showHero={false} showAll={false} />
 
       {/* ================= SAFARI PACKAGES SECTION ================= */}
-      <Packages showHero={false} />
+      <Packages showHero={false} showDestinations={false} />
 
       {/* ================= FULL PACKAGE SECTION ================= */}
       <FullPackage />

@@ -155,7 +155,7 @@ const safariPackages = [
 // ==========================================
 // 2. COMPONENT KUU (PackagesSection)
 // ==========================================
-const Packages = ({ showHero = true }) => {
+const Packages = ({ showHero = true, showDestinations = true }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const heroSlides = [
@@ -304,6 +304,7 @@ const Packages = ({ showHero = true }) => {
       </div>
 
       {/* ================= SAFARI DESTINATIONS ================= */}
+      {showDestinations && (
       <section className="relative overflow-hidden bg-white py-16 md:py-20">
         <div className="relative mx-auto max-w-[1440px] px-6 md:px-12">
           <div className="mb-12 text-center" data-safari-reveal="up">
@@ -348,6 +349,7 @@ const Packages = ({ showHero = true }) => {
           </div>
         </div>
       </section>
+      )}
       </section>
     </>
   );
