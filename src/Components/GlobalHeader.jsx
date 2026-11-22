@@ -211,16 +211,30 @@ const GlobalHeader = () => {
             </a>
           </div>
 
-          {/* MOBILE MENU BUTTON */}
-          <button
-            type="button"
-            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={mobileMenuOpen}
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gray-200 text-[#1b5e36] lg:hidden"
-          >
-            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
+          {/* MOBILE ACTIONS */}
+          <div className="flex shrink-0 items-center gap-2 lg:hidden">
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Chat on WhatsApp"
+              className="flex h-10 items-center justify-center gap-1.5 rounded-full bg-[#25D366] px-3 text-[13px] font-bold text-white shadow-sm"
+            >
+              <MessageCircle size={17} />
+              <span>WhatsApp</span>
+            </a>
+
+            {/* MOBILE MENU BUTTON */}
+            <button
+              type="button"
+              aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileMenuOpen}
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gray-200 text-[#1b5e36] lg:hidden"
+            >
+              {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
         </div>
 
         {/* RESPONSIVE MENU */}
