@@ -64,6 +64,38 @@ button {
   to { opacity: 1; transform: translateY(0); }
 }
 
+.homepage-3d .home-pop-card {
+  transform: perspective(1100px) translateY(13px) translateZ(-28px) rotateX(3deg) scale(.985);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  translate: none;
+  box-shadow: 0 4px 10px rgb(5 62 54 / 9%), 0 15px 30px rgb(8 65 75 / 10%), 0 30px 48px rgb(8 65 75 / 5%);
+  transition: transform 750ms cubic-bezier(.18,.72,.25,1), box-shadow 350ms ease, border-color 350ms ease;
+  will-change: transform;
+}
+
+.homepage-3d .home-pop-card.home-pop-visible {
+  transform: perspective(1100px) translateY(0) translateZ(10px) rotateX(0) scale(1);
+}
+
+.homepage-3d .home-pop-card.home-pop-visible:hover {
+  z-index: 5;
+  transform: perspective(1100px) translateY(-8px) translateZ(30px) rotateX(2deg) rotateY(-1deg) scale(1.012);
+  box-shadow: 0 8px 14px rgb(5 62 54 / 12%), 0 25px 42px rgb(8 65 75 / 16%), 0 44px 68px rgb(8 65 75 / 9%);
+}
+
+@media (max-width: 767px) {
+  .homepage-3d .home-pop-card.home-pop-visible {
+    transform: perspective(900px) translateY(0) translateZ(16px) rotateX(0) scale(1.004);
+  }
+
+  .homepage-3d .home-pop-card.home-pop-visible:active {
+    z-index: 5;
+    transform: perspective(900px) translateY(-5px) translateZ(36px) rotateX(1deg) scale(1.016);
+    box-shadow: 0 8px 14px rgb(5 62 54 / 13%), 0 28px 48px rgb(8 65 75 / 18%), 0 50px 72px rgb(8 65 75 / 10%);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .footer-cta::after,
   .footer-main {
@@ -73,5 +105,14 @@ button {
   .footer-main a,
   .footer-main button {
     transition: none;
+  }
+
+  .homepage-3d .home-pop-card,
+  .homepage-3d .home-pop-card.home-pop-visible,
+  .homepage-3d .home-pop-card.home-pop-visible:hover,
+  .homepage-3d .home-pop-card.home-pop-visible:active {
+    transform: none;
+    transition: none;
+    will-change: auto;
   }
 }

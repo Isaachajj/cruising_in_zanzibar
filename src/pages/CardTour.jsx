@@ -131,7 +131,7 @@ const CardTour = ({ showHero = true, showAll = true }) => {
             {tours.slice(0, showAll ? tours.length : 6).map((tour, index) => (
               <div data-tour-reveal data-delay={(index % 3) + 1} 
                 key={tour.id} 
-                className="group/card bg-white rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.15)] transition-all duration-300 border border-gray-100 flex flex-col hover:-translate-y-2"
+                className="home-pop-shell home-pop-card group/card bg-white rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.15)] transition-all duration-300 border border-gray-100 flex flex-col hover:-translate-y-2"
               >
                 
                 {/* Sehemu ya Picha */}
@@ -249,7 +249,7 @@ const CardTour = ({ showHero = true, showAll = true }) => {
               <Link
                 key={destination.name}
                 to="/destination"
-                className="group relative h-[270px] overflow-hidden rounded-2xl shadow-md transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl"
+                className="home-pop-card group relative h-[270px] overflow-hidden rounded-2xl shadow-md transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl"
                 data-tour-reveal
                 data-delay={(index % 4) + 1}
               >

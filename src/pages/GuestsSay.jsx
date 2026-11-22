@@ -139,7 +139,7 @@ const GuestsSay = () => {
             {visibleReviews.map((review) => (
               <div 
                 key={review.id} 
-                className="bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-gray-100 flex flex-col justify-between hover:shadow-xl transition-shadow duration-300 relative"
+                className="home-pop-card bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-gray-100 flex flex-col justify-between hover:shadow-xl transition-shadow duration-300 relative"
               >
                 {/* Alama ya Quote */}
                 <Quote size={40} className="absolute top-4 right-4 text-green-50 z-0" />

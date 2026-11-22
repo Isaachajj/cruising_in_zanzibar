@@ -77,7 +77,7 @@ const WhyUs = () => {
           {features.map((feature, index) => (
             <div 
               key={index} 
-              className="group relative bg-white rounded-2xl p-6 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_15px_30px_rgba(8,116,67,0.1)] transition-all duration-300 border border-gray-100 flex items-center gap-4 overflow-hidden hover:-translate-y-1"
+              className="home-pop-card group relative bg-white rounded-2xl p-6 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_15px_30px_rgba(8,116,67,0.1)] transition-all duration-300 border border-gray-100 flex items-center gap-4 overflow-hidden hover:-translate-y-1"
             >
               {/* Picha ya Background inayofifia (Subtle) */}
               <div className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity duration-300">

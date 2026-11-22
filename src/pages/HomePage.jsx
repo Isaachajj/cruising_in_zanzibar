@@ -71,8 +71,28 @@ const HomePage = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const cards = document.querySelectorAll('.homepage-3d .home-pop-card');
+    if (!('IntersectionObserver' in window)) {
+      cards.forEach((card) => card.classList.add('home-pop-visible'));
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('home-pop-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -24px 0px' });
+
+    cards.forEach((card) => observer.observe(card));
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="flex min-h-screen w-full flex-col overflow-x-clip font-sans">
+    <div className="homepage-3d flex min-h-screen w-full flex-col overflow-x-clip font-sans">
 
       {/* ================= TOP CONTACT BAR ================= */}
       <div className="relative z-50 w-full bg-[#1b5e36] py-2.5 text-[12px] text-white md:text-[13px]">
@@ -364,7 +384,7 @@ const HomePage = () => {
 
       {/* ================= QUICK FEATURES BAR ================= */}
       <section className="relative z-20 mx-auto -mt-16 w-full max-w-5xl px-6">
-        <div className="flex flex-wrap items-center justify-center gap-4 rounded-2xl border border-gray-100 bg-white p-5 shadow-[0_10px_40px_rgba(0,0,0,0.1)] md:gap-6">
+        <div className="home-pop-card flex flex-wrap items-center justify-center gap-4 rounded-2xl border border-gray-100 bg-white p-5 shadow-[0_10px_40px_rgba(0,0,0,0.1)] md:gap-6">
           <div className="flex items-center gap-3">
             <div className="rounded-full bg-green-50 p-2 text-[#1b5e36]">
               <Compass size={24} />

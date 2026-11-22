@@ -285,7 +285,7 @@ const Packages = ({ showHero = true, showDestinations = true }) => {
         {/* ================= SAFARI CARDS GRID ================= */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {safariPackages.map((pkg, index) => (
-            <div key={pkg.id} data-safari-reveal="up" data-delay={(index % 6) + 1}><SafariCard pkg={pkg} /></div>
+            <div key={pkg.id} className="home-pop-shell" data-safari-reveal="up" data-delay={(index % 6) + 1}><SafariCard pkg={pkg} /></div>
           ))}
         </div>
 
@@ -360,7 +360,7 @@ const Packages = ({ showHero = true, showDestinations = true }) => {
 // ==========================================
 const SafariCard = ({ pkg }) => {
   return (
-    <div className="group bg-white rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_20px_40px_rgba(245,185,27,0.15)] transition-all duration-300 border border-gray-100 flex flex-col hover:-translate-y-2">
+    <div className="home-pop-card group bg-white rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_20px_40px_rgba(245,185,27,0.15)] transition-all duration-300 border border-gray-100 flex flex-col hover:-translate-y-2">
       
       {/* Image Area */}
       <div className="relative h-56 overflow-hidden">

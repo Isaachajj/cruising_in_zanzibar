@@ -112,7 +112,7 @@ const FullDayTrips = () => {
           {fullDayTripsData.map((trip) => (
             <div 
               key={trip.id} 
-              className="group bg-white rounded-2xl overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.06)] hover:shadow-[0_20px_50px_rgba(8,116,67,0.15)] transition-all duration-300 border border-gray-100 flex flex-col hover:-translate-y-2"
+              className="home-pop-card group bg-white rounded-2xl overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.06)] hover:shadow-[0_20px_50px_rgba(8,116,67,0.15)] transition-all duration-300 border border-gray-100 flex flex-col hover:-translate-y-2"
             >
               
               {/* Image Area */}
