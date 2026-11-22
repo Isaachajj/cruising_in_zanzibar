@@ -44,7 +44,7 @@ const GlobalHeader = () => {
   return (
     <>
       {/* ================= TOP CONTACT BAR ================= */}
-      <div className="relative z-50 w-full bg-[#1b5e36] py-2.5 text-[12px] text-white md:text-[13px]">
+      <div className="relative z-50 hidden w-full bg-[#1b5e36] py-2.5 text-[12px] text-white md:block md:text-[13px]">
         <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center justify-center gap-y-2 px-4 sm:px-6 md:flex-row md:flex-wrap md:gap-x-4 lg:flex-nowrap lg:justify-center lg:gap-x-3 lg:px-6 xl:gap-x-4">
           
           {/* Kushoto: Mawasiliano */}
@@ -211,18 +211,23 @@ const GlobalHeader = () => {
             </a>
           </div>
 
-          {/* MOBILE ACTIONS */}
+          {/* ================= MOBILE ACTIONS ================= */}
           <div className="flex shrink-0 items-center gap-2 lg:hidden">
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Chat on WhatsApp"
-              className="flex h-10 items-center justify-center gap-1.5 rounded-full bg-[#25D366] px-3 text-[13px] font-bold text-white shadow-sm"
-            >
-              <MessageCircle size={17} />
-              <span>WhatsApp</span>
-            </a>
+            <div className="flex h-10 items-center gap-1 rounded-full border border-gray-200 bg-white px-2 text-[#1b5e36] shadow-sm">
+              <Globe size={16} className="shrink-0" />
+              <select
+                value={language}
+                onChange={(event) => setLanguage(event.target.value)}
+                aria-label="Choose language"
+                className="h-9 max-w-[62px] cursor-pointer border-0 bg-transparent text-[12px] font-bold uppercase outline-none [&>option]:text-gray-900"
+              >
+                <option value="en">EN</option>
+                <option value="ru">RU</option>
+                <option value="fr">FR</option>
+                <option value="de">DE</option>
+                <option value="it">IT</option>
+              </select>
+            </div>
 
             {/* MOBILE MENU BUTTON */}
             <button
@@ -247,16 +252,6 @@ const GlobalHeader = () => {
               <Link to="/packages" onClick={closeMobileMenu} className={isActive('/packages') ? 'rounded-md bg-[#1b5e36] px-3 py-2 text-white' : ''}>Experience Safaris</Link>
               <Link to="/destination" onClick={closeMobileMenu} className={isActive('/destination') ? 'rounded-md bg-[#1b5e36] px-3 py-2 text-white' : ''}>Destinations</Link>
               <Link to="/contact" onClick={closeMobileMenu} className={isActive('/contact') ? 'rounded-md bg-[#1b5e36] px-3 py-2 text-white' : ''}>Contact</Link>
-
-              <a
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center justify-center gap-2 rounded-full bg-[#2e8b57] px-4 py-3 text-white"
-              >
-                <MessageCircle size={17} />
-                WhatsApp
-              </a>
 
               <a
                 href="mailto:cruisinginzanzibar@gmail.com?subject=Tour%20or%20Safari%20Quote%20Request"
