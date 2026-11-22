@@ -1,11 +1,12 @@
 // src/components/CardTour.jsx
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Clock, Star, ArrowRight, 
   Waves, Ship, MapPin, Camera, 
-  Utensils, Users, TreePalm, Landmark, ChevronLeft, ChevronRight
+  Utensils, Users, TreePalm, Landmark
 } from 'lucide-react';
+import heroImages from '../config/heroImages';
 
 // Kadi sita za kwanza huonekana homepage; ukurasa wa tours huonyesha orodha yote.
 const tours = [
@@ -26,19 +27,7 @@ const tours = [
 ];
 
 const CardTour = ({ showHero = true, showAll = true }) => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  const heroSlides = [
-    { image: '/slider/slider11.jpeg', title: 'Zanzibar Island Adventures', subtitle: 'Snorkeling, beaches, culture and unforgettable ocean experiences' },
-    { image: '/slider/slider22.jpeg', title: 'Discover Stone Town', subtitle: 'Explore historic streets and Zanzibar heritage' },
-    { image: '/slider/slider33.jpg', title: 'Wildlife & Nature', subtitle: 'Experience Jozani Forest and island wildlife' },
-    { image: '/slider/slider44.jpeg', title: 'Mnemba Dolphin Tours', subtitle: 'Swim in crystal-clear waters with wild dolphins' }
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => setCurrentSlide((previous) => (previous + 1) % heroSlides.length), 5000);
-    return () => clearInterval(interval);
-  }, [heroSlides.length]);
+  const heroSlide = { image: heroImages.zanzibarTour, title: 'Zanzibar Island Adventures', subtitle: 'Snorkeling, beaches, culture and unforgettable ocean experiences' };
 
   useEffect(() => {
     const elements = document.querySelectorAll('[data-tour-reveal]');
@@ -69,32 +58,25 @@ const CardTour = ({ showHero = true, showAll = true }) => {
       `}</style>
 
       {showHero && (
-        <section className="relative h-[520px] md:h-[620px] w-full overflow-hidden bg-[#10243A]">
-          {heroSlides.map((slide, index) => (
-            <img key={slide.image} src={slide.image} alt="" aria-hidden="true" className={`absolute inset-0 h-full w-full object-cover transition-all duration-1000 ${currentSlide === index ? 'opacity-100 scale-100' : 'opacity-0 scale-105'}`} />
-          ))}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#10243A]/85 via-[#10243A]/35 to-transparent" />
-          <div key={currentSlide} className="tour-hero-text absolute inset-0 z-10 flex items-center px-6 md:px-12">
+        <section className="mobile-hero mobile-hero-slider relative h-[520px] md:h-[620px] w-full overflow-hidden bg-[#10243A]">
+          <img src={heroSlide.image} alt="" aria-hidden="true" className="mobile-hero-image absolute inset-0 h-full w-full object-cover" />
+          <div className="mobile-hero-overlay absolute inset-0 bg-gradient-to-r from-[#10243A]/85 via-[#10243A]/35 to-transparent" />
+          <div className="mobile-hero-content tour-hero-text absolute inset-0 z-10 flex items-center px-6 md:px-12">
             <div className="mx-auto w-full max-w-[1440px]">
               <div className="max-w-2xl text-white">
                 <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/40 bg-black/20 px-4 py-2 text-xs font-bold tracking-[3px] text-[#F5B91B] backdrop-blur-md"><TreePalm size={16} /> ZANZIBAR TOURS</div>
-                <h1 className="mb-5 text-4xl font-bold leading-tight md:text-6xl lg:text-7xl" style={{ fontFamily: "'Playfair Display', serif" }}>{heroSlides[currentSlide].title}</h1>
-                <p className="mb-8 max-w-xl text-base leading-7 text-white/90 md:text-xl">{heroSlides[currentSlide].subtitle}</p>
-                <Link to="/contact" className="inline-flex items-center gap-2 rounded-full bg-[#F5B91B] px-8 py-4 font-bold text-[#10243A] shadow-xl transition hover:-translate-y-1 hover:bg-white">Book Your Tour <ArrowRight size={18} /></Link>
+                <h1 className="mobile-hero-title mb-5 text-4xl font-bold leading-tight md:text-6xl lg:text-7xl" style={{ fontFamily: "'Playfair Display', serif" }}>{heroSlide.title}</h1>
+                <p className="mobile-hero-copy mb-8 max-w-xl text-base leading-7 text-white/90 md:text-xl">{heroSlide.subtitle}</p>
+                <Link to="/contact" className="mobile-hero-cta inline-flex items-center gap-2 rounded-full bg-[#F5B91B] px-8 py-4 font-bold text-[#10243A] shadow-xl transition hover:-translate-y-1 hover:bg-white">Book Your Tour <ArrowRight size={18} /></Link>
               </div>
             </div>
-          </div>
-          <button type="button" aria-label="Previous Zanzibar tour slide" onClick={() => setCurrentSlide((previous) => (previous - 1 + heroSlides.length) % heroSlides.length)} className="absolute left-4 top-1/2 z-20 -translate-y-1/2 rounded-full border border-white/40 bg-black/30 p-3 text-white backdrop-blur-md transition hover:bg-[#1b5e36]"><ChevronLeft size={22} /></button>
-          <button type="button" aria-label="Next Zanzibar tour slide" onClick={() => setCurrentSlide((previous) => (previous + 1) % heroSlides.length)} className="absolute right-4 top-1/2 z-20 -translate-y-1/2 rounded-full border border-white/40 bg-black/30 p-3 text-white backdrop-blur-md transition hover:bg-[#1b5e36]"><ChevronRight size={22} /></button>
-          <div className="absolute bottom-6 left-0 right-0 z-20 flex justify-center gap-2">
-            {heroSlides.map((_, index) => (<button key={index} type="button" aria-label={`Go to Zanzibar tour slide ${index + 1}`} onClick={() => setCurrentSlide(index)} className={`h-2.5 rounded-full transition-all ${currentSlide === index ? 'w-10 bg-[#F5B91B]' : 'w-2.5 bg-white/70'}`} />))}
           </div>
         </section>
       )}
 
       {/* Mapambo ya Majani (Palm Leaves) */}
       <div className="absolute top-0 left-0 w-40 h-40 bg-[url('https://www.transparentpng.com/thumb/palm-tree/palm-tree-transparent-image-2.png')] bg-no-repeat bg-contain opacity-20 -rotate-12 -translate-x-10 -translate-y-10 pointer-events-none"></div>
-      <div className="absolute top-0 right-0 w-40 h-40 bg-[url('https://www.transparentpng.com/thumb/palm-tree/palm-tree-transparent-image-2.png')] bg-no-repeat bg-contain opacity-20 rotate-12 translate-x-10 -translate-y-10 pointer-events-none"></div>
+      <div className="absolute top-0 right-0 w-40 h-40 bg-[url('https://www.transparentpng.com/thumb/palm-tree/palm-tree-transparent-image-2.png')] bg-no-repeat bg-contain opacity-20 rotate-12 translate-x-10 max-md:translate-x-0 -translate-y-10 pointer-events-none"></div>
 
       <div className="max-w-[1440px] mx-auto px-6 md:px-12">
         

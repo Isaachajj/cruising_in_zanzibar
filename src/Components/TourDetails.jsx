@@ -6,6 +6,7 @@ import { createBookingReference, formatBookingReceiptMessage } from './bookingRe
 import TravelDateInput from './TravelDateInput';
 import { useLanguage, translatePhrase } from '../i18n/LanguageContext';
 import NotFound from '../pages/NotFound';
+import heroImages from '../config/heroImages';
 import { 
   MapPin, Clock, Star, Users, Calendar, 
   CheckCircle2, ChevronLeft, ChevronRight, 
@@ -213,7 +214,7 @@ const TourDetails = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#fcfdfa] font-sans pb-24 overflow-x-hidden">
+    <div className="min-h-screen bg-[#fcfdfa] font-sans pb-24">
       
       {/* ================= CSS KEYFRAMES ZA ANIMATION ================= */}
       <style>
@@ -250,23 +251,23 @@ const TourDetails = () => {
       </style>
 
       {/* ================= HERO HEADER ================= */}
-      <div className="relative w-full h-[300px] md:h-[400px] bg-[#10243A] overflow-hidden flex items-center justify-center">
+      <div className="mobile-hero mobile-hero-detail relative w-full h-[300px] md:h-[400px] bg-[#10243A] overflow-hidden flex items-center justify-center">
         <img 
-          src={tour.images[0]} 
+          src={/stone|town|spice/i.test(tour.title) ? heroImages.stoneTown : /jozani|forest/i.test(tour.title) ? heroImages.beachCulture : heroImages.beach}
           alt="Zanzibar" 
-          className="absolute inset-0 w-full h-full object-cover opacity-40"
+          className="mobile-hero-image absolute inset-0 w-full h-full object-cover opacity-40"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#10243A] to-transparent"></div>
+        <div className="mobile-hero-overlay absolute inset-0 bg-gradient-to-t from-[#10243A] via-[#10243A]/45 to-[#10243A]/10"></div>
         
-        <div className="relative z-10 text-center px-4 mt-10">
+        <div className="mobile-hero-content relative z-10 text-center px-4 mt-10">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#F5B91B]/50 bg-black/30 text-[#F5B91B] font-bold tracking-widest text-xs md:text-sm mb-4 backdrop-blur-sm">
             <MapPin size={14} />
             EXPLORE ZANZIBAR
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>
+          <h1 className="mobile-hero-title text-4xl md:text-6xl font-bold text-white mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>
             Our <span className="text-[#F5B91B]">Tours</span>
           </h1>
-          <p className="text-gray-200 text-sm md:text-base">
+          <p className="mobile-hero-copy text-gray-200 text-sm md:text-base">
             Discover the best tours and experiences in Zanzibar & Tanzania
           </p>
         </div>

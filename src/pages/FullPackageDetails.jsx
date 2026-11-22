@@ -5,6 +5,7 @@ import BookingReceipt from '../Components/BookingReceipt';
 import { createBookingReference, formatBookingReceiptMessage } from '../Components/bookingReceiptUtils';
 import TravelDateInput from '../Components/TravelDateInput';
 import { useLanguage, translatePhrase } from '../i18n/LanguageContext';
+import heroAssets from '../config/heroImages';
 import { 
   ChevronLeft, ChevronRight, Play, Pause, MapPin, Clock, Star, 
   ArrowLeft, CheckCircle2, XCircle, CalendarDays,
@@ -165,7 +166,6 @@ const FullPackageDetails = () => {
   const timerRef = useRef(null);
 
   // Hero Slider State
-  const [heroIndex, setHeroIndex] = useState(0);
 
   // Booking Form State
   const [formData, setFormData] = useState({
@@ -184,15 +184,12 @@ const FullPackageDetails = () => {
 
   const totalSlides = trip.destinations.length;
   const currentDestination = trip.destinations[currentIndex];
-  const heroImages = trip.heroImages || [];
+  const heroImage = id === 'stone-town-heritage' ? heroAssets.stoneTown : id === 'safari-blue' ? heroAssets.beach : heroAssets.snorkeling;
 
   // Slideshow logic
   const nextSlide = useCallback(() => setCurrentIndex((prev) => (prev + 1) % totalSlides), [totalSlides]);
   const prevSlide = useCallback(() => setCurrentIndex((prev) => (prev - 1 + totalSlides) % totalSlides), [totalSlides]);
 
-  // Hero Slider logic
-  const nextHero = useCallback(() => setHeroIndex((prev) => (prev + 1) % heroImages.length), [heroImages.length]);
-  const prevHero = useCallback(() => setHeroIndex((prev) => (prev - 1 + heroImages.length) % heroImages.length), [heroImages.length]);
 
   useEffect(() => {
     if (isPlaying) {
@@ -203,11 +200,6 @@ const FullPackageDetails = () => {
     };
   }, [isPlaying, nextSlide]);
 
-  // Hero Slider Auto-play
-  useEffect(() => {
-    const heroTimer = setInterval(nextHero, 6000);
-    return () => clearInterval(heroTimer);
-  }, [nextHero]);
 
   const goToSlide = (index) => {
     setCurrentIndex(index);
@@ -265,31 +257,26 @@ const FullPackageDetails = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#fcfdfa] font-sans pb-24 overflow-x-hidden">
+    <div className="min-h-screen bg-[#fcfdfa] font-sans pb-24">
       
       {/* ================= HERO SLIDER ================= */}
-      <div className="relative w-full h-[400px] md:h-[500px] bg-[#10243A] overflow-hidden">
+      <div className="mobile-hero mobile-hero-slider relative w-full h-[400px] md:h-[500px] bg-[#10243A] overflow-hidden">
         {/* Slides */}
-        {heroImages.map((img, index) => (
-          <div 
-            key={index}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === heroIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
-          >
-            <img src={img} alt={`${trip.title} photo ${index + 1}`} className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#10243A] via-[#10243A]/40 to-transparent"></div>
-          </div>
-        ))}
+        <div className="absolute inset-0">
+          <img src={heroImage} alt={`${trip.title} scenery`} className="mobile-hero-image w-full h-full object-cover" />
+          <div className="mobile-hero-overlay absolute inset-0 bg-gradient-to-t from-[#10243A] via-[#10243A]/40 to-transparent"></div>
+        </div>
 
         {/* Hero Content */}
-        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-4">
+        <div className="mobile-hero-content absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-4">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#F5B91B]/50 bg-black/30 backdrop-blur-sm text-[#F5B91B] font-bold tracking-widest text-xs md:text-sm mb-4 animate-[fadeSlideUp_0.8s_ease-out_forwards]">
             <MapPin size={14} />
             {trip.startingLocation}
           </div>
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight max-w-4xl" style={{ fontFamily: "'Playfair Display', serif" }}>
+          <h1 className="mobile-hero-title text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight max-w-4xl" style={{ fontFamily: "'Playfair Display', serif" }}>
             {trip.title}
           </h1>
-          <p className="text-gray-200 text-sm md:text-base max-w-2xl mb-6">
+          <p className="mobile-hero-copy text-gray-200 text-sm md:text-base max-w-2xl mb-6">
             {trip.description}
           </p>
           <div className="flex items-center gap-4 text-sm font-semibold text-white">
@@ -298,20 +285,6 @@ const FullPackageDetails = () => {
           </div>
         </div>
 
-        {/* Arrows */}
-        <button onClick={prevHero} className="absolute left-4 top-1/2 -translate-y-1/2 z-30 bg-black/40 backdrop-blur-sm text-white p-2 md:p-3 rounded-full hover:bg-black/60 transition">
-          <ChevronLeft size={24} />
-        </button>
-        <button onClick={nextHero} className="absolute right-4 top-1/2 -translate-y-1/2 z-30 bg-black/40 backdrop-blur-sm text-white p-2 md:p-3 rounded-full hover:bg-black/60 transition">
-          <ChevronRight size={24} />
-        </button>
-
-        {/* Dots */}
-        <div className="absolute bottom-6 left-0 right-0 z-30 flex justify-center gap-2">
-          {heroImages.map((_, idx) => (
-            <button key={idx} onClick={() => setHeroIndex(idx)} className={`h-2 rounded-full transition-all duration-300 ${idx === heroIndex ? 'w-8 bg-[#F5B91B]' : 'w-2 bg-white/50 hover:bg-white'}`} />
-          ))}
-        </div>
       </div>
 
       {/* ================= BACK NAVIGATION ================= */}

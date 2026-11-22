@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { MessageCircle } from 'lucide-react';
 import SiteLayout from './Components/SiteLayout';
 import { LanguageProvider } from './i18n/LanguageContext';
 
@@ -19,7 +20,7 @@ function App() {
   return (
     <Router>
       <LanguageProvider>
-        <div className="min-h-screen overflow-x-clip bg-gray-50 font-sans">
+        <div className="min-h-screen bg-gray-50 font-sans">
           <Suspense
             fallback={(
               <div role="status" className="flex min-h-[60vh] items-center justify-center bg-[#FCFBF8]">
@@ -44,6 +45,16 @@ function App() {
             </Routes>
           </Suspense>
         </div>
+        <a
+          href="https://wa.me/255653924851"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Chat with us on WhatsApp"
+          className="fixed right-4 bottom-5 z-[90] flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition hover:bg-green-500"
+          style={{ right: '16px', bottom: 'calc(20px + env(safe-area-inset-bottom))' }}
+        >
+          <MessageCircle size={28} />
+        </a>
       </LanguageProvider>
     </Router>
   );

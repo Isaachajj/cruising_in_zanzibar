@@ -1,8 +1,7 @@
 // src/components/GuestsSay.jsx
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { 
-  Star, ChevronLeft, ChevronRight, MessageCircle, 
-  Quote, ArrowRight 
+  Star, ChevronLeft, ChevronRight, MessageCircle, Quote
 } from 'lucide-react';
 
 const reviews = [
@@ -62,6 +61,15 @@ const GuestsSay = () => {
   const [startIndex, setStartIndex] = useState(0);
   const itemsToShow = 4;
 
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
+      document.querySelectorAll('.homepage-3d .guest-review-card').forEach((card) => {
+        card.classList.add('home-pop-visible');
+      });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [startIndex]);
+
   const nextSlide = () => {
     if (startIndex + itemsToShow < reviews.length) {
       setStartIndex(startIndex + 1);
@@ -91,14 +99,14 @@ const GuestsSay = () => {
             <MessageCircle size={18} className="text-[#087443]" />
             REVIEWS
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-[#10243A] mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>
+          <h2 className="text-4xl md:text-5xl font-bold text-[#07566D] mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>
             What Our Guests Say
           </h2>
           
           {/* Takwimu za Rating */}
           <div className="flex items-center justify-center gap-8 mt-6">
             <div className="text-center">
-              <div className="flex items-center justify-center gap-1 text-3xl font-bold text-[#10243A]">
+              <div className="flex items-center justify-center gap-1 text-3xl font-bold text-[#07566D]">
                 <Star size={28} className="text-[#F5B91B]" fill="currentColor" />
                 4.8
               </div>
@@ -106,7 +114,7 @@ const GuestsSay = () => {
             </div>
             <div className="w-px h-12 bg-gray-300"></div>
             <div className="text-center">
-              <div className="flex items-center justify-center gap-1 text-3xl font-bold text-[#10243A]">
+              <div className="flex items-center justify-center gap-1 text-3xl font-bold text-[#07566D]">
                 <Star size={28} className="text-[#F5B91B]" fill="currentColor" />
                 5.0
               </div>
@@ -135,14 +143,14 @@ const GuestsSay = () => {
           </button>
 
           {/* Grid ya Maoni */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div key={startIndex} className="guest-review-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {visibleReviews.map((review) => (
               <div 
                 key={review.id} 
-                className="home-pop-card bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-gray-100 flex flex-col justify-between hover:shadow-xl transition-shadow duration-300 relative"
+                className="guest-review-card home-pop-card bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-gray-100 flex flex-col justify-between hover:shadow-xl transition-shadow duration-300 relative"
               >
                 {/* Alama ya Quote */}
-                <Quote size={40} className="absolute top-4 right-4 text-green-50 z-0" />
+                <Quote size={40} className="guest-review-quote absolute top-4 right-4 text-[#087443]/[0.08] z-0" />
 
                 <div className="relative z-10">
                   {/* Stars */}
@@ -153,7 +161,7 @@ const GuestsSay = () => {
                   </div>
 
                   {/* Text */}
-                  <p className="text-gray-600 text-sm italic mb-6 leading-relaxed">
+                  <p className="guest-review-copy min-h-[5.5rem] text-gray-600 text-sm italic mb-6 leading-relaxed">
                     "{review.text}"
                   </p>
                 </div>
@@ -165,24 +173,16 @@ const GuestsSay = () => {
                     alt={review.name} 
                     loading="lazy"
                     decoding="async"
-                    className="w-10 h-10 rounded-full object-cover border-2 border-white shadow-sm"
+                    className="guest-review-avatar w-10 h-10 rounded-full object-cover border-2 border-white shadow-sm"
                   />
                   <div>
-                    <h4 className="text-sm font-bold text-[#10243A]">{review.name}</h4>
+                    <h4 className="text-sm font-bold text-[#07566D]">{review.name}</h4>
                     <p className="text-xs text-gray-500">{review.country}</p>
                   </div>
                 </div>
               </div>
             ))}
           </div>
-        </div>
-
-        {/* Kitufe cha Read More */}
-        <div className="text-center mt-12">
-          <button className="inline-flex items-center gap-2 bg-[#087443] text-white font-bold px-8 py-3 rounded-full hover:bg-green-800 transition-all duration-300 shadow-md">
-            Read More Reviews
-            <ArrowRight size={18} />
-          </button>
         </div>
 
       </div>

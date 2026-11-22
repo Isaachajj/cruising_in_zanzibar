@@ -5,6 +5,7 @@ import BookingReceipt from './BookingReceipt';
 import { createBookingReference, formatBookingReceiptMessage } from './bookingReceiptUtils';
 import TravelDateInput from './TravelDateInput';
 import { useLanguage, translatePhrase } from '../i18n/LanguageContext';
+import heroImages from '../config/heroImages';
 import { 
   Search, MapPin, Star, Users, CheckCircle2,
   PawPrint, ShieldCheck, Headset, Gem,
@@ -192,7 +193,7 @@ const SafariPackages = () => {
   const relatedTours = Object.values(safariData).filter(t => t.id !== (id || activeCategory)).slice(0, 3);
 
   return (
-    <div className="min-h-screen bg-[#fcfdfa] font-sans pb-24 overflow-x-hidden">
+    <div className="min-h-screen bg-[#fcfdfa] font-sans pb-24">
       
       {/* ================= CSS KEYFRAMES ZA ANIMATION ================= */}
       <style>
@@ -229,6 +230,9 @@ const SafariPackages = () => {
           .animate-slide-right {
             animation: fadeSlideInRight 1.2s ease-out forwards;
           }
+          @media (max-width: 767px) {
+            .animate-slide-left, .animate-slide-right { animation-name: fadeSlideUp; }
+          }
           .animate-slow-fade {
             animation: fadeIn 2s ease-out forwards;
           }
@@ -236,17 +240,17 @@ const SafariPackages = () => {
       </style>
 
       {/* ================= 1. HERO SECTION ================= */}
-      <div className="relative w-full h-[400px] md:h-[500px] bg-[#10243A] overflow-hidden flex items-center">
+      <div className="mobile-hero mobile-hero-detail relative w-full h-[400px] md:h-[500px] bg-[#10243A] overflow-hidden flex items-center">
         {/* Background Image */}
         <img 
-          src="https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=2000&auto=format&fit=crop" 
+          src={heroImages.safari}
           alt="Tanzania Safari" 
-          className="absolute inset-0 w-full h-full object-cover"
+          className="mobile-hero-image absolute inset-0 w-full h-full object-cover"
         />
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#10243A]/95 via-[#10243A]/70 to-transparent"></div>
+        <div className="mobile-hero-overlay absolute inset-0 bg-gradient-to-r from-[#10243A]/95 via-[#10243A]/70 to-transparent"></div>
         
-        <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-12 w-full">
+        <div className="mobile-hero-content relative z-10 max-w-[1200px] mx-auto px-6 md:px-12 w-full">
           <div className="max-w-2xl">
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#F5B91B]/50 bg-[#10243A]/80 text-[#F5B91B] font-bold tracking-widest text-xs md:text-sm mb-6 backdrop-blur-sm animate-slide-down">
@@ -255,12 +259,12 @@ const SafariPackages = () => {
             </div>
             
             {/* Title */}
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 leading-tight animate-hero-text" style={{ fontFamily: "'Playfair Display', serif", animationDelay: '200ms' }}>
+            <h1 className="mobile-hero-title text-4xl md:text-6xl font-bold text-white mb-4 leading-tight animate-hero-text" style={{ fontFamily: "'Playfair Display', serif", animationDelay: '200ms' }}>
               Our <span className="text-[#F5B91B]">Safari</span> Packages
             </h1>
             
             {/* Subtitle */}
-            <p className="text-gray-200 text-base md:text-lg mb-8 max-w-lg animate-hero-text" style={{ animationDelay: '400ms' }}>
+            <p className="mobile-hero-copy text-gray-200 text-base md:text-lg mb-8 max-w-lg animate-hero-text" style={{ animationDelay: '400ms' }}>
               Discover the wild beauty of Tanzania with our carefully crafted safari packages.
             </p>
 

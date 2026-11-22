@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import heroImages from '../config/heroImages';
 import {
   ArrowRight,
   CheckCircle2,
@@ -41,21 +42,21 @@ const AboutUs = () => {
     <div className="min-h-screen bg-[#FCFBF8] font-sans">
 
       {/* ================= 1. HERO SECTION ================= */}
-      <section className="relative min-h-[680px] h-[85vh] max-h-[900px] w-full flex items-center justify-center overflow-hidden">
+      <section className="mobile-hero mobile-hero-about relative min-h-[680px] h-[85vh] max-h-[900px] w-full flex items-center justify-center overflow-hidden">
 
         {/* Background Beach Image */}
         <img
-          src="/utalii2.jpeg"
+          src={heroImages.beach}
           alt="Beautiful tropical beach in Zanzibar"
-          className="absolute inset-0 w-full h-full object-cover object-center about-hero-image"
+          className="mobile-hero-image absolute inset-0 w-full h-full object-cover object-center about-hero-image"
           fetchPriority="high"
         />
 
         {/* Soft Overlay - No background behind text */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#061C27]/45 via-[#061C27]/30 to-[#061C27]/65"></div>
+        <div className="mobile-hero-overlay absolute inset-0 bg-gradient-to-b from-[#061C27]/45 via-[#061C27]/30 to-[#061C27]/65"></div>
 
         {/* Hero Content */}
-        <div className="relative z-10 max-w-5xl mx-auto px-5 text-center about-hero-in">
+        <div className="mobile-hero-content relative z-10 max-w-5xl mx-auto px-5 text-center about-hero-in">
 
           <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-white/50 bg-white/10 backdrop-blur-md text-white text-xs md:text-sm font-bold tracking-[0.25em] uppercase mb-8">
             <Palmtree size={16} className="text-[#F5B91B]" />
@@ -63,7 +64,7 @@ const AboutUs = () => {
           </div>
 
           <h1
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-[82px] font-bold text-white leading-[1.08] mb-7 drop-shadow-lg"
+            className="mobile-hero-title text-5xl sm:text-6xl md:text-7xl lg:text-[82px] font-bold text-white leading-[1.08] mb-7 drop-shadow-lg"
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
             Discover the
@@ -73,12 +74,12 @@ const AboutUs = () => {
             </span>
           </h1>
 
-          <p className="text-base sm:text-lg md:text-xl text-white/95 leading-relaxed max-w-3xl mx-auto mb-10 drop-shadow-md">
+          <p className="mobile-hero-copy text-base sm:text-lg md:text-xl text-white/95 leading-relaxed max-w-3xl mx-auto mb-10 drop-shadow-md">
             We bring you closer to the beauty, culture and unforgettable
             adventures of Zanzibar and Tanzania. Your journey begins with us.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="mobile-hero-actions flex flex-col sm:flex-row items-center justify-center gap-4">
 
             <Link
               to="/card-tour"
@@ -452,6 +453,9 @@ const AboutUs = () => {
         [data-about-reveal='left'] { transform: translateX(-48px); }
         [data-about-reveal='right'] { transform: translateX(48px); }
         [data-about-reveal='zoom'] { transform: scale(.94); }
+        @media (max-width: 767px) {
+          [data-about-reveal='left'], [data-about-reveal='right'] { transform: translateY(28px); }
+        }
         [data-about-reveal].about-visible { opacity: 1; transform: none; transition: opacity .85s ease, transform .85s cubic-bezier(.22,.68,.22,1); }
         .about-visible[data-delay='1'] { transition-delay: .12s; }
         .about-visible[data-delay='2'] { transition-delay: .24s; }

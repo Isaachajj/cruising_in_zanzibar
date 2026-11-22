@@ -1,0 +1,49 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Mobile overflow audit</title>
+<pre id="results">Starting viewport audit…</pre>
+<iframe id="page" title="Audit page" style="position:absolute;left:-10000px;top:0;border:0"></iframe>
+<script>
+const widths = [360, 375, 390, 430];
+const routes = ['/', '/about', '/card-tour', '/safari/1'];
+const frame = document.querySelector('#page');
+const results = [];
+const next = (routeIndex, widthIndex) => {
+  if (routeIndex >= routes.length) {
+    document.querySelector('#results').textContent = JSON.stringify(results);
+    document.title = `Overflow audit complete: ${results.length} cases`;
+    return;
+  }
+  const width = widths[widthIndex];
+  const route = routes[routeIndex];
+  frame.style.width = `${width}px`;
+  frame.style.height = '900px';
+  const auditPage = () => {
+    const win = frame.contentWindow;
+    const doc = frame.contentDocument;
+    if (!doc || !doc.querySelector('#root > *')) return setTimeout(auditPage, 250);
+    const app = doc.querySelector('#root > div');
+    const home = doc.querySelector('.homepage-3d');
+    if (app) app.style.setProperty('overflow-x', 'visible', 'important');
+    if (home) home.style.setProperty('overflow-x', 'visible', 'important');
+    const viewport = win.innerWidth;
+    const offenders = [...doc.querySelectorAll('body *')].map(el => {
+      const rect = el.getBoundingClientRect();
+      return { el, left: Math.round(rect.left), right: Math.round(rect.right), width: Math.round(rect.width) };
+    }).filter(item => item.width && (item.left < -1 || item.right > viewport + 1))
+      .map(({ el, left, right, width: itemWidth }) => ({
+        tag: el.tagName.toLowerCase(),
+        className: typeof el.className === 'string' ? el.className.slice(0, 100) : '',
+        left, right, width: itemWidth
+      }));
+    const button = doc.querySelector('a[aria-label="Chat with us on WhatsApp"]');
+    const rect = button?.getBoundingClientRect();
+    results.push({ route, viewport: width, innerWidth: viewport, clientWidth: doc.documentElement.clientWidth, documentWidth: doc.documentElement.scrollWidth, bodyWidth: doc.body.scrollWidth, horizontalOverflow: doc.documentElement.scrollWidth > doc.documentElement.clientWidth + 1, whatsapp: rect ? { left: Math.round(rect.left), right: Math.round(rect.right), visible: rect.left >= 0 && rect.right <= doc.documentElement.clientWidth } : null, offenders: offenders.slice(-12) });
+    if (widthIndex + 1 < widths.length) next(routeIndex, widthIndex + 1);
+    else next(routeIndex + 1, 0);
+  };
+  frame.src = `${route}?overflow-audit=${Date.now()}`;
+  setTimeout(auditPage, 500);
+};
+next(0, 0);
+</script>

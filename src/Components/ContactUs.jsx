@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage, translatePhrase } from '../i18n/LanguageContext';
+import heroImages from '../config/heroImages';
 import {
   MapPin,
   Phone,
@@ -10,8 +11,6 @@ import {
   MessageCircle,
   Send,
   ArrowRight,
-  ChevronLeft,
-  ChevronRight,
   Headset,
   Globe,
   CheckCircle2
@@ -19,7 +18,7 @@ import {
 
 const slides = [
   {
-    image: '/utalii3.jpeg',
+    image: heroImages.beachCulture,
     title: 'We Are Here For You',
     highlight: 'Every Step of Your Journey',
     subtitle: 'Have a question or need help planning your Zanzibar adventure? Our friendly team is ready to assist you.'
@@ -28,7 +27,7 @@ const slides = [
 
 const ContactUs = () => {
   const { language } = useLanguage();
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const slide = slides[0];
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -39,22 +38,6 @@ const ContactUs = () => {
 
   const WHATSAPP_NUMBER = '255653924851';
   const BUSINESS_EMAIL = 'cruisinginzanzibar@gmail.com';
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
-  };
-
-  const previousSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-  };
 
   const handleChange = (e) => {
     setFormData({
@@ -96,13 +79,16 @@ const ContactUs = () => {
   }, []);
 
   return (
-    <main className="min-h-screen bg-[#FCFBF8] overflow-x-hidden">
+    <main className="min-h-screen bg-[#FCFBF8]">
       <style>{`
         [data-contact-reveal] { opacity: 0; }
         [data-contact-reveal='up'] { transform: translateY(42px); }
         [data-contact-reveal='left'] { transform: translateX(-48px); }
         [data-contact-reveal='right'] { transform: translateX(48px); }
         [data-contact-reveal='zoom'] { transform: scale(.94); }
+        @media (max-width: 767px) {
+          [data-contact-reveal='left'], [data-contact-reveal='right'] { transform: translateY(28px); }
+        }
         [data-contact-reveal].contact-visible { opacity: 1; transform: none; transition: opacity .85s ease, transform .85s cubic-bezier(.22,.68,.22,1); }
         .contact-visible[data-delay='1'] { transition-delay: .10s; }
         .contact-visible[data-delay='2'] { transition-delay: .20s; }
@@ -118,27 +104,20 @@ const ContactUs = () => {
       `}</style>
 
       {/* ================= HERO IMAGE SLIDER ================= */}
-      <section className="relative h-[650px] md:h-[740px] w-full overflow-hidden bg-[#10243A]">
+      <section className="mobile-hero mobile-hero-contact relative h-[650px] md:h-[740px] w-full overflow-hidden bg-[#10243A]">
 
-        {slides.map((slide, index) => (
-          <div
-            key={index}
-            className={`absolute inset-0 transition-opacity duration-1000 ${
-              currentSlide === index ? 'opacity-100' : 'opacity-0'
-            }`}
-          >
+        <div className="absolute inset-0">
             <img
               src={slide.image}
               alt="Beautiful Zanzibar scenery"
-              className="w-full h-full object-cover contact-hero-image"
+              className="mobile-hero-image w-full h-full object-cover contact-hero-image"
             />
 
-            <div className="absolute inset-0 bg-gradient-to-b from-[#071727]/45 via-[#071727]/40 to-[#071727]/75" />
-          </div>
-        ))}
+            <div className="mobile-hero-overlay absolute inset-0 bg-gradient-to-b from-[#071727]/45 via-[#071727]/40 to-[#071727]/75" />
+        </div>
 
         {/* Hero Content */}
-        <div className="absolute inset-0 z-10 flex items-center justify-center px-5 text-center">
+        <div className="mobile-hero-content absolute inset-0 z-10 flex items-center justify-center px-5 text-center">
           <div className="max-w-4xl mx-auto text-white contact-hero-in">
 
             <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-[#F5B91B]/60 bg-black/20 backdrop-blur-md text-[#F5B91B] text-xs md:text-sm font-bold tracking-[3px] mb-7">
@@ -146,20 +125,20 @@ const ContactUs = () => {
               GET IN TOUCH
             </div>
 
-            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight mb-6"
+            <h1 className="mobile-hero-title text-4xl sm:text-5xl md:text-7xl font-bold leading-tight mb-6"
               style={{ fontFamily: "'Playfair Display', serif" }}
             >
-              {slides[currentSlide].title}
+              {slide.title}
               <span className="block text-[#F5B91B] mt-2">
-                {slides[currentSlide].highlight}
+                {slide.highlight}
               </span>
             </h1>
 
-            <p className="max-w-2xl mx-auto text-base md:text-xl text-white/90 leading-relaxed mb-9">
-              {slides[currentSlide].subtitle}
+            <p className="mobile-hero-copy max-w-2xl mx-auto text-base md:text-xl text-white/90 leading-relaxed mb-9">
+              {slide.subtitle}
             </p>
 
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <div className="mobile-hero-actions flex flex-col sm:flex-row justify-center gap-4">
               <a
                 href="#contact-form"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-[#F5B91B] text-[#10243A] font-bold hover:bg-white transition-all duration-300 shadow-xl hover:-translate-y-1"
@@ -187,38 +166,6 @@ const ContactUs = () => {
           </div>
         </div>
 
-        {/* Previous / Next */}
-        <button
-          onClick={previousSlide}
-          aria-label="Previous slide"
-          className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 w-11 h-11 md:w-14 md:h-14 rounded-full border border-white/40 bg-black/25 backdrop-blur-md text-white flex items-center justify-center hover:bg-[#F5B91B] hover:text-[#10243A] transition-all"
-        >
-          <ChevronLeft size={28} />
-        </button>
-
-        <button
-          onClick={nextSlide}
-          aria-label="Next slide"
-          className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 w-11 h-11 md:w-14 md:h-14 rounded-full border border-white/40 bg-black/25 backdrop-blur-md text-white flex items-center justify-center hover:bg-[#F5B91B] hover:text-[#10243A] transition-all"
-        >
-          <ChevronRight size={28} />
-        </button>
-
-        {/* Slider Dots */}
-        <div className="absolute bottom-9 left-0 right-0 z-20 flex justify-center gap-3">
-          {slides.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentSlide(index)}
-              aria-label={`Go to slide ${index + 1}`}
-              className={`h-2.5 rounded-full transition-all duration-500 ${
-                currentSlide === index
-                  ? 'w-10 bg-[#F5B91B]'
-                  : 'w-2.5 bg-white/60 hover:bg-white'
-              }`}
-            />
-          ))}
-        </div>
       </section>
 
       {/* ================= INTRODUCTION ================= */}

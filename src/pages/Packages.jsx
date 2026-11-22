@@ -1,10 +1,11 @@
 // src/components/Packages.jsx
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Star, ArrowRight, Compass, ShieldCheck, 
-  Map, PawPrint, ChevronLeft, ChevronRight
+  Map, PawPrint
 } from 'lucide-react';
+import heroImages from '../config/heroImages';
 
 // ==========================================
 // 1. DATA YA SAFARI PACKAGES
@@ -156,21 +157,7 @@ const safariPackages = [
 // 2. COMPONENT KUU (PackagesSection)
 // ==========================================
 const Packages = ({ showHero = true, showDestinations = true }) => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  const heroSlides = [
-    { image: '/slider/slider33.jpg', title: 'Wildlife Safari Adventures', subtitle: 'Discover Tanzania wildlife, migration and legendary national parks' },
-    { image: '/slider/slider44.jpeg', title: 'Serengeti Plains', subtitle: 'Unforgettable game drives across endless golden landscapes' },
-    { image: '/slider/slider99.jpeg', title: 'Ngorongoro Crater', subtitle: 'Explore one of Africa most remarkable natural wonders' },
-    { image: '/slider/lider66.jpeg', title: 'Luxury Safari Journeys', subtitle: 'Comfort, adventure and authentic African experiences' }
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((previous) => (previous + 1) % heroSlides.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [heroSlides.length]);
+  const heroSlide = { image: heroImages.safari, title: 'Wildlife Safari Adventures', subtitle: 'Discover Tanzania wildlife, migration and legendary national parks' };
 
   useEffect(() => {
     const elements = document.querySelectorAll('[data-safari-reveal]');
@@ -202,25 +189,18 @@ const Packages = ({ showHero = true, showDestinations = true }) => {
       `}</style>
 
       {showHero && (
-        <section className="relative h-[520px] md:h-[620px] w-full overflow-hidden bg-[#10243A]">
-          {heroSlides.map((slide, index) => (
-            <img key={slide.image} src={slide.image} alt="" aria-hidden="true" className={`absolute inset-0 h-full w-full object-cover transition-all duration-1000 ${currentSlide === index ? 'opacity-100 scale-100' : 'opacity-0 scale-105'}`} />
-          ))}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#10243A]/90 via-[#10243A]/45 to-transparent" />
-          <div key={currentSlide} className="absolute inset-0 z-10 flex items-center px-6 md:px-12">
+        <section className="mobile-hero mobile-hero-slider relative h-[520px] md:h-[620px] w-full overflow-hidden bg-[#10243A]">
+          <img src={heroSlide.image} alt="" aria-hidden="true" className="mobile-hero-image absolute inset-0 h-full w-full object-cover" />
+          <div className="mobile-hero-overlay absolute inset-0 bg-gradient-to-r from-[#10243A]/90 via-[#10243A]/45 to-transparent" />
+          <div className="mobile-hero-content absolute inset-0 z-10 flex items-center px-6 md:px-12">
             <div className="mx-auto w-full max-w-[1440px]">
               <div className="safari-hero-text max-w-2xl text-white">
                 <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#F5B91B]/50 bg-black/20 px-4 py-2 text-xs font-bold tracking-[3px] text-[#F5B91B] backdrop-blur-md"><PawPrint size={16} /> WILDLIFE ADVENTURES</div>
-                <h1 className="mb-5 text-4xl font-bold leading-tight md:text-6xl lg:text-7xl" style={{ fontFamily: "'Playfair Display', serif" }}>{heroSlides[currentSlide].title}</h1>
-                <p className="mb-8 max-w-xl text-base leading-7 text-white/90 md:text-xl">{heroSlides[currentSlide].subtitle}</p>
-                <Link to="/packages" className="inline-flex items-center gap-2 rounded-full bg-[#F5B91B] px-8 py-4 font-bold text-[#10243A] shadow-xl transition hover:-translate-y-1 hover:bg-white">View Safari Packages <ArrowRight size={18} /></Link>
+                <h1 className="mobile-hero-title mb-5 text-4xl font-bold leading-tight md:text-6xl lg:text-7xl" style={{ fontFamily: "'Playfair Display', serif" }}>{heroSlide.title}</h1>
+                <p className="mobile-hero-copy mb-8 max-w-xl text-base leading-7 text-white/90 md:text-xl">{heroSlide.subtitle}</p>
+                <Link to="/packages" className="mobile-hero-cta inline-flex items-center gap-2 rounded-full bg-[#F5B91B] px-8 py-4 font-bold text-[#10243A] shadow-xl transition hover:-translate-y-1 hover:bg-white">View Safari Packages <ArrowRight size={18} /></Link>
               </div>
             </div>
-          </div>
-          <button type="button" aria-label="Previous safari slide" onClick={() => setCurrentSlide((previous) => (previous - 1 + heroSlides.length) % heroSlides.length)} className="absolute left-4 top-1/2 z-20 -translate-y-1/2 rounded-full border border-white/40 bg-black/30 p-3 text-white backdrop-blur-md transition hover:bg-[#087443]"><ChevronLeft size={22} /></button>
-          <button type="button" aria-label="Next safari slide" onClick={() => setCurrentSlide((previous) => (previous + 1) % heroSlides.length)} className="absolute right-4 top-1/2 z-20 -translate-y-1/2 rounded-full border border-white/40 bg-black/30 p-3 text-white backdrop-blur-md transition hover:bg-[#087443]"><ChevronRight size={22} /></button>
-          <div className="absolute bottom-6 left-0 right-0 z-20 flex justify-center gap-2">
-            {heroSlides.map((_, index) => (<button key={index} type="button" aria-label={`Go to safari slide ${index + 1}`} onClick={() => setCurrentSlide(index)} className={`h-2.5 rounded-full transition-all ${currentSlide === index ? 'w-10 bg-[#F5B91B]' : 'w-2.5 bg-white/70'}`} />))}
           </div>
         </section>
       )}

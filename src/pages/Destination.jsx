@@ -3,8 +3,9 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   MapPin, ArrowRight, Search, Compass, TreePalm, Waves, Landmark,
-  Utensils, ChevronLeft, ChevronRight, MessageCircle, ShieldCheck
+  Utensils, MessageCircle, ShieldCheck
 } from 'lucide-react';
+import heroImages from '../config/heroImages';
 
 // ==========================================
 // 1. DATA YA DESTINATIONS (12 kwa jumla)
@@ -102,7 +103,6 @@ const destinationsData = [
 const Destination = ({ showHero = true }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [activeCategory, setActiveCategory] = useState('All');
-  const [currentSlide, setCurrentSlide] = useState(0);
 
   const categories = ['All', 'Beaches', 'Cultural', 'Islands', 'Nature', 'Safari', 'Dining'];
   const categoryIcons = {
@@ -115,13 +115,7 @@ const Destination = ({ showHero = true }) => {
     Dining: Utensils
   };
 
-  const heroSlides = [
-    { image: '/slider/slider11.jpeg', title: 'Discover Zanzibar', subtitle: 'Beaches, culture and unforgettable island experiences' },
-    { image: '/utalii4.jpeg', title: 'Explore Stone Town', subtitle: 'History, traditions and stories at every corner' },
-    { image: '/slider/lider55.webp', title: 'Meet African Wildlife', subtitle: 'Safari adventures across Tanzania' },
-    { image: '/Trip/safari blue.jpeg', title: 'Relax at Paradise Beaches', subtitle: 'Crystal water and peaceful island sunsets' },
-    { image: '/Trip/jozani.webp', title: 'Experience Local Adventures', subtitle: 'Tours crafted by our local experts' }
-  ];
+  const heroSlide = { image: heroImages.beach, title: 'Discover Zanzibar', subtitle: 'Beaches, culture and unforgettable island experiences' };
 
   // Filter logic
   const filteredDestinations = destinationsData.filter(dest => {
@@ -129,14 +123,6 @@ const Destination = ({ showHero = true }) => {
     const matchesCategory = activeCategory === 'All' || dest.category === activeCategory;
     return matchesSearch && matchesCategory;
   });
-
-  useEffect(() => {
-    if (!showHero) return undefined;
-    const interval = setInterval(() => {
-      setCurrentSlide((previous) => (previous + 1) % heroSlides.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [heroSlides.length, showHero]);
 
   useEffect(() => {
     const elements = document.querySelectorAll('[data-destination-reveal]');
@@ -184,42 +170,24 @@ const Destination = ({ showHero = true }) => {
 
       {/* ================= 1. HERO SLIDER ================= */}
       {showHero && (
-        <section className="relative h-[540px] w-full overflow-hidden bg-[#10243A] md:h-[660px]">
-          {heroSlides.map((slide, index) => (
-            <img
-              key={slide.image}
-              src={slide.image}
-              alt={slide.title}
-              className={`absolute inset-0 h-full w-full object-cover transition-all duration-[1400ms] ${currentSlide === index ? 'destination-hero-image-active opacity-100' : 'scale-105 opacity-0'}`}
-            />
-          ))}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#10243A]/80 via-[#10243A]/35 to-black/20" />
-          <div key={currentSlide} className="destination-hero-text absolute inset-0 z-10 flex items-center px-6 md:px-12">
+        <section className="mobile-hero mobile-hero-slider relative h-[540px] w-full overflow-hidden bg-[#10243A] md:h-[660px]">
+          <img src={heroSlide.image} alt={heroSlide.title} className="mobile-hero-image absolute inset-0 h-full w-full object-cover" />
+          <div className="mobile-hero-overlay absolute inset-0 bg-gradient-to-r from-[#10243A]/80 via-[#10243A]/35 to-black/20" />
+          <div className="mobile-hero-content destination-hero-text absolute inset-0 z-10 flex items-center px-6 md:px-12">
             <div className="mx-auto w-full max-w-[1440px]">
               <div className="max-w-2xl">
                 <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/40 bg-black/25 px-4 py-2 text-xs font-bold tracking-[3px] text-[#F5B91B] shadow-lg backdrop-blur-md">
                   <Compass size={16} /> EXPLORE TANZANIA
                 </div>
-                <h1 className="mb-5 max-w-3xl text-4xl font-bold leading-[1.08] text-white drop-shadow-lg md:text-6xl lg:text-7xl" style={{ fontFamily: "'Playfair Display', serif" }}>
-                  {heroSlides[currentSlide].title}
+                <h1 className="mobile-hero-title mb-5 max-w-3xl text-4xl font-bold leading-[1.08] text-white drop-shadow-lg md:text-6xl lg:text-7xl" style={{ fontFamily: "'Playfair Display', serif" }}>
+                  {heroSlide.title}
                 </h1>
-                <p className="mb-8 max-w-xl text-base leading-7 text-white/90 md:text-xl">{heroSlides[currentSlide].subtitle}</p>
-                <Link to="/card-tour" className="inline-flex items-center gap-2 rounded-full bg-[#F5B91B] px-8 py-4 font-bold text-[#10243A] shadow-xl transition hover:-translate-y-1 hover:bg-white">
+                <p className="mobile-hero-copy mb-8 max-w-xl text-base leading-7 text-white/90 md:text-xl">{heroSlide.subtitle}</p>
+                <Link to="/card-tour" className="mobile-hero-cta inline-flex items-center gap-2 rounded-full bg-[#F5B91B] px-8 py-4 font-bold text-[#10243A] shadow-xl transition hover:-translate-y-1 hover:bg-white">
                   Explore Tours <ArrowRight size={18} />
                 </Link>
               </div>
             </div>
-          </div>
-          <button type="button" aria-label="Previous destination slide" onClick={() => setCurrentSlide((previous) => (previous - 1 + heroSlides.length) % heroSlides.length)} className="absolute left-4 top-1/2 z-20 -translate-y-1/2 rounded-full border border-white/40 bg-black/30 p-3 text-white backdrop-blur-md transition hover:bg-[#1b5e36]">
-            <ChevronLeft size={22} />
-          </button>
-          <button type="button" aria-label="Next destination slide" onClick={() => setCurrentSlide((previous) => (previous + 1) % heroSlides.length)} className="absolute right-4 top-1/2 z-20 -translate-y-1/2 rounded-full border border-white/40 bg-black/30 p-3 text-white backdrop-blur-md transition hover:bg-[#1b5e36]">
-            <ChevronRight size={22} />
-          </button>
-          <div className="absolute bottom-6 left-0 right-0 z-20 flex justify-center gap-2">
-            {heroSlides.map((_, index) => (
-              <button key={index} type="button" aria-label={`Go to destination slide ${index + 1}`} onClick={() => setCurrentSlide(index)} className={`h-2.5 rounded-full transition-all ${currentSlide === index ? 'w-10 bg-[#F5B91B]' : 'w-2.5 bg-white/70'}`} />
-            ))}
           </div>
         </section>
       )}
