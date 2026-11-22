@@ -76,7 +76,7 @@ const CardTour = ({ showHero = true, showAll = true }) => {
 
       {/* Mapambo ya Majani (Palm Leaves) */}
       <div className="absolute top-0 left-0 w-40 h-40 bg-[url('https://www.transparentpng.com/thumb/palm-tree/palm-tree-transparent-image-2.png')] bg-no-repeat bg-contain opacity-20 -rotate-12 -translate-x-10 -translate-y-10 pointer-events-none"></div>
-      <div className="absolute top-0 right-0 w-40 h-40 bg-[url('https://www.transparentpng.com/thumb/palm-tree/palm-tree-transparent-image-2.png')] bg-no-repeat bg-contain opacity-20 rotate-12 translate-x-10 max-md:translate-x-0 -translate-y-10 pointer-events-none"></div>
+      <div className="tour-palm-right absolute top-0 right-0 w-40 h-40 bg-[url('https://www.transparentpng.com/thumb/palm-tree/palm-tree-transparent-image-2.png')] bg-no-repeat bg-contain opacity-20 rotate-12 translate-x-10 -translate-y-10 pointer-events-none"></div>
 
       <div className="max-w-[1440px] mx-auto px-6 md:px-12">
         

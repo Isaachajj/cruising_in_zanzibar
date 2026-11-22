@@ -138,6 +138,7 @@ button {
 }
 
 @media (max-width: 767px) {
+  .tour-palm-right { translate: 0 -2.5rem !important; rotate: 0deg !important; }
   .mobile-hero { position: relative; isolation: isolate; }
   .mobile-hero-home { height: clamp(520px, calc(100svh - 145px), 720px) !important; min-height: 520px !important; }
   .mobile-hero-slider { height: clamp(500px, 72svh, 640px) !important; }

@@ -247,6 +247,12 @@ const TourDetails = () => {
           .animate-slow-fade {
             animation: fadeIn 2s ease-out forwards;
           }
+          @media (max-width: 767px) {
+            .animate-slow-left,
+            .animate-slow-right {
+              animation-name: fadeSlideUp;
+            }
+          }
         `}
       </style>
 

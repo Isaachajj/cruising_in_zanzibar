@@ -5,7 +5,7 @@
 <iframe id="page" title="Audit page" style="position:absolute;left:-10000px;top:0;border:0"></iframe>
 <script>
 const widths = [360, 375, 390, 430];
-const routes = ['/', '/about', '/card-tour', '/safari/1'];
+const routes = ['/', '/about', '/card-tour', '/packages', '/full-package', '/full-package/mnemba-stone-town-forodhani', '/tour/1', '/safari/1', '/destination', '/contact', '/full-day-trip/mnemba-stone-town-forodhani'];
 const frame = document.querySelector('#page');
 const results = [];
 const next = (routeIndex, widthIndex) => {
@@ -31,6 +31,18 @@ const next = (routeIndex, widthIndex) => {
       const rect = el.getBoundingClientRect();
       return { el, left: Math.round(rect.left), right: Math.round(rect.right), width: Math.round(rect.width) };
     }).filter(item => item.width && (item.left < -1 || item.right > viewport + 1))
+      .filter(({ el, left, right }) => {
+        for (let parent = el.parentElement; parent && parent !== doc.body; parent = parent.parentElement) {
+          const overflow = win.getComputedStyle(parent).overflowX;
+          if (overflow !== 'visible' && overflow !== 'clip') {
+            const bounds = parent.getBoundingClientRect();
+            if (left < bounds.left - 1 || right > bounds.right + 1) return false;
+          }
+        }
+        return true;
+      })
+      .sort((a, b) => b.right - a.right)
+      .slice(0, 15)
       .map(({ el, left, right, width: itemWidth }) => ({
         tag: el.tagName.toLowerCase(),
         className: typeof el.className === 'string' ? el.className.slice(0, 100) : '',
