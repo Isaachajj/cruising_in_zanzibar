@@ -30,3 +30,48 @@ button {
     transform: translateY(0);
   }
 }
+
+.footer-cta::after {
+  position: absolute;
+  inset: -40% -20%;
+  content: "";
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 38%, rgb(255 255 255 / 7%) 50%, transparent 62%);
+  transform: translateX(-65%);
+  animation: footer-shimmer 14s ease-in-out infinite;
+}
+
+.footer-main {
+  animation: footer-rise 700ms both;
+}
+
+.footer-main a,
+.footer-main button {
+  transition: color 180ms ease, background-color 180ms ease, transform 180ms ease;
+}
+
+.footer-main a:hover {
+  color: #fff;
+}
+
+@keyframes footer-shimmer {
+  0%, 55% { transform: translateX(-65%); }
+  100% { transform: translateX(65%); }
+}
+
+@keyframes footer-rise {
+  from { opacity: 0.82; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-cta::after,
+  .footer-main {
+    animation: none;
+  }
+
+  .footer-main a,
+  .footer-main button {
+    transition: none;
+  }
+}

@@ -3,6 +3,7 @@ import { useCallback, useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import BookingReceipt from '../Components/BookingReceipt';
 import { createBookingReference, formatBookingReceiptMessage } from '../Components/bookingReceiptUtils';
+import TravelDateInput from '../Components/TravelDateInput';
 import { useLanguage, translatePhrase } from '../i18n/LanguageContext';
 import { 
   ChevronLeft, ChevronRight, Play, Pause, MapPin, Clock, Star, 
@@ -353,7 +354,7 @@ const FullPackageDetails = () => {
             <form ref={bookingFormRef} onSubmit={handleReviewBooking} className="space-y-4">
               <div>
                 <label htmlFor="package-date" className="block text-xs font-semibold mb-1 text-gray-300">Travel Date</label>
-                <input id="package-date" type="date" name="date" value={formData.date} onChange={handleInputChange} className="w-full bg-white/10 border border-white/20 rounded-lg p-2.5 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-[#F5B91B]" />
+                <TravelDateInput id="package-date" value={formData.date} dark onDateChange={(date) => setFormData((current) => ({ ...current, date }))} />
               </div>
               
               <div className="grid grid-cols-2 gap-3">

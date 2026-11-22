@@ -4,6 +4,12 @@ export const createBookingReference = () => {
   return `CIZ-${year}-${token}`;
 };
 
+export const getTodayDateInputValue = () => {
+  const today = new Date();
+  today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
+  return today.toISOString().slice(0, 10);
+};
+
 import { translatePhrase } from '../i18n/LanguageContext';
 
 export const formatBookingCurrency = (amount, language = 'en') => (

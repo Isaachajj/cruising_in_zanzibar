@@ -157,6 +157,18 @@ const Destination = ({ showHero = true }) => {
       <style>{`
         [data-destination-reveal] { opacity: 0; transform: translateY(28px) scale(.985); }
         [data-destination-reveal].destination-visible { opacity: 1; transform: none; transition: opacity .7s ease, transform .7s cubic-bezier(.2,.75,.25,1); }
+        .destination-card-grid { perspective: 1250px; transform-style: preserve-3d; }
+        .destination-card[data-destination-reveal] { transform: perspective(1000px) translateY(34px) translateZ(-54px) rotateX(5deg) scale(.965); transform-origin: center bottom; transform-style: preserve-3d; backface-visibility: hidden; box-shadow: 0 5px 12px rgb(5 62 54 / 10%), 0 18px 34px rgb(8 65 75 / 13%), 0 35px 55px rgb(8 65 75 / 7%); will-change: transform, opacity; }
+        .destination-card[data-destination-reveal].destination-visible { transform: perspective(1000px) translateY(0) translateZ(18px) rotateX(0) scale(1); transition: opacity .75s ease, transform .85s cubic-bezier(.18,.72,.25,1), box-shadow .4s ease; }
+        .destination-card.destination-visible::after { position: absolute; z-index: 10; inset: 0; content: ''; pointer-events: none; opacity: 0; background: linear-gradient(118deg, transparent 25%, rgb(255 255 255 / 19%) 47%, transparent 68%); transform: translateX(-110%); transition: opacity .3s ease, transform .75s ease; }
+        .destination-card.destination-visible:hover { z-index: 5; transform: perspective(1000px) translateY(-9px) translateZ(34px) rotateX(2deg) rotateY(-1deg) scale(1.015); box-shadow: 0 8px 14px rgb(5 62 54 / 12%), 0 26px 42px rgb(8 65 75 / 19%), 0 48px 70px rgb(8 65 75 / 11%); }
+        .destination-card.destination-visible:hover::after { opacity: 1; transform: translateX(110%); }
+        .destination-card-image { backface-visibility: hidden; }
+        @media (max-width: 767px) {
+          .destination-card-grid { perspective: 900px; }
+          .destination-card[data-destination-reveal].destination-visible { transform: perspective(900px) translateY(0) translateZ(22px) rotateX(0) scale(1.005); }
+          .destination-card.destination-visible:active { z-index: 5; transform: perspective(900px) translateY(-5px) translateZ(38px) rotateX(1deg) scale(1.018); box-shadow: 0 8px 14px rgb(5 62 54 / 13%), 0 28px 48px rgb(8 65 75 / 20%), 0 50px 72px rgb(8 65 75 / 12%); }
+        }
         .destination-visible[data-delay='1'] { transition-delay: .06s; }
         .destination-visible[data-delay='2'] { transition-delay: .12s; }
         .destination-visible[data-delay='3'] { transition-delay: .18s; }
@@ -167,7 +179,7 @@ const Destination = ({ showHero = true }) => {
         @keyframes destinationDrift { from { transform: scale(1.04); } to { transform: scale(1.11); } }
         .destination-hero-text { animation: destinationHeroText .85s cubic-bezier(.2,.75,.25,1) both; }
         .destination-hero-image-active { animation: destinationDrift 7s ease-out both; }
-        @media (prefers-reduced-motion: reduce) { [data-destination-reveal], [data-destination-reveal].destination-visible, .destination-hero-image-active { opacity: 1 !important; transform: none !important; transition: none !important; animation: none !important; filter: none !important; } }
+        @media (prefers-reduced-motion: reduce) { [data-destination-reveal], [data-destination-reveal].destination-visible, .destination-hero-image-active { opacity: 1 !important; transform: none !important; transition: none !important; animation: none !important; filter: none !important; } .destination-card[data-destination-reveal], .destination-card[data-destination-reveal].destination-visible, .destination-card.destination-visible:hover, .destination-card.destination-visible:active { transform: none !important; box-shadow: 0 8px 24px rgb(8 65 75 / 12%) !important; } .destination-card::after { display: none !important; } }
       `}</style>
 
       {/* ================= 1. HERO SLIDER ================= */}
@@ -283,12 +295,12 @@ const Destination = ({ showHero = true }) => {
             <p className="text-sm">Try adjusting your search or filter.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="destination-card-grid grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {filteredDestinations.map((dest, index) => (
               <Link 
                 to={dest.category === 'Safari' ? '/packages' : '/card-tour'}
                 key={dest.id}
-                className="group relative block h-[310px] w-full overflow-hidden rounded-2xl border border-white shadow-lg shadow-[#10243A]/10 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl sm:h-[330px]" data-destination-reveal data-delay={(index % 6) + 1}
+                className="destination-card group relative block h-[310px] w-full overflow-hidden rounded-2xl border border-white shadow-lg shadow-[#10243A]/10 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl sm:h-[330px]" data-destination-reveal data-delay={(index % 6) + 1}
               >
                 {/* Picha */}
                 <img 
@@ -296,7 +308,7 @@ const Destination = ({ showHero = true }) => {
                   alt={dest.name} 
                   loading="lazy"
                   decoding="async"
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                  className="destination-card-image absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                 />
                 
                 {/* Gradient Overlay (Ili maandishi yasomeke) */}

@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import BookingReceipt from './BookingReceipt';
 import { createBookingReference, formatBookingReceiptMessage } from './bookingReceiptUtils';
+import TravelDateInput from './TravelDateInput';
 import { useLanguage, translatePhrase } from '../i18n/LanguageContext';
 import NotFound from '../pages/NotFound';
 import { 
@@ -389,17 +390,7 @@ const TourDetails = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="relative">
                     <label htmlFor="tour-date" className="block text-[10px] font-bold text-[#10243A] mb-1 ml-1">Select Date</label>
-                    <div className="relative">
-                      <input 
-                        type="date" 
-                        id="tour-date"
-                        name="date"
-                        value={formData.date}
-                        onChange={handleChange}
-                        className="w-full pl-10 pr-3 py-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-[#087443]"
-                      />
-                      <Calendar size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
-                    </div>
+                    <TravelDateInput id="tour-date" value={formData.date} onDateChange={(date) => setFormData((current) => ({ ...current, date }))} />
                   </div>
                   <div className="relative">
                     <label htmlFor="tour-guests" className="block text-[10px] font-bold text-[#10243A] mb-1 ml-1">Guests</label>

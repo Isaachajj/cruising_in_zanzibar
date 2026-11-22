@@ -203,153 +203,138 @@ const AboutUs = () => {
 
 
       {/* ================= 3. COMPANY HIGHLIGHTS ================= */}
-      <section className="relative bg-[#10243A] py-14 md:py-16 overflow-hidden">
+      <section className="about-highlights relative overflow-hidden bg-gradient-to-br from-[#EAF8F5] via-[#F7FBF7] to-[#FFF7E5] py-16 md:py-24">
+        <div aria-hidden="true" className="about-orbit about-orbit-one"></div>
+        <div aria-hidden="true" className="about-orbit about-orbit-two"></div>
 
-        <div className="absolute -top-20 -left-20 w-72 h-72 bg-[#087443]/20 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-20 -right-20 w-72 h-72 bg-[#F5B91B]/10 rounded-full blur-3xl"></div>
+        <div className="relative z-10 mx-auto max-w-[1300px] px-6">
+          <div className="mb-10 text-center md:mb-14" data-about-reveal="up">
+            <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#087443]/15 bg-white/80 px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-[#087443] shadow-sm">
+              <Palmtree size={15} /> Your journey, our care
+            </span>
+            <h2 className="font-serif text-3xl font-bold text-[#07566D] md:text-5xl">The Zanzibar Difference</h2>
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-[#42616A] md:text-base">
+              Thoughtful local service makes every step of your island adventure feel easy and personal.
+            </p>
+          </div>
 
-        <div className="relative max-w-[1300px] mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-10 text-center">
-
-          {[
-            { number: 'Local', label: 'Island Expertise' },
-            { number: 'Unique', label: 'Travel Experiences' },
-            { number: '24/7', label: 'Booking Assistance' },
-            { number: '1:1', label: 'Personal Attention' }
-          ].map((item, index) => (
-            <div key={index} data-about-reveal="up" data-delay={index + 1}>
-              <h3 className="text-3xl md:text-4xl font-bold text-[#F5B91B] mb-2">
-                {item.number}
-              </h3>
-              <p className="text-gray-300 text-sm md:text-base">
-                {item.label}
-              </p>
-            </div>
-          ))}
-
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 md:gap-5">
+            {[
+              { number: 'Local', label: 'Island Expertise', detail: 'Know the island with local guides', icon: <Compass size={22} /> },
+              { number: 'Unique', label: 'Travel Experiences', detail: 'Made for your kind of adventure', icon: <Waves size={22} /> },
+              { number: '24/7', label: 'Booking Assistance', detail: 'A helpful team, whenever you need us', icon: <MessageCircle size={22} /> },
+              { number: '1:1', label: 'Personal Attention', detail: 'Your plans, cared for personally', icon: <Heart size={22} /> }
+            ].map((item, index) => (
+              <article key={item.label} className="about-highlight-card group" data-about-reveal="up" data-delay={index + 1}>
+                <span className="about-highlight-icon">{item.icon}</span>
+                <h3 className="about-highlight-value">{item.number}</h3>
+                <p className="about-highlight-label">{item.label}</p>
+                <span className="about-highlight-rule"></span>
+                <p className="about-highlight-detail">{item.detail}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
 
       {/* ================= 4. MISSION, VISION & VALUES ================= */}
-      <section className="py-20 md:py-28 px-6 md:px-12 max-w-[1440px] mx-auto">
-
-        <div className="text-center max-w-3xl mx-auto mb-16">
-
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#087443]/10 text-[#087443] font-bold tracking-widest text-xs mb-5">
-            <Heart size={15} />
-            WHAT DRIVES US
-          </div>
-
-          <h2
-            className="text-3xl md:text-5xl font-bold text-[#10243A] mb-5"
-            style={{ fontFamily: "'Playfair Display', serif" }}
-          >
-            Our Mission, Vision & Values
-          </h2>
-
-          <div className="w-24 h-1 bg-[#F5B91B] mx-auto rounded-full"></div>
-
-          <p className="text-gray-600 mt-6">
-            Guided by our commitment to authentic experiences,
-            responsible tourism and exceptional hospitality.
-          </p>
-
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
-
-          {/* Mission */}
-          <div className="bg-white p-8 md:p-10 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group" data-about-reveal="up" data-delay="1">
-            <div className="w-16 h-16 rounded-2xl bg-[#087443]/10 text-[#087443] flex items-center justify-center mb-7 group-hover:bg-[#087443] group-hover:text-white transition-colors">
-              <Heart size={30} />
+      <section className="about-purpose relative overflow-hidden bg-gradient-to-br from-[#F4FBF8] via-white to-[#FFF8E9] px-6 py-20 md:px-12 md:py-28">
+        <div className="about-purpose-glow about-purpose-glow-left" aria-hidden="true"></div>
+        <div className="about-purpose-glow about-purpose-glow-right" aria-hidden="true"></div>
+        <div className="relative z-10 mx-auto max-w-[1440px]">
+          <div className="mx-auto mb-12 max-w-3xl text-center md:mb-16" data-about-reveal="up">
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#087443]/15 bg-white/85 px-4 py-2 text-xs font-bold tracking-[0.2em] text-[#087443] shadow-sm">
+              <Heart size={15} /> WHAT DRIVES US
             </div>
-
-            <h3 className="text-2xl font-bold text-[#10243A] mb-4">
-              Our Mission
-            </h3>
-
-            <p className="text-gray-600 leading-7">
-              To provide authentic, memorable and enjoyable travel
-              experiences across Zanzibar and Tanzania through
-              personalized service and local knowledge.
+            <h2 className="mb-5 font-serif text-3xl font-bold leading-tight text-[#07566D] md:text-5xl">
+              Our Mission, Vision <span className="text-[#087443]">&amp; Values</span>
+            </h2>
+            <div className="mx-auto flex w-28 items-center gap-2">
+              <span className="h-1 flex-1 rounded-full bg-[#087443]"></span>
+              <span className="h-2.5 w-2.5 rotate-45 rounded-sm bg-[#F5B91B]"></span>
+              <span className="h-1 flex-1 rounded-full bg-[#087443]/25"></span>
+            </div>
+            <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-[#557078] md:text-lg">
+              Guided by our commitment to authentic experiences, responsible tourism and exceptional hospitality.
             </p>
           </div>
 
-          {/* Vision */}
-          <div className="bg-white p-8 md:p-10 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group" data-about-reveal="up" data-delay="2">
-            <div className="w-16 h-16 rounded-2xl bg-[#087443]/10 text-[#087443] flex items-center justify-center mb-7 group-hover:bg-[#087443] group-hover:text-white transition-colors">
-              <Globe size={30} />
-            </div>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-7">
+            <article className="about-purpose-card" data-about-reveal="up" data-delay="1">
+              <div className="about-purpose-card-top">
+                <span className="about-purpose-icon"><Heart size={25} /></span>
+                <span className="about-purpose-index">01</span>
+              </div>
+              <p className="about-purpose-eyebrow">WHAT WE DO</p>
+              <h3 className="about-purpose-title">Our Mission</h3>
+              <p className="about-purpose-copy">
+                To provide authentic, memorable and enjoyable travel experiences across Zanzibar and Tanzania through personalized service and local knowledge.
+              </p>
+              <span className="about-purpose-card-accent"></span>
+            </article>
 
-            <h3 className="text-2xl font-bold text-[#10243A] mb-4">
-              Our Vision
-            </h3>
+            <article className="about-purpose-card" data-about-reveal="up" data-delay="2">
+              <div className="about-purpose-card-top">
+                <span className="about-purpose-icon about-purpose-icon-gold"><Globe size={25} /></span>
+                <span className="about-purpose-index">02</span>
+              </div>
+              <p className="about-purpose-eyebrow">WHERE WE’RE GOING</p>
+              <h3 className="about-purpose-title">Our Vision</h3>
+              <p className="about-purpose-copy">
+                To become a trusted travel partner for visitors discovering the beauty, culture and natural wonders of East Africa.
+              </p>
+              <span className="about-purpose-card-accent"></span>
+            </article>
 
-            <p className="text-gray-600 leading-7">
-              To become a trusted travel partner for visitors
-              discovering the beauty, culture and natural wonders
-              of East Africa.
-            </p>
+            <article className="about-purpose-card about-values-card" data-about-reveal="up" data-delay="3">
+              <div className="about-purpose-card-top">
+                <span className="about-purpose-icon"><Shield size={25} /></span>
+                <span className="about-purpose-index">03</span>
+              </div>
+              <p className="about-purpose-eyebrow">HOW WE CARE</p>
+              <h3 className="about-purpose-title">Our Values</h3>
+              <ul className="about-values-list">
+                {[
+                  'Authenticity',
+                  'Customer First',
+                  'Professionalism',
+                  'Safety and Trust',
+                  'Respect for Local Culture',
+                  'Responsible Tourism'
+                ].map((value, index) => (
+                  <li key={value} style={{ '--value-index': index }}>
+                    <CheckCircle2 size={17} /> <span>{value}</span>
+                  </li>
+                ))}
+              </ul>
+              <span className="about-purpose-card-accent"></span>
+            </article>
           </div>
-
-          {/* Values */}
-          <div className="bg-white p-8 md:p-10 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group" data-about-reveal="up" data-delay="3">
-            <div className="w-16 h-16 rounded-2xl bg-[#087443]/10 text-[#087443] flex items-center justify-center mb-7 group-hover:bg-[#087443] group-hover:text-white transition-colors">
-              <Shield size={30} />
-            </div>
-
-            <h3 className="text-2xl font-bold text-[#10243A] mb-4">
-              Our Values
-            </h3>
-
-            <ul className="space-y-3 text-gray-600">
-              {[
-                'Authenticity',
-                'Customer First',
-                'Professionalism',
-                'Safety and Trust',
-                'Respect for Local Culture',
-                'Responsible Tourism'
-              ].map((value, index) => (
-                <li key={index} className="flex items-center gap-3">
-                  <CheckCircle2 size={18} className="text-[#087443] shrink-0" />
-                  {value}
-                </li>
-              ))}
-            </ul>
-          </div>
-
         </div>
       </section>
 
 
       {/* ================= 5. WHY TRAVEL WITH US ================= */}
-      <section className="bg-[#F5F8F4] py-20 md:py-28 px-6 md:px-12">
-
-        <div className="max-w-[1440px] mx-auto">
-
-          <div className="text-center mb-16">
-
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#087443]/10 text-[#087443] font-bold tracking-widest text-xs mb-5">
-              <Star size={15} />
-              THE DIFFERENCE
+      <section className="about-why relative overflow-hidden bg-gradient-to-br from-[#EAF8F5] via-[#F8FBF7] to-[#FFF7E5] px-6 py-20 md:px-12 md:py-28">
+        <div className="about-why-wash" aria-hidden="true"></div>
+        <div className="relative z-10 mx-auto max-w-[1440px]">
+          <div className="mb-12 text-center md:mb-16" data-about-reveal="up">
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#087443]/15 bg-white/85 px-4 py-2 text-xs font-bold tracking-[0.2em] text-[#087443] shadow-sm">
+              <Star size={15} /> THE DIFFERENCE
             </div>
-
-            <h2
-              className="text-3xl md:text-5xl font-bold text-[#10243A] mb-5"
-              style={{ fontFamily: "'Playfair Display', serif" }}
-            >
-              Why Travel With Us
-            </h2>
-
-            <p className="text-gray-600 max-w-2xl mx-auto leading-7">
-              Discover the difference of exploring Zanzibar and Tanzania
-              with a team that cares about your journey.
+            <h2 className="mb-5 font-serif text-3xl font-bold text-[#07566D] md:text-5xl">Why Travel With Us</h2>
+            <div className="mx-auto flex w-28 items-center gap-2">
+              <span className="h-1 flex-1 rounded-full bg-[#087443]"></span>
+              <span className="h-2.5 w-2.5 rotate-45 rounded-sm bg-[#F5B91B]"></span>
+              <span className="h-1 flex-1 rounded-full bg-[#087443]/25"></span>
+            </div>
+            <p className="mx-auto mt-6 max-w-2xl leading-7 text-[#557078] md:text-lg">
+              Discover the difference of exploring Zanzibar and Tanzania with a team that cares about your journey.
             </p>
-
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 md:gap-6">
 
             {[
               {
@@ -385,21 +370,16 @@ const AboutUs = () => {
             ].map((item, index) => (
               <div
                 key={index}
-                className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group" data-about-reveal="up" data-delay={(index % 6) + 1}
+                className="about-why-card group" data-about-reveal="up" data-delay={(index % 6) + 1}
+                style={{ '--why-index': index }}
               >
-
-                <div className="w-14 h-14 rounded-2xl bg-[#087443]/10 text-[#087443] flex items-center justify-center mb-6 group-hover:bg-[#087443] group-hover:text-white transition-all duration-300">
-                  {item.icon}
+                <div className="about-why-card-head">
+                  <span className="about-why-icon">{item.icon}</span>
+                  <span className="about-why-number">0{index + 1}</span>
                 </div>
-
-                <h3 className="text-xl font-bold text-[#10243A] mb-3">
-                  {item.title}
-                </h3>
-
-                <p className="text-gray-600 leading-7 text-sm">
-                  {item.desc}
-                </p>
-
+                <h3 className="about-why-title">{item.title}</h3>
+                <p className="about-why-copy">{item.desc}</p>
+                <span className="about-why-accent"></span>
               </div>
             ))}
 
@@ -479,12 +459,85 @@ const AboutUs = () => {
         .about-visible[data-delay='4'] { transition-delay: .48s; }
         .about-visible[data-delay='5'] { transition-delay: .60s; }
         .about-visible[data-delay='6'] { transition-delay: .72s; }
+        .about-highlights { isolation: isolate; }
+        .about-orbit { position: absolute; z-index: 0; width: 23rem; height: 23rem; border: 1px solid rgb(8 116 67 / 9%); border-radius: 50%; pointer-events: none; }
+        .about-orbit::before, .about-orbit::after { position: absolute; content: ''; border: 1px solid rgb(8 116 67 / 8%); border-radius: 50%; inset: 1.5rem; }
+        .about-orbit::after { inset: 3rem; }
+        .about-orbit-one { top: -13rem; left: -8rem; animation: about-orbit-drift 20s ease-in-out infinite alternate; }
+        .about-orbit-two { right: -10rem; bottom: -17rem; border-color: rgb(245 185 27 / 18%); animation: about-orbit-drift 24s ease-in-out infinite alternate-reverse; }
+        .about-highlight-card { position: relative; min-height: 17rem; overflow: hidden; border: 1px solid rgb(8 116 67 / 12%); border-radius: 1.4rem; background: rgb(255 255 255 / 92%); padding: 1.5rem; text-align: center; box-shadow: 0 10px 35px rgb(7 86 109 / 6%); transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease; }
+        .about-highlight-card::before { position: absolute; top: 0; left: 18%; right: 18%; height: 3px; border-radius: 0 0 999px 999px; content: ''; background: linear-gradient(90deg, #087443, #F5B91B); transform: scaleX(.35); transition: transform .35s ease; }
+        .about-highlight-card:hover { transform: translateY(-7px); border-color: rgb(8 116 67 / 28%); box-shadow: 0 20px 45px rgb(7 86 109 / 13%); }
+        .about-highlight-card:hover::before { transform: scaleX(1); }
+        .about-highlight-icon { display: inline-flex; width: 3.25rem; height: 3.25rem; align-items: center; justify-content: center; border-radius: 1.1rem; background: #EAF8F0; color: #087443; transition: transform .35s ease, background-color .35s ease, color .35s ease; }
+        .about-highlight-card:hover .about-highlight-icon { transform: rotate(-7deg) scale(1.08); background: #087443; color: #fff; }
+        .about-highlight-value { margin-top: 1rem; color: #07566D; font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; line-height: 1.15; }
+        .about-highlight-label { margin-top: .4rem; color: #174B3A; font-size: 1rem; font-weight: 700; }
+        .about-highlight-rule { display: block; width: 2.5rem; height: 2px; margin: .9rem auto; border-radius: 999px; background: #F5B91B; transition: width .35s ease; }
+        .about-highlight-card:hover .about-highlight-rule { width: 4rem; }
+        .about-highlight-detail { color: #557078; font-size: .82rem; line-height: 1.5; }
+        .about-visible .about-highlight-icon { animation: about-text-arrive .65s .12s both; }
+        .about-visible .about-highlight-value { animation: about-text-arrive .7s .2s both; }
+        .about-visible .about-highlight-label { animation: about-text-arrive .7s .32s both; }
+        .about-visible .about-highlight-detail { animation: about-text-arrive .7s .43s both; }
+        .about-purpose { isolation: isolate; }
+        .about-purpose-glow { position: absolute; z-index: 0; width: 22rem; height: 22rem; border-radius: 50%; filter: blur(65px); opacity: .42; pointer-events: none; }
+        .about-purpose-glow-left { top: 8%; left: -13rem; background: #C8EFE0; animation: about-orbit-drift 18s ease-in-out infinite alternate; }
+        .about-purpose-glow-right { right: -12rem; bottom: 0; background: #FFE9AE; animation: about-orbit-drift 22s ease-in-out infinite alternate-reverse; }
+        .about-purpose-card { position: relative; display: flex; min-height: 22rem; flex-direction: column; overflow: hidden; border: 1px solid rgb(8 116 67 / 12%); border-radius: 1.6rem; background: rgb(255 255 255 / 92%); padding: 1.75rem; box-shadow: 0 12px 40px rgb(7 86 109 / 7%); transition: transform .4s cubic-bezier(.2,.75,.25,1), box-shadow .4s ease, border-color .4s ease; }
+        .about-purpose-card:hover { transform: translateY(-8px); border-color: rgb(8 116 67 / 28%); box-shadow: 0 24px 50px rgb(7 86 109 / 13%); }
+        .about-purpose-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+        .about-purpose-icon { display: inline-flex; width: 3.5rem; height: 3.5rem; align-items: center; justify-content: center; border-radius: 1.2rem; background: #EAF8F0; color: #087443; transition: transform .4s ease, background-color .35s ease, color .35s ease; }
+        .about-purpose-icon-gold { background: #FFF5D9; color: #A77500; }
+        .about-purpose-card:hover .about-purpose-icon { transform: rotate(-8deg) scale(1.08); background: #087443; color: #fff; }
+        .about-purpose-card:hover .about-purpose-icon-gold { background: #F5B91B; color: #07566D; }
+        .about-purpose-index { color: #087443; font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; opacity: .13; transition: opacity .3s ease, transform .3s ease; }
+        .about-purpose-card:hover .about-purpose-index { opacity: .35; transform: translateX(-3px); }
+        .about-purpose-eyebrow { margin-bottom: .45rem; color: #A77500; font-size: .68rem; font-weight: 800; letter-spacing: .18em; }
+        .about-purpose-title { margin-bottom: .8rem; color: #07566D; font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 700; }
+        .about-purpose-copy { max-width: 34rem; color: #557078; font-size: .96rem; line-height: 1.8; }
+        .about-purpose-card-accent { width: 2.7rem; height: 3px; margin-top: auto; padding-top: 1.6rem; box-sizing: content-box; border-radius: 999px; background: linear-gradient(90deg, #087443, #F5B91B); transition: width .4s ease; }
+        .about-purpose-card:hover .about-purpose-card-accent { width: 5rem; }
+        .about-values-list { display: grid; gap: .63rem; color: #42616A; font-size: .88rem; }
+        .about-values-list li { display: flex; align-items: center; gap: .65rem; }
+        .about-values-list svg { flex: 0 0 auto; color: #087443; }
+        .about-visible .about-purpose-card-top { animation: about-text-arrive .65s .12s both; }
+        .about-visible .about-purpose-eyebrow { animation: about-text-arrive .65s .2s both; }
+        .about-visible .about-purpose-title { animation: about-text-arrive .65s .28s both; }
+        .about-visible .about-purpose-copy { animation: about-text-arrive .7s .38s both; }
+        .about-visible .about-values-list li { animation: about-text-arrive .55s calc(.12s + var(--value-index) * .08s) both; }
+        .about-why { isolation: isolate; }
+        .about-why-wash { position: absolute; z-index: 0; inset: 0; pointer-events: none; background: radial-gradient(circle at 8% 20%, rgb(8 116 67 / 9%), transparent 25%), radial-gradient(circle at 94% 82%, rgb(245 185 27 / 15%), transparent 24%); }
+        .about-why-card { position: relative; display: flex; min-height: 17rem; flex-direction: column; overflow: hidden; border: 1px solid rgb(8 116 67 / 12%); border-radius: 1.45rem; background: rgb(255 255 255 / 94%); padding: 1.6rem; box-shadow: 0 10px 34px rgb(7 86 109 / 6%); transition: transform .38s cubic-bezier(.2,.75,.25,1), box-shadow .38s ease, border-color .38s ease; }
+        .about-why-card::before { position: absolute; top: 0; left: 0; width: 100%; height: 3px; content: ''; background: linear-gradient(90deg, #087443, #32AFA0, #F5B91B); transform: scaleX(0); transform-origin: left; transition: transform .45s ease; }
+        .about-why-card:hover { transform: translateY(-7px); border-color: rgb(8 116 67 / 25%); box-shadow: 0 22px 48px rgb(7 86 109 / 12%); }
+        .about-why-card:hover::before { transform: scaleX(1); }
+        .about-why-card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.45rem; }
+        .about-why-icon { display: inline-flex; width: 3.4rem; height: 3.4rem; align-items: center; justify-content: center; border-radius: 1.15rem; background: #EAF8F0; color: #087443; transition: transform .38s ease, color .3s ease, background .3s ease; }
+        .about-why-card:nth-child(3n + 2) .about-why-icon { background: #FFF5D9; color: #A77500; }
+        .about-why-card:nth-child(3n) .about-why-icon { background: #E8F6FA; color: #087A99; }
+        .about-why-card:hover .about-why-icon { transform: rotate(-8deg) scale(1.08); background: #087443; color: white; }
+        .about-why-card:nth-child(3n + 2):hover .about-why-icon { background: #F5B91B; color: #07566D; }
+        .about-why-number { color: #087443; font-family: 'Playfair Display', serif; font-size: 2.25rem; font-weight: 700; opacity: .13; transition: opacity .3s ease, transform .3s ease; }
+        .about-why-card:hover .about-why-number { opacity: .35; transform: translateX(-3px); }
+        .about-why-title { margin-bottom: .65rem; color: #07566D; font-family: 'Playfair Display', serif; font-size: 1.28rem; font-weight: 700; }
+        .about-why-copy { color: #557078; font-size: .92rem; line-height: 1.75; }
+        .about-why-accent { width: 2.3rem; height: 3px; margin-top: auto; padding-top: 1.35rem; box-sizing: content-box; border-radius: 999px; background: linear-gradient(90deg, #087443, #F5B91B); transition: width .38s ease; }
+        .about-why-card:hover .about-why-accent { width: 4.4rem; }
+        .about-visible .about-why-card-head { animation: about-text-arrive .6s .12s both; }
+        .about-visible .about-why-title { animation: about-text-arrive .65s .22s both; }
+        .about-visible .about-why-copy { animation: about-text-arrive .7s .34s both; }
+        @keyframes about-text-arrive { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes about-orbit-drift { from { transform: translate3d(0, 0, 0) rotate(0); } to { transform: translate3d(16px, -12px, 0) rotate(8deg); } }
         @keyframes aboutHeroIn { from { opacity: 0; transform: translateY(28px) scale(.98); } to { opacity: 1; transform: none; } }
         .about-hero-in { animation: aboutHeroIn 1.1s cubic-bezier(.22,.68,.22,1) both; }
         @keyframes aboutHeroImage { from { transform: scale(1.08); } to { transform: scale(1); } }
         .about-hero-image { animation: aboutHeroImage 2.2s cubic-bezier(.22,.68,.22,1) both; }
         @media (prefers-reduced-motion: reduce) {
-          [data-about-reveal], [data-about-reveal].about-visible, .about-hero-in, .about-hero-image { animation: none !important; transition: none !important; opacity: 1 !important; transform: none !important; }
+          [data-about-reveal], [data-about-reveal].about-visible, .about-hero-in, .about-hero-image, .about-orbit, .about-purpose-glow { animation: none !important; transition: none !important; opacity: 1 !important; transform: none !important; }
+          .about-highlight-card, .about-highlight-card:hover, .about-purpose-card, .about-purpose-card:hover, .about-why-card, .about-why-card:hover { transform: none; transition: none; }
+          .about-visible .about-highlight-icon, .about-visible .about-highlight-value, .about-visible .about-highlight-label, .about-visible .about-highlight-detail { animation: none; opacity: 1; transform: none; }
+          .about-purpose-card-top, .about-purpose-eyebrow, .about-purpose-title, .about-purpose-copy, .about-values-list li, .about-why-card-head, .about-why-title, .about-why-copy { animation: none !important; opacity: 1 !important; transform: none !important; }
         }
       `}</style>
     </div>

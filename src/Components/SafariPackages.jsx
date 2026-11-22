@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import BookingReceipt from './BookingReceipt';
 import { createBookingReference, formatBookingReceiptMessage } from './bookingReceiptUtils';
+import TravelDateInput from './TravelDateInput';
 import { useLanguage, translatePhrase } from '../i18n/LanguageContext';
 import { 
   Search, MapPin, Star, Users, CheckCircle2,
@@ -473,7 +474,7 @@ const SafariPackages = () => {
                   <MapPin size={17} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
                 </div>
                 <div className="relative">
-                  <input type="date" name="date" value={bookingData.date} onChange={handleBookingChange} aria-label="Preferred travel date" className="w-full rounded-xl border border-gray-200 bg-white py-3 pl-10 pr-4 text-sm text-gray-600 focus:border-[#087443] focus:outline-none focus:ring-4 focus:ring-green-100" />
+                  <TravelDateInput id="safari-travel-date" value={bookingData.date} onDateChange={(date) => setBookingData((current) => ({ ...current, date }))} />
                   <Calendar size={17} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
                 </div>
                 <textarea name="specialRequests" value={bookingData.specialRequests} onChange={handleBookingChange} rows="2" placeholder="Special requests (optional)" aria-label="Special requests (optional)" className="w-full resize-none rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm focus:border-[#087443] focus:outline-none focus:ring-4 focus:ring-green-100" />

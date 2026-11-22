@@ -37,10 +37,10 @@ const Footer = () => {
     <footer className="w-full font-sans">
       
       {/* ================= 1. CTA SECTION (Ready for Your Adventure?) ================= */}
-      <div className="relative w-full bg-[#10243A] py-16 overflow-hidden">
+      <div className="footer-cta relative w-full bg-[#005B78] py-16 overflow-hidden">
         {/* Background Image yenye giza */}
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-20"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#10243A] via-[#10243A]/80 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#005B78] via-[#005B78]/90 to-[#005B78]/35"></div>
         
         <div className="relative z-10 max-w-[1440px] mx-auto px-6 md:px-12 text-center">
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>
@@ -54,7 +54,7 @@ const Footer = () => {
             <Link to="/card-tour" className="flex items-center justify-center gap-2 bg-[#1b5e36] text-white font-bold px-8 py-3 rounded-full hover:bg-green-800 transition-colors w-full sm:w-auto shadow-lg">
               Zanzibar Tours <ArrowRight size={18} />
             </Link>
-            <Link to="/packages" className="flex items-center justify-center gap-2 bg-[#F5B91B] text-[#10243A] font-bold px-8 py-3 rounded-full hover:bg-yellow-500 transition-colors w-full sm:w-auto shadow-lg">
+            <Link to="/packages" className="flex items-center justify-center gap-2 bg-[#F5B91B] text-[#005B78] font-bold px-8 py-3 rounded-full hover:bg-yellow-500 transition-colors w-full sm:w-auto shadow-lg">
               Tanzania Safaris <ArrowRight size={18} />
             </Link>
             <a href="https://wa.me/255653924851" target="_blank" rel="noreferrer" className="flex items-center justify-center gap-2 bg-[#25D366] text-white font-bold px-8 py-3 rounded-full hover:bg-green-600 transition-colors w-full sm:w-auto shadow-lg">
@@ -65,7 +65,7 @@ const Footer = () => {
       </div>
 
       {/* ================= 2. MAIN FOOTER CONTENT ================= */}
-      <div className="relative w-full bg-[#10243A] text-white pt-16 pb-12 border-t-4 border-[#1b5e36]">
+      <div className="footer-main relative w-full bg-[#006B8F] text-white pt-16 pb-12 border-t-4 border-[#087443]">
         <div className="max-w-[1440px] mx-auto px-6 md:px-12">
           
           {/* Grid Kuu (Cols 4) */}
@@ -85,7 +85,7 @@ const Footer = () => {
                 </div>
               </div>
               
-              <p className="text-gray-400 text-sm leading-relaxed mb-6">
+              <p className="text-white/90 text-sm leading-relaxed mb-6">
                 Premium Zanzibar Tours & Tanzania Safari Adventures. Custom Safaris, Kilimanjaro Treks & Zanzibar Holidays designed by local experts based in Nungwi.
               </p>
               
@@ -100,7 +100,7 @@ const Footer = () => {
 
               {/* Badges */}
               <div className="flex flex-wrap gap-2">
-                <span className="inline-flex items-center gap-1.5 bg-[#087443]/20 text-[#1b5e36] text-xs font-bold px-3 py-1.5 rounded-md border border-[#087443]/30">
+                <span className="inline-flex items-center gap-1.5 bg-white/10 text-[#A7E9C1] text-xs font-bold px-3 py-1.5 rounded-md border border-[#A7E9C1]/30">
                   <ShieldCheck size={14} /> Licensed Tour Operator
                 </span>
                 <span className="inline-flex items-center gap-1.5 bg-[#F5B91B]/20 text-[#F5B91B] text-xs font-bold px-3 py-1.5 rounded-md border border-[#F5B91B]/30">
@@ -114,11 +114,11 @@ const Footer = () => {
               <h4 className="text-lg font-bold mb-6 text-white pb-2 border-b-2 border-[#1b5e36] inline-block" style={{ fontFamily: "'Playfair Display', serif" }}>
                 Quick Links
               </h4>
-              <ul className="space-y-3 text-sm text-gray-400 mt-2">
+              <ul className="space-y-3 text-sm text-white/90 mt-2">
                 {quickLinks.map(({ label, to }) => (
                   <li key={label}>
                     <Link to={to} className="flex items-center gap-2 hover:text-white transition-colors group">
-                      <span className="text-[#1b5e36] font-bold group-hover:translate-x-1 transition-transform">»</span> {label}
+                      <span className="text-[#A7E9C1] font-bold group-hover:translate-x-1 transition-transform">»</span> {label}
                     </Link>
                   </li>
                 ))}
@@ -130,11 +130,11 @@ const Footer = () => {
               <h4 className="text-lg font-bold mb-6 text-white pb-2 border-b-2 border-[#1b5e36] inline-block" style={{ fontFamily: "'Playfair Display', serif" }}>
                 Zanzibar Tours
               </h4>
-              <ul className="space-y-3 text-sm text-gray-400 mt-2">
+              <ul className="space-y-3 text-sm text-white/90 mt-2">
                 {tourLinks.map(({ label, to }) => (
                   <li key={label}>
                     <Link to={to} className="flex items-center gap-2 hover:text-white transition-colors group">
-                      <span className="text-[#1b5e36] font-bold group-hover:translate-x-1 transition-transform">»</span> {label}
+                      <span className="text-[#A7E9C1] font-bold group-hover:translate-x-1 transition-transform">»</span> {label}
                     </Link>
                   </li>
                 ))}
@@ -146,17 +146,17 @@ const Footer = () => {
               <h4 className="text-lg font-bold mb-6 text-white pb-2 border-b-2 border-[#1b5e36] inline-block" style={{ fontFamily: "'Playfair Display', serif" }}>
                 Contact Us
               </h4>
-              <ul className="space-y-4 text-sm text-gray-400 mb-6 mt-2">
+              <ul className="space-y-4 text-sm text-white/90 mb-6 mt-2">
                 <li className="flex items-start gap-3">
-                  <MapPin size={16} className="text-[#1b5e36] shrink-0 mt-1" />
+                  <MapPin size={16} className="text-[#A7E9C1] shrink-0 mt-1" />
                   <a href="https://maps.google.com/?q=Nungwi,Zanzibar,Tanzania" target="_blank" rel="noreferrer" className="hover:text-white">Nungwi, Zanzibar, Tanzania</a>
                 </li>
                 <li className="flex items-center gap-3">
-                  <Phone size={16} className="text-[#1b5e36] shrink-0" />
+                  <Phone size={16} className="text-[#A7E9C1] shrink-0" />
                   <a href="tel:+255653924851" className="hover:text-white">+255 653 924 851</a>
                 </li>
                 <li className="flex items-center gap-3">
-                  <Mail size={16} className="text-[#1b5e36] shrink-0" />
+                  <Mail size={16} className="text-[#A7E9C1] shrink-0" />
                   <a href="mailto:cruisinginzanzibar@gmail.com" className="hover:text-white">cruisinginzanzibar@gmail.com</a>
                 </li>
                 <li className="flex items-center gap-3">
@@ -164,14 +164,14 @@ const Footer = () => {
                   <a href="https://wa.me/255653924851" target="_blank" rel="noreferrer" className="hover:text-white">+255 653 924 851</a>
                 </li>
                 <li className="flex items-center gap-3">
-                  <Clock size={16} className="text-[#1b5e36] shrink-0" />
+                  <Clock size={16} className="text-[#A7E9C1] shrink-0" />
                   <span>Mon - Sun: 7:00 AM – 9:00 PM</span>
                 </li>
               </ul>
 
               {/* Newsletter */}
-              <form className="flex items-center bg-white/10 rounded-full overflow-hidden p-1 border border-white/10 focus-within:border-[#1b5e36] transition-colors">
-                <input type="email" aria-label="Email address for deals" placeholder="Your email for deals" className="w-full bg-transparent text-white text-sm px-4 py-2 focus:outline-none placeholder-gray-500" required />
+              <form className="flex items-center bg-white/10 rounded-full overflow-hidden p-1 border border-white/30 focus-within:border-[#A7E9C1] transition-colors">
+                <input type="email" aria-label="Email address for deals" placeholder="Your email for deals" className="w-full bg-transparent text-white text-sm px-4 py-2 focus:outline-none placeholder-white/75" required />
                 <button type="submit" className="bg-[#1b5e36] text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors shrink-0">
                   <Send size={14} />
                 </button>
@@ -182,52 +182,52 @@ const Footer = () => {
       </div>
 
       {/* ================= 3. TRUST BADGES (Mstari wa Chini) ================= */}
-      <div className="relative z-10 border-t border-white/10 bg-[#10243A]">
+      <div className="relative z-10 border-t border-white/10 bg-[#005B78]">
         <div className="max-w-[1440px] mx-auto px-6 py-6 flex flex-wrap justify-center lg:justify-between items-center gap-6">
           
           <div className="flex items-center gap-3">
-            <CheckCircle2 size={28} className="text-[#1b5e36]" />
+            <CheckCircle2 size={28} className="text-[#A7E9C1]" />
             <div>
               <h5 className="text-sm font-bold text-white">Safe & Secure</h5>
-              <p className="text-xs text-gray-400">Bookings</p>
+              <p className="text-xs text-white/80">Bookings</p>
             </div>
           </div>
 
           <div className="hidden lg:block w-px h-10 bg-white/10"></div>
 
           <div className="flex items-center gap-3">
-            <Award size={28} className="text-[#1b5e36]" />
+            <Award size={28} className="text-[#A7E9C1]" />
             <div>
               <h5 className="text-sm font-bold text-white">Trusted Travel</h5>
-              <p className="text-xs text-gray-400">Partner</p>
+              <p className="text-xs text-white/80">Partner</p>
             </div>
           </div>
 
           <div className="hidden lg:block w-px h-10 bg-white/10"></div>
 
           <div className="flex items-center gap-3">
-            <TreePalm size={28} className="text-[#1b5e36]" />
+            <TreePalm size={28} className="text-[#A7E9C1]" />
             <div>
               <h5 className="text-sm font-bold text-white">Explore Zanzibar</h5>
-              <p className="text-xs text-gray-400">with Confidence</p>
+              <p className="text-xs text-white/80">with Confidence</p>
             </div>
           </div>
 
           <div className="hidden lg:block w-px h-10 bg-white/10"></div>
 
           <div className="flex items-center gap-3">
-            <Handshake size={28} className="text-[#1b5e36]" />
+            <Handshake size={28} className="text-[#A7E9C1]" />
             <div>
               <h5 className="text-sm font-bold text-white">Your Satisfaction</h5>
-              <p className="text-xs text-gray-400">Our Priority</p>
+              <p className="text-xs text-white/80">Our Priority</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* ================= 4. BOTTOM COPYRIGHT ================= */}
-      <div className="w-full bg-[#10243A] border-t border-white/10">
-        <div className="max-w-[1440px] mx-auto px-6 md:px-12 py-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
+      <div className="w-full bg-[#004D68] border-t border-white/10">
+        <div className="max-w-[1440px] mx-auto px-6 md:px-12 py-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-300">
           <div className="text-center md:text-left">
             <p>© 2026 Cruising in Zanzibar Tours &amp; Safaris. All rights reserved. | Licensed Tour Operator - Zanzibar, Tanzania</p>
           </div>

@@ -232,7 +232,7 @@ const HomePage = () => {
 
             <a
               href="mailto:cruisinginzanzibar@gmail.com?subject=Tour%20or%20Safari%20Quote%20Request"
-              className="flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full bg-[#1a365d] px-3 py-1.5 text-[12px] font-semibold text-white transition hover:bg-blue-900 xl:px-3.5 xl:text-[12.5px]"
+              className="flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full bg-[#006B8F] px-3 py-1.5 text-[12px] font-semibold text-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-[#005B78] hover:shadow-md xl:px-3.5 xl:text-[12.5px]"
             >
               <Mail size={14} />
               <span>Request Quote</span>
@@ -275,7 +275,7 @@ const HomePage = () => {
               <a
                 href="mailto:cruisinginzanzibar@gmail.com?subject=Tour%20or%20Safari%20Quote%20Request"
                 onClick={closeMobileMenu}
-                className="flex items-center justify-center gap-2 rounded-full bg-[#1a365d] px-4 py-3 text-white"
+                className="flex items-center justify-center gap-2 rounded-full bg-[#006B8F] px-4 py-3 text-white transition-colors hover:bg-[#005B78]"
               >
                 <Mail size={17} />
                 Request Quote
